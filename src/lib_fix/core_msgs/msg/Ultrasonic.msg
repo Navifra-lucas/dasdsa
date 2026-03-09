@@ -1,0 +1,8 @@
+float32 f_front
+float32 f_rear
+float32 f_left_front
+float32 f_left_rear
+float32 f_right_front
+float32 f_right_rear
+float32 f_bottom_front
+float32 f_bottom_rear

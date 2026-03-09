@@ -1,0 +1,6 @@
+{
+    "imu_acc_noise": 0.01,
+    "imu_gyro_noise": 0.001,
+    "imu_int_noise": 0.001,
+    "imu_bias_noise": 0.001
+}

@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_bms_driver" type="nc_bms_driver" name="nc_bms_driver" output="screen">
+	</node>
+</launch>

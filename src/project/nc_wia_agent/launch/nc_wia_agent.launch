@@ -1,0 +1,11 @@
+<launch>
+    <arg name="mqtt_host" default="192.168.15.9"/>
+    <arg name="mqtt_port" default="1883"/>
+    <arg name="robot_id" default="R_201"/>
+
+    <node pkg="nc_wia_agent" type="nc_wia_agent" name="nc_wia_agent" output="screen" respawn="true">
+        <param name="mqtt_host" value="$(arg mqtt_host)"/>
+        <param name="mqtt_port" value="$(arg mqtt_port)"/>
+        <param name="robot_id" value="$(arg robot_id)"/>
+    </node>
+</launch>

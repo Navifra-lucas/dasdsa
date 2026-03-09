@@ -1,0 +1,763 @@
+[DeviceInfo]
+VendorName=curtis the the prime rtv3000 drive
+VendorNumber=0x00000360
+ProductName=
+ProductNumber=0x00000000
+RevisionNumber=0x00000000
+OrderCode=
+BaudRate_10=1
+BaudRate_20=1
+BaudRate_50=1
+BaudRate_125=1
+BaudRate_250=1
+BaudRate_500=1
+BaudRate_800=1
+BaudRate_1000=1
+SimpleBootUpMaster=0
+SimpleBootUpSlave=1
+Granularity=1
+DynamicChannelsSupported=0
+GroupMessaging=0
+NrOfRxPDO=2
+NrOfTxPDO=3
+LSS_Supported=1
+
+[DummyUsage]
+Dummy0001=1
+Dummy0002=1
+Dummy0003=1
+Dummy0004=1
+Dummy0005=1
+Dummy0006=1
+Dummy0007=1
+Dummy0010=1
+Dummy0011=1
+Dummy0012=1
+Dummy0013=1
+Dummy0014=1
+Dummy0015=1
+Dummy0016=1
+Dummy0018=1
+Dummy0019=1
+Dummy001A=1
+Dummy001B=1
+
+[MandatoryObjects]
+SupportedObjects=3
+1=0x1000
+2=0x1001
+3=0x1018
+
+[OptionalObjects]
+SupportedObjects=25
+1=0x1003
+2=0x1005
+3=0x1014
+4=0x1015
+5=0x1016
+6=0x1017
+7=0x1029
+8=0x1400
+9=0x1401
+10=0x1600
+11=0x1601
+12=0x1800
+13=0x1801
+14=0x1802
+15=0x1A00
+16=0x1A01
+17=0x1A02
+18=0x606c
+19=0x6078
+20=0x603f
+21=0x6064
+22=0x607a
+23=0x60ff
+24=0x6083
+25=0x6084
+
+[ManufacturerObjects]
+SupportedObjects=21
+1=0x2000
+2=0x2001
+3=0x2002
+4=0x2003
+5=0x2004
+6=0x2005
+7=0x2006
+8=0x2007
+9=0x2008
+10=0x2009
+11=0x200A
+12=0x2010
+13=0x2011
+14=0x2012
+15=0x3000
+16=0x3001
+17=0x3002
+18=0x3010
+19=0x3011
+20=0x3012
+21=0x3020
+
+[1000]
+ParameterName=Device type
+DataType=0x0007
+AccessType=ro
+DefaultValue=0x00000000
+
+[1001]
+ParameterName=Error register
+DataType=0x0005
+AccessType=ro
+
+[1003]
+ParameterName=Pre-defined error field
+ObjectType=0x08
+DataType=0x0007
+AccessType=ro
+CompactSubObj=254
+
+[1005]
+ParameterName=COB-ID SYNC message
+DataType=0x0007
+AccessType=rw
+DefaultValue=0x00000080
+
+[1014]
+ParameterName=COB-ID EMCY
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x80
+
+[1015]
+ParameterName=Inhibit time EMCY
+DataType=0x0006
+AccessType=rw
+DefaultValue=0
+
+[1016]
+ParameterName=Consumer heartbeat time
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=1
+
+[1017]
+ParameterName=Producer heartbeat time
+DataType=0x0006
+AccessType=rw
+
+[1018]
+SubNumber=5
+ParameterName=Identity object
+ObjectType=0x09
+
+[1018sub0]
+ParameterName=Highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=4
+
+[1018sub1]
+ParameterName=Vendor-ID
+DataType=0x0007
+AccessType=ro
+DefaultValue=0x00000360
+
+[1018sub2]
+ParameterName=Product code
+DataType=0x0007
+AccessType=ro
+
+[1018sub3]
+ParameterName=Revision number
+DataType=0x0007
+AccessType=ro
+
+[1018sub4]
+ParameterName=Serial number
+DataType=0x0007
+AccessType=ro
+
+[1029]
+ParameterName=Error behavior object
+ObjectType=0x08
+DataType=0x0005
+AccessType=rw
+CompactSubObj=1
+
+[1400]
+SubNumber=6
+ParameterName=RPDO communication parameter
+ObjectType=0x09
+
+[1400sub0]
+ParameterName=highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=5
+
+[1400sub1]
+ParameterName=COB-ID used by RPDO
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x200
+
+[1400sub2]
+ParameterName=transmission type
+DataType=0x0005
+AccessType=rw
+DefaultValue=0xFF
+
+[1400sub3]
+ParameterName=inhibit time
+DataType=0x0006
+AccessType=rw
+
+[1400sub4]
+ParameterName=compatibility entry
+DataType=0x0005
+AccessType=rw
+
+[1400sub5]
+ParameterName=event-timer
+DataType=0x0006
+AccessType=rw
+
+[1401]
+SubNumber=6
+ParameterName=RPDO communication parameter 2
+ObjectType=0x09
+
+[1401sub0]
+ParameterName=highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=5
+
+[1401sub1]
+ParameterName=COB-ID used by RPDO 2
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x300
+
+[1401sub2]
+ParameterName=transmission type
+DataType=0x0005
+AccessType=rw
+DefaultValue=0xFF
+
+[1401sub3]
+ParameterName=inhibit time
+DataType=0x0006
+AccessType=rw
+
+[1401sub4]
+ParameterName=compatibility entry
+DataType=0x0005
+AccessType=rw
+
+[1401sub5]
+ParameterName=event-timer
+DataType=0x0006
+AccessType=rw
+
+[1600]
+ParameterName=RPDO mapping parameter
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=14
+
+[1600Value]
+NrOfEntries=14
+1=0x20000008
+2=0x20010008
+3=0x20020008
+4=0x20030008
+5=0x20040008
+6=0x20050008
+7=0x20060008
+8=0x20070008
+9=0x60ff0010
+10=0x60830008
+11=0x60840008
+12=0x20080008
+13=0x20090008
+14=0x200a0008
+
+[1601]
+ParameterName=RPDO mapping parameter 2
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=5
+
+[1601Value]
+NrOfEntries=5
+1=0x607a0110
+2=0x607a0210
+3=0x20100008
+4=0x20110008
+5=0x20120010
+
+[1800]
+SubNumber=7
+ParameterName=TPDO communication parameter
+ObjectType=0x09
+
+[1800sub0]
+ParameterName=highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=6
+
+[1800sub1]
+ParameterName=COB-ID used by TPDO
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x180
+
+[1800sub2]
+ParameterName=transmission type
+DataType=0x0005
+AccessType=rw
+DefaultValue=0xFF
+
+[1800sub3]
+ParameterName=inhibit time
+DataType=0x0006
+AccessType=rw
+
+[1800sub4]
+ParameterName=reserved
+DataType=0x0005
+AccessType=rw
+
+[1800sub5]
+ParameterName=event timer
+DataType=0x0006
+AccessType=rw
+
+[1800sub6]
+ParameterName=SYNC start value
+DataType=0x0005
+AccessType=rw
+
+[1801]
+SubNumber=7
+ParameterName=TPDO communication parameter 2
+ObjectType=0x09
+
+[1801sub0]
+ParameterName=highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=6
+
+[1801sub1]
+ParameterName=COB-ID used by TPDO 2
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x280
+
+[1801sub2]
+ParameterName=transmission type
+DataType=0x0005
+AccessType=rw
+DefaultValue=0xFF
+
+[1801sub3]
+ParameterName=inhibit time
+DataType=0x0006
+AccessType=rw
+
+[1801sub4]
+ParameterName=reserved
+DataType=0x0005
+AccessType=rw
+
+[1801sub5]
+ParameterName=event timer
+DataType=0x0006
+AccessType=rw
+
+[1801sub6]
+ParameterName=SYNC start value
+DataType=0x0005
+AccessType=rw
+
+[1802]
+SubNumber=7
+ParameterName=TPDO communication parameter 3
+ObjectType=0x09
+
+[1802sub0]
+ParameterName=highest sub-index supported
+DataType=0x0005
+AccessType=const
+DefaultValue=6
+
+[1802sub1]
+ParameterName=COB-ID used by TPDO 3
+DataType=0x0007
+AccessType=rw
+DefaultValue=$NODEID+0x380
+
+[1802sub2]
+ParameterName=transmission type
+DataType=0x0005
+AccessType=rw
+DefaultValue=0xFF
+
+[1802sub3]
+ParameterName=inhibit time
+DataType=0x0006
+AccessType=rw
+
+[1802sub4]
+ParameterName=reserved
+DataType=0x0005
+AccessType=rw
+
+[1802sub5]
+ParameterName=event timer
+DataType=0x0006
+AccessType=rw
+
+[1802sub6]
+ParameterName=SYNC start value
+DataType=0x0005
+AccessType=rw
+
+[1A00]
+ParameterName=TPDO mapping parameter 1
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=6
+
+[1A00Value]
+NrOfEntries=6
+1=0x30000008
+2=0x606c0010
+3=0x60780010
+4=0x603f0108
+5=0x30010008
+6=0x30020008
+
+[1A01]
+ParameterName=TPDO mapping parameter 2
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=5
+
+[1A01Value]
+NrOfEntries=5
+1=0x60640110
+2=0x60640210
+3=0x30100008
+4=0x30110008
+5=0x30120010
+
+[1A02]
+ParameterName=TPDO mapping parameter 3
+ObjectType=0x08
+DataType=0x0007
+AccessType=rw
+CompactSubObj=5
+
+[1A02Value]
+NrOfEntries=5
+1=0x30200108
+2=0x30200208
+3=0x30200308
+4=0x603f0208
+5=0x603f0308
+
+[4000]
+ParameterName=UNSIGNED32 received by slave
+DataType=0x0007
+AccessType=rww
+PDOMapping=1
+
+[4001]
+ParameterName=UNSIGNED32 sent from slave
+DataType=0x0007
+AccessType=rwr
+PDOMapping=1
+
+[2000]
+ParameterName=Interlock
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2001]
+ParameterName=Forward
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2002]
+ParameterName=Backward
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2003]
+ParameterName=J19 driver6
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2004]
+ParameterName=J4 driver3
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2005]
+ParameterName=J3 driver4
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2006]
+ParameterName=Accumulator reset
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2007]
+ParameterName=J20 driver 7
+DataType=0x0001
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2008]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2009]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[200A]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2010]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2011]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[2012]
+ParameterName=Valve
+DataType=0x0006
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[3000]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rwr
+PDOMapping=1
+
+[3001]
+ParameterName=Voltage
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[3002]
+ParameterName=Temperature
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[3010]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rwr
+PDOMapping=1
+
+[3011]
+ParameterName=Reserved
+DataType=0x0002
+AccessType=rwr
+PDOMapping=1
+
+[3012]
+ParameterName=J24 input 9
+DataType=0x0006
+AccessType=rwr
+PDOMapping=1
+
+[3020]
+SubNumber=4
+ParameterName=Accumulation
+ObjectType=0x09
+
+[3020sub0]
+ParameterName=Number of elements
+DataType=0x0005
+AccessType=const
+DefaultValue=3
+
+[3020sub1]
+ParameterName=Accumulation 1
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[3020sub2]
+ParameterName=Accumulation 2
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[3020sub3]
+ParameterName=Accumulation 3
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[6064]
+SubNumber=3
+ParameterName=Position actual value
+ObjectType=0x09
+
+[6064sub0]
+ParameterName=Number of elements
+DataType=0x0005
+AccessType=const
+DefaultValue=2
+
+[6064sub1]
+ParameterName=Position actual value 1
+DataType=0x0006
+AccessType=rwr
+PDOMapping=1
+
+[6064sub2]
+ParameterName=Position actual value 2
+DataType=0x0006
+AccessType=rwr
+PDOMapping=1
+
+[60ff]
+ParameterName=Target velocity
+DataType=0x0006
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[6083]
+ParameterName=Profile acceleration
+DataType=0x0005
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[6084]
+ParameterName=Profile deceleration
+DataType=0x0005
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[606c]
+ParameterName=Velocity actual value
+DataType=0x0006
+AccessType=rwr
+PDOMapping=1
+
+[6078]
+ParameterName=Current actual value
+DataType=0x0006
+AccessType=rwr
+PDOMapping=1
+
+[603f]
+SubNumber=4
+ParameterName=Error code
+ObjectType=0x09
+
+[603fsub0]
+ParameterName=Number of elements
+DataType=0x0005
+AccessType=const
+DefaultValue=3
+
+[603fsub1]
+ParameterName=Traction error code
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[603fsub2]
+ParameterName=Steering error code 1
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[603fsub3]
+ParameterName=Steering error code 2
+DataType=0x0005
+AccessType=rwr
+PDOMapping=1
+
+[607a]
+SubNumber=3
+ParameterName=Target position
+ObjectType=0x09
+
+[607asub0]
+ParameterName=Number of elements
+DataType=0x0005
+AccessType=const
+DefaultValue=2
+
+[607asub1]
+ParameterName=Target position 1
+DataType=0x0003
+AccessType=rww
+PDOMapping=1
+DefaultValue=0
+
+[607asub2]
+ParameterName=Target position 2
+DataType=0x0003
+AccessType=rww
+PDOMapping=1
+DefaultValue=0

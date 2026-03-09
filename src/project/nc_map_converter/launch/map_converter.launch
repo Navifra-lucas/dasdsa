@@ -1,0 +1,15 @@
+
+
+<launch>
+  <arg name="map" default="latest"/>
+  <node pkg="nc_map_converter" type="nc_map_converter" name="nc_map_converter" clear_params="true" output="screen">
+    <param name="map_info_folder_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map" />
+    <param name="map_default_select" type="string" value="latest" />
+    <param name="json_output_path" type="string" value="$(env HOME)/brain/backend/uploads/remote_map" />
+    <param name="brain_json_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map/latest" />
+  </node>
+  <!-- <node pkg="nc_map_converter" type="pcd2grid" name="pcd2grid" output="screen" />  -->
+  <node pkg="nc_map_converter" type="map_saver" name="map_saver" output="screen">
+    <param name="map_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map/latest" />
+  </node> 
+</launch>

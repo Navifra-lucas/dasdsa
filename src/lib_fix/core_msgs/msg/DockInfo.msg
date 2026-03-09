@@ -1,0 +1,2 @@
+bool b_docking_state
+bool b_docking_in

@@ -1,0 +1,4 @@
+---
+ORBDeviceInfo info
+bool success
+string message

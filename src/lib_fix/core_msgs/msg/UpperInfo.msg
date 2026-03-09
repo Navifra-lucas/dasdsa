@@ -1,0 +1,58 @@
+float32 f_roboteq_type
+
+# fork
+float32 f_fork_lft_current_A
+float32 f_fork_hrz_current_A
+float32 f_fork_lft_target_rpm
+float32 f_fork_hrz_target_rpm
+float32 f_fork_lft_feedback_rpm
+float32 f_fork_hrz_feedback_rpm
+float32 f_fork_lft_target_loc_mm
+float32 f_fork_hrz_target_loc_mm
+float32 f_fork_lft_feedback_loc_mm
+float32 f_fork_hrz_feedback_loc_mm
+int64 n_fork_lft_error_code
+int64 n_fork_hrz_error_code
+int64 n_fork_etc_error_code
+string s_fork_lft_error_text
+string s_fork_hrz_error_text
+string s_fork_etc_error_text
+
+# aux
+float32 f_left_aux_motor_current_A
+float32 f_right_aux_motor_current_A
+float32 f_left_aux_motor_target_rpm
+float32 f_right_aux_motor_target_rpm
+float32 f_left_aux_motor_feedback_rpm
+float32 f_right_aux_motor_feedback_rpm
+float32 f_left_aux_motor_target_loc_mm
+float32 f_right_aux_motor_target_loc_mm
+float32 f_left_aux_motor_feedback_loc_mm
+float32 f_right_aux_motor_feedback_loc_mm
+int64 n_left_aux_motor_error_code
+int64 n_right_aux_motor_error_code
+int64 n_aux_etc_error_code
+string s_left_aux_motor_error_text
+string s_right_aux_motor_error_text
+string s_aux_etc_error_text
+
+# turntable
+float32 f_turn_table_deg
+float32 f_turn_table_target_deg_s
+float32 f_turn_table_feedback_deg_s
+float32 f_turn_table_current
+int64 n_turn_table_error_code
+string s_turn_table_error_text
+
+# lift
+float32 f_lift_target_loc
+float32 f_lift_feedback_loc
+float32 f_lift_target_rpm
+float32 f_lift_feedback_rpm
+float32 f_lift_current
+int64 n_lift_error_code
+string s_lift_error_text
+
+# etc
+int64 n_etc_error_code
+string s_etc_error_text

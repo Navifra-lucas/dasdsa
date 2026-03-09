@@ -1,0 +1,154 @@
+#Master 설정 정보
+master:
+  master_id: 100
+  dcf_txt: "generated/moons_dd_welcon_tt/master.dcf"
+  interface_name: "can1"
+  force_start_nodes : [3] # driver_id
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 1
+    eds_path: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+    binary_path: "generated/moons_dd_welcon_tt/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 2
+    eds_path: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+    binary_path: "generated/moons_dd_welcon_tt/slave_2.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 3
+    eds_path: "driver/eds/welcon/WelconSystems_CANopen_V2_10_P0x10000001_WE.eds"
+    binary_path: "generated/moons_dd_welcon_tt/slave_3.bin"
+    sdo_timeout: 300 # ms
+    
+# 모터 설정 정보
+motors:
+  - motor_id: 0
+    driver_id: 1
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 3
+    driver_id: 2
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 12
+    driver_id: 3
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 1
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+motor_extra_info:
+  - motor_id: 0
+    voltage: 
+      index: 0x2030
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.001
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "Position Limit" }
+        - { value: 0x0002, message: "CCW limit" }
+        - { value: 0x0004, message: "CW limit" }
+        - { value: 0x0008, message: "Over temp" }
+        - { value: 0x0010, message: "Internal Voltage" }
+        - { value: 0x0020, message: "Over Voltage" }
+        - { value: 0x0040, message: "UnderVoltae" }
+        - { value: 0x0080, message: "Over Current" }
+        - { value: 0x0100, message: "Open Motor Winding" }
+        - { value: 0x0200, message: "Bad Encoder" }
+        - { value: 0x0400, message: "Comm Error" }
+        - { value: 0x0800, message: "Bad Flash" }
+        - { value: 0x1000, message: "No Move" }
+        - { value: 0x2000, message: "Current Foldback" }
+        - { value: 0x4000, message: "Blank Q Segment" }
+        - { value: 0x8000, message: "Not Used" }
+  - motor_id: 3
+    voltage: 
+      index: 0x2030
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.001
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "Position Limit" }
+        - { value: 0x0002, message: "CCW limit" }
+        - { value: 0x0004, message: "CW limit" }
+        - { value: 0x0008, message: "Over temp" }
+        - { value: 0x0010, message: "Internal Voltage" }
+        - { value: 0x0020, message: "Over Voltage" }
+        - { value: 0x0040, message: "UnderVoltae" }
+        - { value: 0x0080, message: "Over Current" }
+        - { value: 0x0100, message: "Open Motor Winding" }
+        - { value: 0x0200, message: "Bad Encoder" }
+        - { value: 0x0400, message: "Comm Error" }
+        - { value: 0x0800, message: "Bad Flash" }
+        - { value: 0x1000, message: "No Move" }
+        - { value: 0x2000, message: "Current Foldback" }
+        - { value: 0x4000, message: "Blank Q Segment" }
+        - { value: 0x8000, message: "Not Used" }
+
+  - motor_id: 12
+    voltage: 
+      index: 0x5011
+      subindex: 0x00
+      type: "uint32_t"
+      multiplier: 0.001
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.001
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x2310, message: "Over Current Error" }
+        - { value: 0x3210, message: "Over Voltage Error" }
+        - { value: 0x3220, message: "Under Voltage Error" }
+        - { value: 0x4210, message: "Over Temperature Error" }
+        - { value: 0x5210, message: "Current Detection Error" }
+        - { value: 0x7310, message: "Speed Error" }
+        - { value: 0x7500, message: "Communication Error" }
+        - { value: 0x8611, message: "Following Error" }
+        - { value: 0xFF01, message: "Hall Sensor Error" }
+        - { value: 0xFF02, message: "Over Load Error" }
+        - { value: 0xFF03, message: "Positive Limit Switch Error" }
+        - { value: 0xFF04, message: "Negative Limit Switch Error" }
+        - { value: 0xFF05, message: "Emergency Switch Error" }
+        - { value: 0xFF06, message: "STO1 Error" }
+        - { value: 0xFF07, message: "STO2 Error" }
+        - { value: 0xFF24, message: "Serial Encoder Channel A Error" }
+        - { value: 0xFF25, message: "Serial Encoder Channel A Disconnected Error" }
+        - { value: 0xFF26, message: "Serial Encoder Channel B Error" }
+        - { value: 0xFF27, message: "Serial Encoder Channel B Disconnected Error" }

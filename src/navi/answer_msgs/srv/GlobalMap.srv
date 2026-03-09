@@ -1,0 +1,5 @@
+std_msgs/Header header
+---
+bool success
+int32 status # 0: temporary ray map, 1: updated map, 2: fixed map
+nav_msgs/OccupancyGrid map

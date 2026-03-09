@@ -1,0 +1,6 @@
+int32 motor_id
+string s_cmd
+int8 homing_method
+int32 homing_timeout_ms
+---
+bool b_is_response

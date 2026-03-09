@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>map_based_path_planner</name>
+    <version>1.0.0</version>
+    <description>The map_based_path_planner package</description>
+    <maintainer email="navifra@todo.todo">former</maintainer>
+
+    <license>TODO</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>message_filters</build_depend>
+
+    <depend>diagnostic_updater</depend>
+    <depend>dynamic_reconfigure</depend>
+    <depend>geometry_msgs</depend>
+    <depend>nav_msgs</depend>
+    <depend>sensor_msgs</depend>
+    <depend>std_srvs</depend> 
+    <depend>core</depend>
+    <depend>core_msgs</depend>
+    <depend>visualization_msgs</depend>
+
+    <test_depend>nc_brain_map_server</test_depend>
+    <test_depend>python_orocos_kdl</test_depend>
+
+</package>

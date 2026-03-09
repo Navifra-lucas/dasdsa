@@ -1,0 +1,10 @@
+{
+    //point2point, point2plane, gicp
+    "method": "point2plane",
+    "max_iterations": 50,
+    "max_correspondence_distance": 0.5,
+    "min_correspondence_distance": 0.05,
+    "min_matching_ratio": 0.2,
+    "matching_neighbors": 7,
+    "kernel": "cauchy"
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package core_astra;
+
+import "common.proto";
+
+// 리프트/범퍼/LCCS 상태 메시지
+message RobotSafetyStatus
+{
+    bool lift_active = 1;  // 리프트 상태
+    bool bumper_active = 2;  // 범퍼 상태
+    bool lccs_active = 3;  // LCCS 상태
+    bool manual_active = 4;  // active이면 수동 주행 가능 상태
+}

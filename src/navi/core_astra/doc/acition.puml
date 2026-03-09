@@ -1,0 +1,30 @@
+@startuml
+title Action Manager 리팩토링 구조 (Astra 기반 멀티 브로커 대응)
+
+package "Astra Engine" {
+    component "Broker Manager" as BrokerManager
+    component "Broker Adapter\n(MQTT/ZMQ/기타)" as BrokerAdapter
+}
+
+package "Astra Core" {
+    component "Action Dispatcher" as ActionDispatcher
+    component "Action Manager" as ActionManager
+    component "Action Base" as ActionBase
+}
+
+package "Actions" {
+    component "Custom Action\n(예: NcActionBarcodeReader)" as CustomAction
+    component "Custom Action2\n(예: NcActionMove)" as CustomAction2
+}
+
+BrokerManager --> BrokerAdapter : 멀티 브로커 관리
+BrokerAdapter --> ActionDispatcher : 메시지 전달 (REQ/REP, PUB/SUB)
+
+ActionDispatcher --> ActionManager : Action 실행 요청
+ActionManager --> ActionBase : Action 공통 로직
+ActionBase <|-- CustomAction
+ActionBase <|-- CustomAction2
+
+ActionManager --> ActionDispatcher : Action 결과 전달
+ActionDispatcher --> BrokerAdapter : 브로커 응답 처리
+@enduml

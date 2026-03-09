@@ -1,0 +1,298 @@
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/curtis_od_rtv3000"
+
+master:
+  node_id: 100 # slave id 가 1 번 부터 시작 함
+  baudrate: 500 # kbit/s
+  start_nodes: false
+
+drive_3:
+  dcf: "driver/eds/curtis/curtis_theprime_rtv3000_drive.eds"
+  node_id: 3
+  boot: false
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto # 203
+      event_timer: 100
+      mapping:
+        - index: 0x2000 # interlock <bool>
+          sub_index: 0
+        - index: 0x2001 # forward <bool>
+          sub_index: 0
+        - index: 0x2002 # backward <bool>
+          sub_index: 0
+        - index: 0x2003 # j19 driver6 <bool>
+          sub_index: 0
+        - index: 0x2004 # j4 driver3 <bool>
+          sub_index: 0
+        - index: 0x2005 # j3 driver4 <bool>
+          sub_index: 0
+        - index: 0x2006 # accumulator reset <bool>
+          sub_index: 0
+        - index: 0x2007 # j20 driver 7 <bool>
+          sub_index: 0
+        
+        - index: 0x60ff # target velocity <uint16_t>
+          sub_index: 0
+        - index: 0x6083 # acceleration <uint8_t>
+          sub_index: 0 
+        - index: 0x6084 # deceleration <uint8_t>
+          sub_index: 0
+        - index: 0x2008 # reserved <uint8>
+          sub_index: 0
+        - index: 0x2009 # reserved <uint8>
+          sub_index: 0
+        - index: 0x200A # reserved <uint8>
+          sub_index: 0                               
+
+    2: 
+      enabled: true
+      cob_id : auto # 303
+      event_timer: 100
+      mapping:
+        - index: 0x607a # steering angle(target position) <int16_t> 
+          sub_index: 1
+        - index: 0x607a # steering angle(target position) <int16_t>
+          sub_index: 2
+        - index: 0x2010 # reserved <int8>
+          sub_index: 0
+        - index: 0x2011 # reserved <int8>
+          sub_index: 0
+        - index: 0x2012 # valve <uin16>
+          sub_index: 0
+                   
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x3000 # reserved <int8_t>
+          sub_index: 0
+        - index: 0x606c # actual velocity <uint16_t>
+          sub_index: 0
+        - index: 0x6078 # actual current <uint16_t>
+          sub_index: 0
+        - index: 0x603f # traction error code <uint8_t>
+          sub_index: 1
+        - index: 0x3001 # voltage <uint8_t>
+          sub_index: 0          
+        - index: 0x3002 # temperature <uint8_t>
+          sub_index: 0
+    2:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x6064 # steering angle (actual position) <uint16_t>
+          sub_index: 1
+        - index: 0x6064 # steering angle (actual position) <uint16_t>
+          sub_index: 2
+        - index: 0x3010 # reserved <int8_t>      
+          sub_index: 0          
+        - index: 0x3011 # reserved <int8_t>
+          sub_index: 0          
+        - index: 0x3012 # j24 input 9 <uint16_t>
+          sub_index: 0        
+    3:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x3020 # accumulation 0 <uint8_t>
+          sub_index: 1
+        - index: 0x3020 # accumulation 1 <uint8_t>
+          sub_index: 2
+        - index: 0x3020 # accmulation 2 <uint8_t>
+          sub_index: 3          
+        - index: 0x603f # steering error code <uint8_t>
+          sub_index: 2
+        - index: 0x603f # steeering error code <uint8_t>
+          sub_index: 3
+
+drive_4:
+  dcf: "driver/eds/curtis/curtis_theprime_rtv3000_drive.eds"
+  node_id: 4
+  boot: false
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto # 203
+      event_timer: 100
+      mapping:
+        - index: 0x2000 # interlock <bool>
+          sub_index: 0
+        - index: 0x2001 # forward <bool>
+          sub_index: 0
+        - index: 0x2002 # backward <bool>
+          sub_index: 0
+        - index: 0x2003 # j19 driver6 <bool>
+          sub_index: 0
+        - index: 0x2004 # j4 driver3 <bool>
+          sub_index: 0
+        - index: 0x2005 # j3 driver4 <bool>
+          sub_index: 0
+        - index: 0x2006 # accumulator reset <bool>
+          sub_index: 0
+        - index: 0x2007 # j20 driver 7 <bool>
+          sub_index: 0
+        
+        - index: 0x60ff # target velocity <uint16_t>
+          sub_index: 0
+        - index: 0x6083 # acceleration <uint8_t>
+          sub_index: 0 
+        - index: 0x6084 # deceleration <uint8_t>
+          sub_index: 0
+        - index: 0x2008 # reserved <uint8>
+          sub_index: 0
+        - index: 0x2009 # reserved <uint8>
+          sub_index: 0
+        - index: 0x200A # reserved <uint8>
+          sub_index: 0                               
+
+    2: 
+      enabled: true
+      cob_id : auto # 303
+      event_timer: 100
+      mapping:
+        - index: 0x607a # steering angle(target position) <int16_t> 
+          sub_index: 1
+        - index: 0x607a # steering angle(target position) <int16_t>
+          sub_index: 2
+        - index: 0x2010 # reserved <int8>
+          sub_index: 0
+        - index: 0x2011 # reserved <int8>
+          sub_index: 0
+        - index: 0x2012 # valve <uin16>
+          sub_index: 0
+                   
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x3000 # reserved <int8_t>
+          sub_index: 0
+        - index: 0x606c # actual velocity <uint16_t>
+          sub_index: 0
+        - index: 0x6078 # actual current <uint16_t>
+          sub_index: 0
+        - index: 0x603f # traction error code <uint8_t>
+          sub_index: 1
+        - index: 0x3001 # voltage <uint8_t>
+          sub_index: 0          
+        - index: 0x3002 # temperature <uint8_t>
+          sub_index: 0
+    2:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x6064 # steering angle (actual position) <uint16_t>
+          sub_index: 1
+        - index: 0x6064 # steering angle (actual position) <uint16_t>
+          sub_index: 2
+        - index: 0x3010 # reserved <int8_t>      
+          sub_index: 0          
+        - index: 0x3011 # reserved <int8_t>
+          sub_index: 0          
+        - index: 0x3012 # j24 input 9 <uint16_t>
+          sub_index: 0        
+    3:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x3020 # accumulation 0 <uint8_t>
+          sub_index: 1
+        - index: 0x3020 # accumulation 1 <uint8_t>
+          sub_index: 2
+        - index: 0x3020 # accmulation 2 <uint8_t>
+          sub_index: 3          
+        - index: 0x603f # steering error code <uint8_t>
+          sub_index: 2
+        - index: 0x603f # steeering error code <uint8_t>
+          sub_index: 3
+
+hydraulics_6:
+  dcf: "driver/eds/curtis/curtis_theprime_rtv3000_hydraulics.eds"
+  node_id: 6
+  boot: false
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      event_timer: 100
+      mapping:
+        - index: 0x2000 # interlock <bool>
+          sub_index: 0
+        - index: 0x2001 # drive signal <bool>
+          sub_index: 0        
+        - index: 0x2002 # j19 driver6 <bool>
+          sub_index: 0
+        - index: 0x2003 # j3 driver4 <bool>
+          sub_index: 0
+        - index: 0x2004 # j4 driver3 <bool>
+          sub_index: 0
+        - index: 0x2005 # j5 driver2 <bool>
+          sub_index: 0
+        - index: 0x2006 # motor direction <bool>
+          sub_index: 0
+        - index: 0x2007 # j20 driver 7 <bool>
+          sub_index: 0
+
+        - index: 0x60ff # target velocity <uint16_t>
+          sub_index: 0
+        - index: 0x2008 # valve <uint16_t>
+          sub_index: 0          
+        - index: 0x2009 # reserved <uint8_t>
+          sub_index: 0                   
+        - index: 0x6083 # acceleration <uint8_t>
+          sub_index: 0 
+        - index: 0x6084 # deceleration <uint8_t>
+          sub_index: 0 
+
+  tpdo:
+    1:
+      enabled: true
+      event_timer: 100
+      cob_id: auto
+      mapping:
+        - index: 0x3000 # J9 input 5 bit0 <uint8_t>
+          sub_index: 0          
+        - index: 0x606c # actual velocity <uint16_t>
+          sub_index: 0
+        - index: 0x6078 # actual current <uint16_t>
+          sub_index: 0
+        - index: 0x603f # hydraulics error code <uint8_t>
+          sub_index: 0
+        - index: 0x3001 # reserved <uint8_t>
+          sub_index: 0          
+        - index: 0x3002 # temperature <uint8_t>
+          sub_index: 0
+
+encoder_steer_rr:
+  node_id: 10
+  dcf: "driver/eds/posital/UCD-CAx1B-xxxx-xxxx-xxx_V1R4.eds"
+
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x6004, subindex: 0x00}  # Position 
+
+encoder_steer_rl:
+  node_id: 11
+  dcf: "driver/eds/posital/UCD-CAx1B-xxxx-xxxx-xxx_V1R4.eds"
+
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x6004, subindex: 0x00}  # Position

@@ -1,0 +1,466 @@
+[
+    28.08.2025 18: 13: 26.371637
+] [INFO
+] [
+    00: 22: 04.963007
+] [mqtt_initializer.cpp 22
+]  Received message on [ ACS.R_002
+]: {
+    "header": {
+        "seq": 194,
+        "stamp": {
+            "secs": 1756372387,
+            "nsecs": 4138302
+        },
+        "frame_id": ""
+    },
+    "goal_id": {
+        "stamp": {
+            "secs": 1756372387,
+            "nsecs": 4138302
+        },
+        "id": "T2546_f250e13f-4ca2-4ba7-91d2-7d0b851e4cb2"
+    },
+    "goal": {
+        "task_id": "T2546",
+        "start_idx": 0,
+        "loop_flag": 1,
+        "missionlist": [
+            {
+                "work_id": "2",
+                "action_start_idx": 0,
+                "loop_flag": 1,
+                "work": [
+                    {
+                        "action_id": "0",
+                        "next_action_info": null,
+                        "action_type": 1,
+                        "action_args": [
+                            4.097324,
+                            -3.97989154,
+                            1.51843643
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "max_trans_vel",
+                                "type": "float",
+                                "value": "1.2"
+                            },
+                            {
+                                "param_name": "max_rot_vel",
+                                "type": "float",
+                                "value": "0.5"
+                            },
+                            {
+                                "param_name": "xy_goal_tolerance",
+                                "type": "float",
+                                "value": "0.15"
+                            },
+                            {
+                                "param_name": "yaw_goal_tolerance",
+                                "type": "float",
+                                "value": "0.05"
+                            },
+                            {
+                                "param_name": "passing_flag",
+                                "type": "bool",
+                                "value": "false"
+                            },
+                            {
+                                "param_name": "passing_dist",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "non_avoid_mode",
+                                "type": "bool",
+                                "value": "true"
+                            },
+                            {
+                                "param_name": "straight_mode",
+                                "type": "bool",
+                                "value": "true"
+                            },
+                            {
+                                "param_name": "target_length",
+                                "type": "float",
+                                "value": "2.018"
+                            },
+                            {
+                                "param_name": "target_width",
+                                "type": "float",
+                                "value": "1.182"
+                            },
+                            {
+                                "param_name": "road_width",
+                                "type": "float",
+                                "value": "2.1"
+                            },
+                            {
+                                "param_name": "connection_holding_time",
+                                "type": "float",
+                                "value": "1"
+                            },
+                            {
+                                "param_name": "custom_y1_limit_vel",
+                                "type": "float",
+                                "value": "-1"
+                            },
+                            {
+                                "param_name": "custom_y2_limit_vel",
+                                "type": "float",
+                                "value": "-1"
+                            },
+                            {
+                                "param_name": "curve_speed",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "driving_dir",
+                                "type": "int",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "road_offset",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "avoid_dir",
+                                "type": "int",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "pause_distance",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "pause_time",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "pallet_size_length",
+                                "type": "float",
+                                "value": "1.918"
+                            },
+                            {
+                                "param_name": "pallet_size_width",
+                                "type": "float",
+                                "value": "1.082"
+                            },
+                            {
+                                "param_name": "payload_level",
+                                "type": "int",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "lccs_off",
+                                "type": "bool",
+                                "value": "True"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "1",
+                        "next_action_info": null,
+                        "action_type": 6,
+                        "action_args": [
+                            1.0,
+                            3.0,
+                            6.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "max_linear_speed",
+                                "type": "float",
+                                "value": "0.4"
+                            },
+                            {
+                                "param_name": "speed_on_aligning_path",
+                                "type": "float",
+                                "value": "0.4"
+                            },
+                            {
+                                "param_name": "dock_dist",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "dock_dist_flag",
+                                "type": "bool",
+                                "value": "True"
+                            },
+                            {
+                                "param_name": "cradle_width",
+                                "type": "float",
+                                "value": "0.84"
+                            },
+                            {
+                                "param_name": "cradle_depth",
+                                "type": "float",
+                                "value": "1.12"
+                            },
+                            {
+                                "param_name": "x_offset",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "with_turntable",
+                                "type": "int",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "init_x",
+                                "type": "float",
+                                "value": "4.236537"
+                            },
+                            {
+                                "param_name": "init_y",
+                                "type": "float",
+                                "value": "-1.323537"
+                            },
+                            {
+                                "param_name": "init_th",
+                                "type": "float",
+                                "value": "1.518436"
+                            },
+                            {
+                                "param_name": "footprint_f",
+                                "type": "float",
+                                "value": "0.859"
+                            },
+                            {
+                                "param_name": "footprint_b",
+                                "type": "float",
+                                "value": "0.859"
+                            },
+                            {
+                                "param_name": "footprint_l",
+                                "type": "float",
+                                "value": "0.541"
+                            },
+                            {
+                                "param_name": "footprint_r",
+                                "type": "float",
+                                "value": "0.541"
+                            },
+                            {
+                                "param_name": "ep_x",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "ep_y",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "ep_th",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "camera_detect_width",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "camera_detect_height",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "camera_detect_width2",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "camera_detect_height2",
+                                "type": "float",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "pallet_exist",
+                                "type": "int",
+                                "value": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "2",
+                        "next_action_info": null,
+                        "action_type": 20,
+                        "action_args": [
+                            1.0,
+                            100.0
+                        ],
+                        "action_params": []
+                    },
+                    {
+                        "action_id": "3",
+                        "next_action_info": null,
+                        "action_type": 7,
+                        "action_args": [
+                            3.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "id",
+                                "type": "string",
+                                "value": "W4"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "4",
+                        "next_action_info": null,
+                        "action_type": 7,
+                        "action_args": [
+                            3.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "id",
+                                "type": "string",
+                                "value": "W5"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "5",
+                        "next_action_info": null,
+                        "action_type": 7,
+                        "action_args": [
+                            3.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "id",
+                                "type": "string",
+                                "value": "W6"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "6",
+                        "next_action_info": null,
+                        "action_type": 7,
+                        "action_args": [
+                            3.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "id",
+                                "type": "string",
+                                "value": "W7"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "7",
+                        "next_action_info": null,
+                        "action_type": 7,
+                        "action_args": [
+                            3.0
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "id",
+                                "type": "string",
+                                "value": "W8"
+                            }
+                        ]
+                    },
+                    {
+                        "action_id": "8",
+                        "next_action_info": null,
+                        "action_type": 18,
+                        "action_args": [
+                            -2.44
+                        ],
+                        "action_params": [
+                            {
+                                "param_name": "collision_dist",
+                                "type": "float",
+                                "value": "0.8"
+                            },
+                            {
+                                "param_name": "collision_size",
+                                "type": "float",
+                                "value": "2"
+                            },
+                            {
+                                "param_name": "with_turntable",
+                                "type": "int",
+                                "value": "0"
+                            },
+                            {
+                                "param_name": "init_x",
+                                "type": "float",
+                                "value": "4.108838"
+                            },
+                            {
+                                "param_name": "init_y",
+                                "type": "float",
+                                "value": "-3.760193"
+                            },
+                            {
+                                "param_name": "init_th",
+                                "type": "float",
+                                "value": "1.518436"
+                            },
+                            {
+                                "param_name": "footprint_f",
+                                "type": "float",
+                                "value": "1.759"
+                            },
+                            {
+                                "param_name": "footprint_b",
+                                "type": "float",
+                                "value": "0.9590001"
+                            },
+                            {
+                                "param_name": "footprint_l",
+                                "type": "float",
+                                "value": "0.541"
+                            },
+                            {
+                                "param_name": "footprint_r",
+                                "type": "float",
+                                "value": "0.541"
+                            },
+                            {
+                                "param_name": "target_obstacle_f",
+                                "type": "float",
+                                "value": "0.9590001"
+                            },
+                            {
+                                "param_name": "target_obstacle_b",
+                                "type": "float",
+                                "value": "0.9590001"
+                            },
+                            {
+                                "param_name": "target_obstacle_l",
+                                "type": "float",
+                                "value": "2"
+                            },
+                            {
+                                "param_name": "target_obstacle_r",
+                                "type": "float",
+                                "value": "2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "Cmd": "task",
+    "msg_time": "2025-08-28 18:13:07.713",
+    "msg_id": 92484,
+    "RID": "R_002"
+}

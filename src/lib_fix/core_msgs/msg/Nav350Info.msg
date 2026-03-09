@@ -1,0 +1,12 @@
+int32 num_measurements
+float32 sector_step_angle
+float32 sector_start_angle
+float32 sector_stop_angle
+uint32 sector_start_timestamp
+uint32 sector_stop_timestamp
+float32 pos_x_mm
+float32 pos_y_mm
+float32 phi
+int32 position_mode
+int32 mean_deviation
+int32 num_used_reflectors

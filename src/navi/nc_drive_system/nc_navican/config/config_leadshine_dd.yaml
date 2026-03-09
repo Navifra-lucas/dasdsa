@@ -1,0 +1,77 @@
+# Master 설정 정보
+master:
+  master_id: 100
+  dcf_txt: "generated/leadshine_dd/master.dcf"
+  interface_name: "can0"
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 1
+    eds_path: "driver/eds/leadshine/2ELD2-CAN.eds"
+    binary_path: "generated/leadshine_dd/slave_1.bin"
+    sdo_timeout: 300 # ms
+    enable_first: false # true : enable 후 vel모드 전환  / false : vel모드 전환 후 enable
+    
+  - driver_id: 2
+    eds_path: "driver/eds/leadshine/2ELD2-CAN.eds"
+    binary_path: "generated/leadshine_dd/slave_2.bin"
+    sdo_timeout: 300 # ms
+    enable_first: false # true : enable 후 vel모드 전환  / false : vel모드 전환 후 enable
+
+# 모터 설정 정보
+motors:
+  - motor_id: 3
+    driver_id: 1
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 0
+    driver_id: 2
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1
+    ratio: 28
+    ppr: 10000
+
+
+motor_extra_info:
+  - motor_id: 3
+    voltage: 
+      index: 0x6079
+      subindex: 0x00
+      type: "uint32_t"
+      multiplier: 0.001
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.1
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0000, message: "No Error" }
+
+  - motor_id: 0
+    voltage: 
+      index: 0x6079
+      subindex: 0x00
+      type: "uint32_t"
+      multiplier: 0.001
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.1 
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0000, message: "No Error" }

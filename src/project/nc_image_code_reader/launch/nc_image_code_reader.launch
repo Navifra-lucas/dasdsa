@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="nc_image_code_reader" type="nc_image_code_reader" name="nc_image_code_reader" output="screen">
+		<param name="scanner_ip" type="string" value="192.168.100.66"/>
+		<param name="scanner_port" type="string" value="2112"/>
+	</node>
+</launch>

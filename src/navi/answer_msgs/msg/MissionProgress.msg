@@ -1,0 +1,11 @@
+# mission align
+float32 f_align_target_deg
+float32 f_remain_deg
+
+# mission path
+float32 f_total_length_curr_to_next_m
+float32 f_total_length_start_to_target_m
+float32 f_traveled_length_curr_to_next_m
+float32 f_traveled_length_start_to_target_m
+
+# mission explore

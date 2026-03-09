@@ -1,0 +1,14 @@
+bool auto_manual
+bool reset_button
+bool safety_relay_bypass
+bool brake_release
+bool ems
+bool error_pio
+bool bumper
+bool lift_initial
+bool lift_busy
+bool sensor1_error
+bool sensor2_error
+bool sensor3_error
+bool sensor4_error
+bool sensor5_error

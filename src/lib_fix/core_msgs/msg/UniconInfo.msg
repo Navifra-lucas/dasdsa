@@ -1,0 +1,13 @@
+int64 n_FL_status_code
+int64 n_FL_error_code
+int64 n_FL_upper_status_code
+int64 n_FL_feedback_rpm
+int64 n_FL_feedback_encoder
+int64 n_FL_target_rpm
+
+int64 n_RR_status_code
+int64 n_RR_error_code
+int64 n_RR_upper_status_code
+int64 n_RR_feedback_rpm
+int64 n_RR_feedback_encoder
+int64 n_RR_target_rpm

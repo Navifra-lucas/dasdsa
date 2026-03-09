@@ -1,0 +1,3 @@
+<launch>
+     <node name="nc_auto_repeat_driver" pkg="nc_calibrator" type="nc_auto_repeat_driver" output="screen"/>
+</launch>

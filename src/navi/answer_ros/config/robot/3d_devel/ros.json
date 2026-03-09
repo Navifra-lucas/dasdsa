@@ -1,0 +1,84 @@
+
+{
+    "base": {
+        //info, debug, warn, error, trace
+        "log_level": "info",  
+        //extrinsics
+        "robot_to_lidar1":{
+            //x, y, z
+            // "translation": [0.913, 0.0, 0.0],
+             "translation": [0.2, 0.1, 0.0],
+            //"translation": [0,0, 0.0],
+            //roll pitch yaw in radians
+            "rotation": [0,0,0]
+            // "rotation": [0,0,-0.785398163]
+        },
+        "robot_to_lidar2":{
+            //x, y, z
+             "translation": [-0.2, -0.1, 0.0],
+            //"translation": [0,0, 0.0],
+            //roll pitch yaw in radians
+            // "rotation": [0,0,2.35619]
+            "rotation": [0,0,3.14159]  
+        },
+        "base_to_imu":{
+            //x, y, z
+            "translation": [0.0, 0.0, 0.0],  
+            //roll pitch yaw
+            "rotation": [0,0,90]  
+        },
+        "base_to_depth_camera_1": {
+            "translation": [0.0, 0.0, 0.9],
+            //roll pitch yaw in radians, roll 180deg, pitch -12deg
+            "rotation": [0,0.20943951,0]
+        },
+        "base_to_3d_lidar":{
+            "translation": [0,0,0],
+            //roll pitch yaw in deg
+            "rotation": [0,0,0]
+        },
+        // x, y, yaw(deg)
+        // "init_pose" : [3.290, 4.004, 54.302], 
+        // "init_pose" : [3.710, 1.174, -90.302], 
+        //for loadrunner bag
+        // "init_pose" : [4.143,2.758,-89.633], 
+        //for raptor imu bag
+        // "init_pose" : [-0.934,-14.641,89.518], 
+
+        //logs 폴더가 위치한 경로
+        "base_path": "/navifra_solution/navicore/",
+        //pose.txt 폴더가 위치한 경로
+        "pose_text_path": "/navifra_solution/navicore/configs/",
+        // "pose_text_path": "/navifra_solution/navicore/configs/",
+        // map 폴더가 위치한 경로
+        "map_path": "/navifra_solution/navicore/configs/",
+        // "map_path": "/navifra_solution/navicore/configs/",
+        "map_name": "temp",
+        "out_map_resolution": 0.01,
+        "out_occ_thresh": 0.56,
+        "out_free_thresh": 0.49,
+        
+        "scan_data_usage_interval": 2,
+        "use_imu": false,
+        "visualizer": true,
+        "answer_3d" : true 
+    },
+    "topic":{
+        // The topic name of the point cloud data
+        "point_cloud_topic": "scan_cloud",  
+        // The topic name of the laser scan data if you set use_scan_topic to true.
+        "scan_topic": "scan_front",  
+
+        //if use_lidar_merger is true, then use lidar_merger_2d.json
+        "use_lidar_merger": true,
+        //if use_lidar_merger is true, use_scan_topic is useless
+        "use_scan_topic": false,
+        "odom_topic": "odom",  
+        "map_topic": "map" ,
+        "point_cloud_3d_topic": ["/hrz/points"],
+        "imu_topic" : "imu_info",
+        "record": ["odom", "scan_front", "scan_rear", "scan_cloud", "imu_info", "front_scan"],
+        "play": ["/odom","/scan_cloud","imu_info"],
+        "play_speed": 1
+    }
+}

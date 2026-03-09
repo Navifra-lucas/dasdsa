@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>core_astra</name>
+  <version>0.1.0</version>
+  <description>
+    Core Astra: ZeroMQ 기반 멀티 에이전트 상태 수집 및 브로드캐스트 ROS 통합 노드
+  </description>
+
+  <maintainer email="kerry@navifra.com">Kerry Cho</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- ROS 빌드 툴 -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>build_navicore</build_depend>
+  <!-- ROS 의존성 -->
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>core</depend>
+  <depend>core_agent</depend>
+  <depend>motor_msgs</depend>
+
+  <!-- 테스트 (선택) -->
+  <test_depend>rostest</test_depend>
+  <test_depend>gtest</test_depend>
+
+  <!-- 문서화 -->
+  <export>
+    <build_type>catkin</build_type>
+  </export>
+</package>

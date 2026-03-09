@@ -1,0 +1,8 @@
+
+
+<launch>
+  <arg name="map" default="latest"/>
+  <node pkg="nc_brain_map_server" type="nc_map_merger" name="nc_map_merger" clear_params="true" output="screen">
+  </node>
+
+</launch>

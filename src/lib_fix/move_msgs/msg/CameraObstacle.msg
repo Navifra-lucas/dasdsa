@@ -1,0 +1,11 @@
+float32[] list_f_obstacle_margin
+float32 f_camera_roi_y_m
+float32 f_camera_roi_x_m
+float32 f_camera_roi_z_m
+float32 f_camera_roi2_y_m
+float32 f_camera_roi2_x_m
+float32 f_camera_roi2_z_m
+float32 f_camera_docking_roi_y_m
+float32 f_camera_docking_roi_z_m
+float32 f_plt_type_x
+float32 f_plt_type_y

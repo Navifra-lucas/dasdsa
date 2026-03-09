@@ -1,0 +1,47 @@
+# Parameters for nc_intensity_detector2 (Point cloud only version)
+
+# Topic configuration
+topics:
+  pointcloud: "/sick_visionary_t_mini/points"  # Input point cloud topic
+  output: "/nc_intensity_detector/pose"        # Output pose topic
+  global_pose: "/nc_intensity_detector/global_pose"  # Global pose topic
+  cmd: "/nc_intensity_detector/cmd"            # Command topic (start/stop
+  marker: "/nc_intensity_detector/marker"     # Visualization marker topic
+  all_clusters_pc: "/nc_intensity_detector/all_clusters_pc"  # All detected clusters point cloud (base_link)
+  selected_cluster_pc: "/nc_intensity_detector/selected_cluster_pc"  # Selected cluster point cloud (base_link)
+  plane_inliers_pc: "/nc_intensity_detector/plane_inliers_pc"  # Plane fitting inliers point cloud (base_link)
+  high_intensity_pc: "/nc_intensity_detector/high_intensity_pc"  # High intensity points (intensity >= 10000) (base_link)
+  filtered_pc: "/nc_intensity_detector/filtered_pc"  # Filtered point cloud (distance + height filtered, base_link)
+
+# Frame configuration
+frames:
+  camera: "sick_visionary_t_mini"  # Camera frame ID
+  base: "base_link"                # Base frame ID for output pose
+  camera_tf:
+    x: 0.0    # Translation X in meters (base_link -> camera)
+    y: 0.0      # Translation Y in meters (base_link -> camera)
+    z: 0.0      # Translation Z in meters (base_link -> camera)
+    yaw: 0 # Rotation Yaw in radians (180 degrees)
+
+# Tape physical dimensions (in meters)
+tape:
+  width: 0.60      # Tape width (60 cm)
+  height: 0.40     # Tape height (40 cm)
+  size_tolerance: 0.2  # Size tolerance (15% of expected size)
+
+# Point cloud filtering
+pointcloud:
+  min_distance: 2.2    # Minimum distance in meters (Z axis - forward)
+  max_distance: 10.0   # Maximum distance in meters (Z axis - forward)
+  min_height: -0.8     # Minimum height in meters (Y axis - vertical, camera frame)
+  max_height: 0.8      # Maximum height in meters (Y axis - vertical, camera frame)
+  min_lateral: -2.2    # Minimum lateral distance in meters (X axis - left/right, camera frame)
+  max_lateral: 2.2     # Maximum lateral distance in meters (X axis - left/right, camera frame)
+  cluster_tolerance: 0.05  # Cluster tolerance in meters (5cm)
+  min_cluster_size: 100   # Minimum points in cluster
+  max_cluster_size: 5000  # Maximum points in cluster
+
+# Tracking
+tracking:
+  distance_threshold: 1.0  # Maximum distance for tracking (meters)
+

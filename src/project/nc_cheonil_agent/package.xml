@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nc_cheonil_agent</name>
+  <version>0.0.1</version>
+  <description>The nc_cheonil_agent package</description>
+
+  <maintainer email="peter@navifra.com">peter</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  {% if USE_BUILD_CORE %}
+     <build_depend>build_navicore</build_depend>
+  {% endif %}
+  <build_depend>core_msgs</build_depend>
+  <build_depend>core</build_depend>
+  <build_depend>core_agent</build_depend>
+
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>core_msgs</exec_depend>
+  <exec_depend>core</exec_depend>
+  <exec_depend>core_agent</exec_depend>
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

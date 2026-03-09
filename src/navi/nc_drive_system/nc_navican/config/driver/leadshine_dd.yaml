@@ -1,0 +1,117 @@
+
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/leadshine_dd"
+
+master:
+  node_id: 100
+  sync_period: 50000  # us (1 second)
+  heartbeat_producer: 1000  # ms
+  
+slave_1:
+  node_id: 1
+  dcf: "driver/eds/leadshine/2ELD2-CAN.eds"
+  heartbeat_consumer: true
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16>
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+        - index: 0x603f  # Error code <uint16>
+          sub_index: 0    
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6079  # DC bus voltage <uint32>
+          sub_index: 0
+        - index: 0x6078  # Current Actual value <int16>
+          sub_index: 0          
+          
+slave_2:
+  node_id: 2
+  heartbeat_consumer: true
+  dcf: "driver/eds/leadshine/2ELD2-CAN.eds"
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16>
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+        - index: 0x603f  # Error code <uint16>
+          sub_index: 0    
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6079  # DC bus voltage <uint32>
+          sub_index: 0
+        - index: 0x6078  # Current Actual value <int16>
+          sub_index: 0   

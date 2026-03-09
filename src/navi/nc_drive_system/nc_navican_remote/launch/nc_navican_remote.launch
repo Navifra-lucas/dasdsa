@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_navican_remote" type="nc_navican_remote" name="nc_navican_remote" output="screen">
+	</node>
+</launch>

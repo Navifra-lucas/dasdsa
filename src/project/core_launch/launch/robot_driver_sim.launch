@@ -1,0 +1,39 @@
+<launch>
+    <arg name="driver_mode" default="0"/>
+    <arg name="navican_use" default="true"/>
+    <arg name="fakeslave_use" default="false"/>
+    <arg name="commander_sim_use" default="false"/>
+
+    <!-- motor_commander 사용-->
+	<group if="$(eval driver_mode == 0)">
+	    <group if="$(eval fakeslave_use == 1)">
+            <include file="$(find navican)/launch/fake_slave.launch"/>
+    	</group>
+
+	    <group if="$(eval navican_use == 1)">
+            <node pkg="nc_navi_bridge" type="nc_navi_bridge" name="nc_navi_bridge" output="screen" launch-prefix="bash -c 'sleep 2; $0 $@'" respawn="true"/>
+    	</group>
+
+        <node pkg="nc_motor_commander" type="nc_motor_commander" name="nc_motor_commander_node" output="screen" launch-prefix="bash -c 'sleep 1; $0 $@'" respawn="true">
+            <param name="b_sim_use" value="$(eval not bool(int(arg('navican_use'))))"/>
+        </node>
+	</group>
+
+    <!-- custom motor_driver 사용-->
+	<group if="$(eval driver_mode == 1)">
+        <node pkg="nc_custom_driver" type="nc_custom_driver" name="nc_custom_driver_node" output="screen" />
+
+        <node pkg="nc_motor_commander" type="nc_motor_commander" name="nc_motor_commander_node" output="screen" launch-prefix="bash -c 'sleep 1; $0 $@'" respawn="true">
+            <param name="b_sim_use" value="$(arg commander_sim_use)"/>
+        </node>
+	</group>
+
+    <!-- 기존 motor_driver 사용-->
+	<group if="$(eval driver_mode == 2)">
+
+        <node pkg="nc_motor_driver_ros" type="nc_motor_driver_ros" name="nc_motor_driver_node" output="screen" respawn="true">
+            <param name="b_sim_use" value="true"/>
+        </node>
+	</group>
+  
+</launch>

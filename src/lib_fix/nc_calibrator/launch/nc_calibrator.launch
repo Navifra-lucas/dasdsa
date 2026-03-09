@@ -1,0 +1,23 @@
+<launch>
+  <node pkg="nc_calibrator" type="nc_calibrator" name="nc_calibrator" output="screen" respawn="true" >
+
+    <param name="scan_num_" value="2"/> 
+
+    <!-- scan topic -->
+    <remap from="scan_front" to="scan_front"/>
+    <remap from="scan_rear" to="scan_rear"/>
+
+    <!-- scan tf link -->
+    <param name="front_laser" value="front_laser"/>
+    <param name="rear_laser" value="rear_laser"/>
+
+    <param name="rotation_num_" value="1"/> 
+    <param name="go_dist_" value="2"/> 
+
+    <param name="filter_use" value="false"/> 
+
+    
+  </node>
+  <node name="nc_auto_repeat_driver" pkg="nc_calibrator" type="nc_auto_repeat_driver" output="screen"/>
+  
+</launch>

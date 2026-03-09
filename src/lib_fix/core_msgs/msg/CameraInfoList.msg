@@ -1,0 +1,1 @@
+core_msgs/CameraInfo[] camerainfo_list

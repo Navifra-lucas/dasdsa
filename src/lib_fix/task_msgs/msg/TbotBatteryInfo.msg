@@ -1,0 +1,13 @@
+int32 soc
+float32 used_count
+bool warning
+bool fault
+bool charge_finished
+bool charging
+bool discharge_fet
+bool charge_fet
+bool ignition
+bool charge_signal
+bool bms_off_flag
+int32 sub_mode
+int32 mode

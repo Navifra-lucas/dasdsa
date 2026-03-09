@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>answer</name>
+  <version>0.0.1</version>
+  <description>TBD</description>
+  <maintainer email="donghak.lee@navifra.com">logan</maintainer>
+  <license>none</license>
+
+  
+  <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
+  <export>
+    <build_type condition="$ROS_VERSION == 1">catkin</build_type>
+    <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
+  </export>
+    <!-- Add the following dependencies related ros2-->
+  <depend condition="$ROS_VERSION == 2">rclcpp</depend>
+  <depend condition="$ROS_VERSION == 2">rclcpp_components</depend>
+  <depend condition="$ROS_VERSION == 2">rosbag2_cpp</depend>
+  <depend condition="$ROS_VERSION == 2">rosbag2_compression</depend>
+  <depend condition="$ROS_VERSION == 2">cv_bridge</depend>
+  <depend condition="$ROS_VERSION == 2">image_transport</depend>
+  <depend condition="$ROS_VERSION == 2">std_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">nav_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">sensor_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">geometry_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">tf2_geometry_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">answer_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">core_msgs</depend>
+  <depend condition="$ROS_VERSION == 2">tf2_ros</depend>
+  <depend condition="$ROS_VERSION == 2">fmt</depend>
+  <depend condition="$ROS_VERSION == 2">spdlog</depend>
+  <depend condition="$ROS_VERSION == 2">ament_cmake_gtest</depend>
+  <depend condition="$ROS_VERSION == 2">ament_index_cpp</depend>
+  <test_depend condition="$ROS_VERSION ==2">ament_lint_auto</test_depend>
+  <test_depend condition="$ROS_VERSION ==2">ament_lint_common</test_depend>
+  <test_depend condition="$ROS_VERSION ==2">ament_cmake_lint_cmake</test_depend>
+  <member_of_group condition="$ROS_VERSION == 2">rosidl_interface_packages</member_of_group>
+  
+    <!-- Add the following dependencies related ros1-->
+    <build_depend condition="$ROS_VERSION==1">roscpp</build_depend>
+    <build_depend condition="$ROS_VERSION==1">rospy</build_depend>
+    <build_depend condition="$ROS_VERSION==1">std_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">nav_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">sensor_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">geometry_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">answer_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">core_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">move_msgs</build_depend>
+    <build_depend condition="$ROS_VERSION==1">message_generation</build_depend>
+    <build_depend condition="$ROS_VERSION==1">libceres-dev</build_depend>
+    <build_depend condition="$ROS_VERSION==1">libpcl-all-dev</build_depend>
+    <build_depend condition="$ROS_VERSION==1">roslaunch</build_depend>
+    <build_depend condition="$ROS_VERSION==1">fmt</build_depend>
+    <build_depend condition="$ROS_VERSION==1">spdlog</build_depend>
+    <build_depend condition="$ROS_VERSION==1">rostest</build_depend>
+    <exec_depend condition="$ROS_VERSION==1">libpcl-all</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">libceres-dev</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">roscpp</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">rospy</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">std_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">nav_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">sensor_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">geometry_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">answer_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">core_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">move_msgs</exec_depend>
+    <exec_depend condition="$ROS_VERSION==1">message_runtime</exec_depend>
+    <test_depend condition="$ROS_VERSION ==1">gtest</test_depend>
+    <test_depend condition="$ROS_VERSION ==1">rostest</test_depend>
+  
+
+</package>

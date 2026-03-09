@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_audio_driver" type="nc_audio_driver" name="nc_audio_driver" output="screen">
+	</node>
+</launch>

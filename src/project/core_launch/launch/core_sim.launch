@@ -1,0 +1,30 @@
+<launch>
+    <rosparam file="$(find core_launch)/launch/param.yaml" command="load"/>
+    <rosparam file="$(env HOME)/navifra_solution/navicore/configs/param.yaml" command="load" />
+    <arg name="navican_use" default="false"/>
+    <arg name="fakeslave_use" default="false"/>
+    <arg name="sim" default="true"/>
+
+    <node pkg="nc_brain_agent" type="nc_brain_agent" name="nc_brain_agent" output="screen" respawn="true"/>
+    <node pkg="nc_task_manager" type="nc_task_manager" name="nc_task_manager_node" output="screen" respawn="true" />
+    <node pkg="answer" type="answer_node" name="answer_node" output="screen" respawn="true"/>
+    <node pkg="answer" type="answer_core_bridge" name="answer_core_bridge" output="screen" respawn="true"/>
+    
+    <include file="$(find core_launch)/launch/robot_driver_sim.launch">
+        <arg name="navican_use" value="$(arg navican_use)"/>
+        <arg name="fakeslave_use" value="$(arg fakeslave_use)"/>
+    </include>
+    <!-- <include file="$(find core_launch)/launch/robot_driver.launch" if="$(eval driver_mode == 0)"/> -->
+    <!-- <include file="$(find core_launch)/launch/robot_driver_legacy.launch" if="$(eval driver_mode == 1)"/> -->
+    <include file="$(find core_launch)/launch/robot_sensor.launch">
+        <arg name="sim" value="$(arg sim)"/>
+    </include>
+    <include file="$(find core_launch)/launch/navigation.launch">
+        <arg name="sim" value="$(arg sim)"/>
+    </include>
+
+    <!-- <node pkg="nc_v2v_safer" type="nc_v2v_safer" name="nc_v2v_safer" output="screen"/> -->
+
+    <!-- 배터리 시뮬레이션용... 실제 로봇에서는 제거해야함 -->
+    <node pkg="core_launch" type="batterysim.py" name="batterysim" output="screen" />
+</launch>

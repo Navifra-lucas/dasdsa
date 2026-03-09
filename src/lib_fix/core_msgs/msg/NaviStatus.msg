@@ -1,0 +1,12 @@
+int64 IDLE=100
+int64 RUNNING=101
+int64 PAUSE=102
+int64 OBS_STOP=103
+int64 RECOVERY_RUNNING=104
+int64 LOADING=110
+int64 TASKING=111
+# int64 PAUSED_BY_USER=110
+
+Header header
+int64 status
+string text

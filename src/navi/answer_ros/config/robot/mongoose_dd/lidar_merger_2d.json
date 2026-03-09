@@ -1,0 +1,58 @@
+{
+    "lidar_merger_ros": {
+        // "use_lidar_merger": true,
+        "sub_scan_topics":[
+            "scan_front"
+            ,"scan_rear"
+
+            // "scan_front_leuze"
+            // ,"scan_rear_leuze"
+            // ,"scan_left",
+            // ,"scan_right"
+        ],
+        "pub_cloud_topic": "merged_cloud",
+        "pub_pointcloud_topics":[
+            "front_cloud"
+            ,"rear_cloud"
+            // ,"left_cloud",
+            // ,"right_cloud"
+        ],
+        // global frame for brain ui
+        "pub_global_pointcloud_topics":[
+            "front_cloud_global"
+            ,"rear_cloud_global"
+            // ,"left_cloud_global",
+            // ,"right_cloud_global"
+        ],
+        "robot_to_lidar1":{
+            //x, y, z
+            // "translation": [0.913, 0.0, 0.0],  
+            // "translation": [0.2, 0.1, 0.0],  
+            "translation": [0.425, 0.250, 0.0],  
+            //roll pitch yaw in radians
+            // "rotation": [0,0,0]  
+            //roll pitch yaw in radians
+            "rotation": [3.14159,0,0.7989]  
+        },
+        "robot_to_lidar2":{
+            //x, y, z
+            // "translation": [-0.2, -0.1, 0.0],  
+            "translation": [-0.425, -0.250, 0.0],  
+            //roll pitch yaw in radians
+            // "rotation": [0,0,3.14159]  
+            "rotation": [3.14159,0,-2.35619] 
+        }
+    },
+    "lidar_merger_2d": {
+        "min_distance": 0.5,
+        "max_distance": 60.0,
+        "x_front_min_distance": 0.5,
+        "x_rear_min_distance": -0.5,
+        "y_left_min_distance": 0.3,
+        "y_right_min_distance": -0.3,
+        // Threshold for merging points
+        "merge_distance_threshold": 0.05,
+        //lidar distance threshold for ui
+        "lidar_distance_threshold": 15.0
+    }
+}

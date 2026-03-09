@@ -1,0 +1,8 @@
+float32 f_FL_target_rpm
+float32 f_FR_target_rpm
+float32 f_RL_target_rpm
+float32 f_RR_target_rpm
+float32 f_FL_target_steer_angle_deg
+float32 f_FR_target_steer_angle_deg
+float32 f_RL_target_steer_angle_deg
+float32 f_RR_target_steer_angle_deg

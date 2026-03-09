@@ -1,0 +1,25 @@
+string front_lidar_frame_id
+int32 front_lidar_error_code
+string front_lidar_error_text
+float32 front_lidar_frame_hz
+float32 front_lidar_range_length
+
+string rear_lidar_frame_id
+int32 rear_lidar_error_code
+string rear_lidar_error_text
+float32 rear_lidar_frame_hz
+float32 rear_lidar_range_length
+
+string left_lidar_frame_id
+int32 left_lidar_error_code
+string left_lidar_error_text
+float32 left_lidar_frame_hz
+float32 left_lidar_range_length
+
+string right_lidar_frame_id
+int32 right_lidar_error_code
+string right_lidar_error_text
+float32 right_lidar_frame_hz
+float32 right_lidar_range_length
+
+core_msgs/LidarDistList[] lidar_list

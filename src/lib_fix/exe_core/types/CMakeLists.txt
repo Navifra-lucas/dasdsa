@@ -1,0 +1,5 @@
+set (TARGET_NAME types)
+add_subdirectory (polygon)
+add_subdirectory (tf)
+add_subdirectory (pos)
+add_subdirectory (node)

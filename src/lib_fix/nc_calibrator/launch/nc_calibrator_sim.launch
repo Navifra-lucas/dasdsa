@@ -1,0 +1,35 @@
+<launch>
+  <!-- <node pkg="tf" type="static_transform_publisher" name="bts" args="1.05 0.05 0 0 0 0 base_link base_laser_link_2 20"/> -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="bts2" args="-0.23 0.02 0 3.14 0 0 base_link base_laser_link_3 20"/> -->
+
+  <node pkg="nc_calibrator" type="nc_calibrator" name="nc_calibrator" output="screen">
+
+    <param name="scan_num_" value="1"/> 
+
+    <!-- scan topic -->
+    <remap from="scan_front" to="scan2"/>
+
+    <!-- <remap from="scan_front" to="base_scan_0"/> -->
+    <!-- <remap from="scan_rear" to="base_scan_1"/> -->
+
+    <!-- scan tf link -->
+    <param name="front_laser" value="base_link"/>
+    <param name="rear_laser" value="base_link"/>
+
+    <!-- <param name="front_laser" value="base_laser_link_0"/> -->
+    <!-- <param name="rear_laser" value="base_laser_link_1"/> -->
+
+    <param name="rotation_num_" value="1"/> 
+    <param name="go_dist_" value="2"/> 
+
+    <param name="filter_use" value="false"/> 
+
+    <!-- TRI TYPE -->
+    <param name="angle_offset_" value="-3.2"/> 
+    <param name="wheel_encoder_" value="595890.0"/> 
+    <param name="base_length_" value="1.190842"/> 
+
+    
+  </node>
+  
+</launch>

@@ -1,0 +1,235 @@
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/plutools_qd"
+
+master:
+  node_id: 100 # slave id 가 1 번 부터 시작 함
+  baudrate: 500 # kbit/s
+  sync_period: 50000 # us
+
+slave_1:
+  dcf: "driver/eds/plutools/FDK_PMSM_SIEMENS-VSXXDXX-A-20240203_V1.eds"
+  # dcf_path: ""
+  node_id: 1
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x2003  # voltage <int16> 0.1V
+          sub_index: 0
+        - index: 0x6078  # current <int16> 0.1A
+          sub_index: 0
+        - index: 0x603f  # error <uint16_t>
+          sub_index: 0
+
+slave_2:
+  dcf: "driver/eds/plutools/FDK_PMSM_SIEMENS-VSXXDXX-A-20240203_V1.eds"
+  # dcf_path: ""
+  node_id: 2
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x2003  # voltage <int16> 0.1V
+          sub_index: 0
+        - index: 0x6078  # current <int16> 0.1A
+          sub_index: 0
+        - index: 0x603f  # error <uint16_t>
+          sub_index: 0
+
+slave_3:
+  dcf: "driver/eds/plutools/FDK_PMSM_SIEMENS-VSXXDXX-A-20240203_V1.eds"
+  # dcf_path: ""
+  node_id: 3
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x2003  # voltage <int16> 0.1V
+          sub_index: 0
+        - index: 0x6078  # current <int16> 0.1A
+          sub_index: 0
+        - index: 0x603f  # error <uint16_t>
+          sub_index: 0
+
+slave_4:
+  dcf: "driver/eds/plutools/FDK_PMSM_SIEMENS-VSXXDXX-A-20240203_V1.eds"
+  # dcf_path: ""
+  node_id: 4
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      inhibit_time: 500 # in 100us
+      cob_id: auto
+      mapping:
+        - index: 0x2003  # voltage <int16> 0.1V
+          sub_index: 0
+        - index: 0x6078  # current <int16> 0.1A
+          sub_index: 0
+        - index: 0x603f  # error <uint16_t>
+          sub_index: 0

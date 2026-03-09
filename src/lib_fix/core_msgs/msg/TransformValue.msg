@@ -1,0 +1,2 @@
+float32 velocity_limit
+float32 deceleration_ratio

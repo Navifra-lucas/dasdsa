@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package core_astra;
+
+message Position
+{
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+message Orientation
+{
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double w = 4;
+}
+
+// 요청 메시지
+message ActionRequest
+{
+    string uuid = 1;
+    string action = 2;
+    string from = 3;
+    string id = 4;  // 선택 사항이면 비워두셔도 됨
+    string json_data = 5;  // JSON 포맷의 문자열로 보관
+}
+
+// 응답 메시지
+message ActionResponse
+{
+    string uuid = 1;
+    string id = 2;
+    string result = 3;
+    string json_data = 4;
+}
+
+message REQ
+{
+    string uuid = 1;
+    string action = 2;
+    string json_data = 3;
+    string from = 4;  // 요청을 보낸 곳
+}
+
+message REP
+{
+    string uuid = 1;
+    string result = 2;
+    string json_data = 3;
+}
+
+message Heartbeat
+{
+    string id = 1;  // id_
+    int64 timestamp = 2;  // timestamp_.raw() (유닉스 타임 등 정수형)
+    bool is_slam = 3;  // is_slam_
+    string version = 4;  // version_
+}

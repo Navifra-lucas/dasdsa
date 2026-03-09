@@ -1,0 +1,135 @@
+@startuml
+
+/' Objects '/
+
+namespace NaviFra {
+    class NcDefaultPublisher {
+        +{static} get() : NcDefaultPublisher&
+        +publisher : NcMessagePublisher::Ptr
+    }
+
+    class NcDefaultSubscriber {
+        +{static} get() : NcDefaultSubscriber&
+        +subscriber : NcMessageSubscriber::Ptr
+    }
+
+    abstract class NcMessagePublisher {
+        #~NcMessagePublisher()
+        +{abstract} initialize() : bool
+        +{abstract} isConnected() : bool
+        +{abstract} publish(const std::string& channel, const std::string& message) : void
+        +{abstract} reconnect() : void
+    }
+
+    class NcMessagePublisherFactory {
+        +createMessagePublisher() : NcMessagePublisher::Ptr
+    }
+
+    abstract class NcMessageSubscriber {
+        #~NcMessageSubscriber()
+        +notify_ : Poco::BasicEvent<MessageSubscriberArgs>
+        +{abstract} initialize() : bool
+        +{abstract} isConnected() : bool
+        +{abstract} reconnect() : void
+        +{abstract} subscribe(std::vector<std::string> channel) : void
+    }
+
+    class MessageSubscriberArgs {
+        +MessageSubscriberArgs(std::string channel, std::string message)
+        -channel_ : std::string
+        -message_ : std::string
+        +channel() : std::string&
+        +message() : std::string&
+    }
+
+        
+    class NcMessageSubscriberFactory 
+    {
+        +createMessageSubscriber() : NcMessageSubscriber::Ptr
+    } 
+
+    class NcRedisPublisher {
+        +NcRedisPublisher()
+        +~NcRedisPublisher()
+        -_fastMutex : Poco::FastMutex
+        -client_ : Poco::Redis::Client
+        -connect() : bool
+        +initialize() : bool
+        +isConnected() : bool
+        -use_auth_ : bool
+        -port_ : int
+        -hostname_ : std::string
+        -password_ : std::string
+        -disconnect() : void
+        +publish(const std::string& channel, const std::string& message) : void
+        +reconnect() : void
+    }
+
+    class NcRedisSubscriber {
+        +NcRedisSubscriber()
+        +~NcRedisSubscriber()
+        -activity_ : Poco::Activity<NcRedisSubscriber>
+        -redisException_ : Poco::BasicEvent<RedisEventArgs>
+        -redisResponse_ : Poco::BasicEvent<RedisEventArgs>
+        -waitpong_ : Poco::Event
+        -_fastMutex : Poco::FastMutex
+        -client_ : Poco::Redis::Client
+        -connect() : bool
+        -curRedisState : bool
+        +initialize() : bool
+        +initialize(const char* hostname, int port, const char* password) : bool
+        +isConnected() : bool
+        +isStopped() : bool
+        -preRedisState : bool
+        -use_auth_ : bool
+        -port_ : int
+        -hostname_ : std::string
+        -password_ : std::string
+        -channels_ : std::vector<std::string>
+        -patternChannels_ : std::vector<std::string>
+        +disconnect() : void
+        +onRedisReaderErrorEvent(const void*, Poco::Redis::RedisEventArgs &) : void
+        +onRedisReaderEvent(const void*, Poco::Redis::RedisEventArgs &) : void
+        +pSubscribe(std::vector<std::string> channels) : void
+        +reconnect() : void
+        #runActivity() : void
+        +start() : void
+        +stop() : void
+        +subscribe(std::vector<std::string> channel) : void
+        #updateState() : void
+    }
+
+    class NcRobotAgent #lightgreen {
+        -robotStatus_ : RobotStatus::Ptr
+        +initRedisSubscriber() : bool
+        +onMessage(const void*, MessageSubscriberArgs&) : void
+    }
+}
+
+/' Inheritance relationships '/
+note "케리 : \n Factory Class로 \n 생성되는 \n 실체(하위 class)의 구분은 \n 템플릿으로 구분되며,\n 추후 Factory 를 포함한 \n하위 통신 class 는 DLL 화 예정 " as NcRobotAgent
+NaviBrain.NcRobotAgent *-- NaviBrain.NcMessageSubscriberFactory
+NaviBrain.NcRobotAgent *-- NaviBrain.NcMessagePublisherFactory
+NaviBrain.NcRobotAgent -up-> NaviBrain.NcDefaultPublisher
+NaviBrain.NcRobotAgent -up-> NaviBrain.NcDefaultSubscriber
+
+
+NaviBrain.NcMessagePublisherFactory *-down- NaviBrain.NcMessagePublisher
+NaviBrain.NcMessageSubscriberFactory *-down- NaviBrain.NcMessageSubscriber 
+
+
+NaviBrain.NcMessagePublisher <|-- NaviBrain.NcRedisPublisher
+NaviBrain.NcMessageSubscriber <|-- NaviBrain.NcRedisSubscriber
+
+NaviBrain.NcRobotAgent <-down- NaviBrain.MessageSubscriberArgs
+NaviBrain.NcMessageSubscriber *-right- NaviBrain.MessageSubscriberArgs
+
+NaviBrain.NcDefaultPublisher --> NaviBrain.NcMessagePublisher
+NaviBrain.NcDefaultSubscriber --> NaviBrain.NcMessageSubscriber
+
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+
+@enduml

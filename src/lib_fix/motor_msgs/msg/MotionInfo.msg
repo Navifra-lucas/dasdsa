@@ -1,0 +1,15 @@
+int8 n_motion_status
+int8 n_obs_control
+float32 f_obs_speed_ratio
+float32 f_path_velocity
+float32 f_mpc_input_velocity
+float32 f_mpc_output_linear_velocity
+float32 f_mpc_output_angular_velocity
+float32 f_align_diff_angle_deg
+float32 f_execution_time_sec
+float32 f_linear_speed_x_ms
+float32 f_linear_speed_y_ms
+float32 f_angular_speed_degs
+bool b_reverse_motion
+string s_mpc_param_mode
+string s_motion_mode

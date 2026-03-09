@@ -1,0 +1,16 @@
+uint8 err
+uint8 np
+uint8 wrn 
+uint8 cc1
+uint8 rl
+uint8 ll
+uint8 nl
+uint8 rp
+uint8 lc
+uint8 tag
+uint32 tag_number
+uint8 err_code
+uint16 wrn_code
+uint8 o_data
+uint8 s_data
+uint8 cc1_data

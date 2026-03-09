@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nc_brain_agent</name>
+  <version>1.0.0</version>
+  <description>The robot Agent package</description>
+  <maintainer email="nate@todo.todo">nate</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rosbag</build_depend>
+  <build_depend>roslib</build_depend>
+  {% if USE_BUILD_CORE %}
+     <build_depend>build_navicore</build_depend>
+  {% endif %}
+  <build_depend>core_msgs</build_depend>
+  <build_depend>core</build_depend>
+  <build_depend>core_agent</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rosbag</exec_depend>
+  <exec_depend>roslib</exec_depend>
+  <exec_depend>core_msgs</exec_depend>
+  <exec_depend>core</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf</exec_depend>
+</package>
+

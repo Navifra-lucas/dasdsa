@@ -1,0 +1,6 @@
+string uuid
+
+string[] node_list
+---
+bool success
+string reason

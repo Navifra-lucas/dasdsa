@@ -1,0 +1,8 @@
+string uuid
+
+bool running
+string start_id
+string goal_id
+---
+bool success
+string reason

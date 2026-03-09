@@ -1,0 +1,515 @@
+# Docking Control System Sequences Configuration
+# Each sequence is identified by drive_type from ForkLift message
+# Actions are categorized by action_type with specific parameters
+#
+# Sequence Options:
+#   tilt_correction_enabled: true/false  # Enable automatic tilt correction based on perception pitch (default: false)
+#   lift_adjustment_mode: "continuous" | "once"  # Lift height adjustment mode (default: "continuous")
+#     - continuous: Keep adjusting lift height based on sensor feedback during operation
+#     - once: Adjust lift height only once at the start, then maintain that height
+
+sequences:
+  # Drive Type -1: Unloading (적재 해제) 설비 기준
+  unloading:
+    drive_type: 1
+    name: "LOADING"
+    description: "Pallet unloading sequence"
+    steps:
+      - action_type: "move"
+        params:
+          type: "align"
+        wait_for: "completed"
+        
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+        # 완료 이후, 입 출력 값 차이 많이 날 때
+        # 명령 씹혔을 때.. 재시도 카운트 넘어가면 
+
+      - action_type : "perception"
+        params:
+          command: "start"
+          target_type: "pallet"
+          enabled: true
+        wait_for: "completed"
+
+        # 특정 각도 이상일 때.. 이안한테 z val로 받아서 처리 cnt
+        
+      - action_type: "move"
+        params:
+          type: "docking"
+          use_perception_pose: true
+          continuous_publish: true
+          use_sitting_sensor: true
+        wait_for: "completed"
+
+        # state : move && robot : running && pose 변화량 X 스티어링 각도
+
+      - action_type : "perception"
+        params:
+          command: "stop"
+          target_type: "pallet"
+          enabled: true
+        wait_for: "none"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"
+        wait_for: "completed"
+
+        # 완료 이후, 입 출력 값 차이 많이 날 때
+        # 명령 씹혔을 때.. 재시도 카운트 넘어가면 
+
+      - action_type: "fork_side"
+        params:
+          position: "wide"  # wide, narrow
+        # wait_for: "completed"
+
+      - action_type: "move"
+        params:
+          type: "goback"
+        wait_for: "completed"
+
+      # - action_type: "fork_tilt"
+      #   params:
+      #     direction: "up"  # up, down
+      #   wait_for: "completed"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          fork_obs_check : true
+          operation: "carry"    # Uses approach_height
+        # wait_for: "completed"
+
+        # fork_side 끝났는지 체크 -> 밑이랑 동일
+        # 완료 이후, 입 출력 값 차이 많이 날 때 -> 처리 불가능.. 완료조건에 들어가 있어서 할 필요 없음
+        # 명령 씹혔을 때.. 재시도 카운트 넘어가면 
+
+        # updown 1 , side 2, tilt 3 이전 포크 명령이랑 값이 다른데 완료처리 안들어오면 에러처리
+
+  # Drive Type 1: Loading (상차)
+  loading:
+    drive_type: -1
+    name: "UNLOADING"
+    description: "Pallet loading sequence"
+    steps:
+
+      - action_type: "move"
+        params:
+          type: "align"
+        wait_for: "completed"
+        
+      # Step 1: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+        wait_for: "completed"
+        
+      # Step 3: Approach to target
+      - action_type: "move"
+        params:
+          type: "backward"
+        wait_for: "completed"
+
+      # Step 3: Tilt down for placement
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      # Step 4: Lower to place height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "place"    # Uses approach_height
+        wait_for: "completed"
+
+      # Step 5: Adjust fork width to narrow
+      - action_type: "fork_side"
+        params:
+          position: "narrow"  # wide, narrow
+        wait_for: "time"
+
+      # Step 8: Go back
+      - action_type: "move"
+        params:
+          type: "forward"
+        wait_for: "completed"
+
+      # Step 9: Lift to carry height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "carry"    # Uses approach_height
+        # wait_for: "completed"
+
+  #2층 일단 슬램
+  loading:
+    drive_type: 2
+    name: "LOADING"
+    description: "Pallet loading sequence"
+    steps:
+      # Step 1: Lift to approach height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+        wait_for: "completed"
+        
+      # Step 3: Approach to target
+      - action_type: "move"
+        params:
+          type: "backward"
+          use_sitting_sensor: true
+        wait_for: "completed"
+
+      # Step 6: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+        wait_for: "completed"
+
+      - action_type: "fork_tilt"
+        params:
+          direction: "up"  # up, down
+        wait_for: "completed"
+
+      - action_type: "fork_side"
+        params:
+          position: "wide"  # wide, narrow
+        delay_sec: 0.5
+
+      # Step 8: Go back
+      - action_type: "move"
+        params:
+          type: "forward"
+        wait_for: "completed"
+
+      # Step 9: Lift to carry height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "carry"    # Uses approach_height
+        wait_for: "completed"
+
+
+  # Drive Type 3: 윙바디 하차
+  loading:
+    drive_type: 3
+    name: "UNLOADING"
+    description: "Pallet loading sequence"
+    lift_adjustment_mode: "continuous"
+    steps:
+
+      - action_type: "move"
+        params:
+          type: "align"
+        wait_for: "completed"
+        
+      # Step 3: Tilt down for placement
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+        
+      # Step 1: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+
+      - action_type: "intensity"
+        wait_for: "completed"
+
+      - action_type: "move"
+        params:
+          type: "docking"
+          use_intensity_height: true
+          use_perception_pose: true
+          continuous_publish: true
+        wait_for: "completed"
+
+      # - action_type: "move"
+      #   params:
+      #     use_intensity_height: true
+      #     type: "backward"
+      #   wait_for: "completed"
+        
+      # Step 4: Lower to place height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights : true
+          use_intensity_height: true
+          operation: "place"    # Uses approach_height
+        wait_for: "completed"
+
+      # Step 5: Adjust fork width to narrow
+      - action_type: "fork_side"
+        params:
+          position: "narrow"  # wide, narrow
+        wait_for: "time"
+
+      # Step 8: Go back
+      - action_type: "move"
+        params:
+          type: "goback"
+          # type: "forward"
+        wait_for: "completed"
+
+      # Step 9: Lift to carry height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "carry"    # Uses approach_height
+          fork_obs_check : true
+        # wait_for: "completed"
+
+  unloading:
+    drive_type: 4
+    name: "LOADING"
+    description: "Pallet unloading sequence"
+    steps:
+      - action_type: "move"
+        params:
+          type: "align"
+        wait_for: "completed"
+        
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+
+      - action_type : "perception"
+        params:
+          command: "start"
+          target_type: "pallet"
+          enabled: true
+        wait_for: "completed"
+        
+      - action_type: "move"
+        params:
+          type: "docking"
+          use_perception_pose: true
+          continuous_publish: true
+          use_sitting_sensor: true
+        wait_for: "completed"
+
+      - action_type : "perception"
+        params:
+          command: "stop"
+          target_type: "pallet"
+          enabled: true
+        wait_for: "none"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"
+        wait_for: "completed"
+
+      - action_type: "fork_side"
+        params:
+          position: "wide"  # wide, narrow
+        wait_for: "completed"
+
+      - action_type: "fork_tilt"
+        params:
+          direction: "up"  # up, down
+        wait_for: "completed"
+
+      - action_type: "move"
+        params:
+          type: "goback"
+        wait_for: "completed"
+     
+  # Drive Type 1: Loading (상차)
+  loading:
+    drive_type: 5
+    name: "UNLOADING"
+    description: "Pallet loading sequence"
+    steps:
+
+      - action_type: "move"
+        params:
+          type: "align"
+        wait_for: "completed"
+        
+      # Step 1: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+        wait_for: "completed"
+        
+      # Step 3: Approach to target
+      - action_type: "move"
+        params:
+          type: "backward"
+        wait_for: "completed"
+
+      # Step 3: Tilt down for placement
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      # Step 4: Lower to place height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "place"    # Uses approach_height
+        wait_for: "completed"
+
+      # Step 5: Adjust fork width to narrow
+      - action_type: "fork_side"
+        params:
+          position: "narrow"  # wide, narrow
+        wait_for: "completed"
+
+      # Step 8: Go back
+      - action_type: "move"
+        params:
+          type: "forward"
+        wait_for: "completed"
+
+  loading:
+    drive_type: 6
+    name: "UNLOADING"
+    description: "Wingbody perception sequence"
+    steps:
+      - action_type : "perception"
+        params:
+          command: "start"
+          target_type: "wingbody"
+          enabled: true
+        wait_for: "completed"
+
+      - action_type : "perception"
+        params:
+          command: "stop"
+          target_type: "wingbody"
+          enabled: true
+        wait_for: "none"
+
+  loading:
+    drive_type: 50
+    name: "UNLOADING"
+    description: "Lift Tilt up sequence"
+    steps:
+      - action_type: "fork_tilt"
+        params:
+          direction: "up"  # up, down
+        wait_for: "completed"
+
+  loading:
+    drive_type: 99
+    name: "UNLOADING"
+    description: "Lift UP sequence"
+    steps:
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+          fork_obs_check: true
+        wait_for: "completed"
+
+  unloading:
+    drive_type: 101
+    name: "UNLOADING"
+    description: "Lift UP sequence"
+    steps:
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+
+
+  loading:
+    drive_type: 102
+    name: "UNLOADING"
+    description: "Lift UP sequence"
+    steps:
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+
+  unloading:
+    drive_type: 103
+    name: "UNLOADING"
+    description: "Lift UP sequence"
+    steps:
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+          fork_obs_check : true
+        wait_for: "completed"
+
+# Action Type Reference:
+# 
+# 1. fork_updown - Fork lift up/down control
+#    params:
+#      - use_rack_heights: bool (optional, use n_target_height from message)
+#      - operation: "approach" | "pickup" | "carry" | "place" | "clearance"
+#
+# 2. fork_side - Fork sideshift control
+#    params:
+#      - position: "wide" | "narrow"
+#
+# 3. fork_tilt - Fork tilt control
+#    params:
+#      - direction: "up" | "down"
+#
+# 4. move - Robot movement control
+#    params:
+#      - type: "forward" | "backward" | "rotate" | "docking" | "goback"
+#      - distance: float (optional, meters)
+#      - angle: float (optional, degrees for rotate)
+#      - use_perception_pose: bool (for docking)
+#      - continuous_publish: bool (for docking)
+#
+# 5. perception - Perception/Vision command
+#    params:
+#      - command: string (command to send)
+#      - target_type: "pallet" | "aruco" | "custom" | "wingbody"
+#      - enabled: bool (optional, default true)
+#
+# wait_for: "completed" - Wait until action completes
+# delay_sec: float - Fixed delay in seconds
+# parallel_actions: list - Actions to execute simultaneously

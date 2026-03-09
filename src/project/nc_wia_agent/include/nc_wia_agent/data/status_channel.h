@@ -1,0 +1,13 @@
+#ifndef NC_STATUS_CHANNEL_H
+#define NC_STATUS_CHANNEL_H
+
+enum class PUBLISH_CHANNEL
+{
+    CHANNEL_BASIC = 0,
+    CHANNEL_TASK = 1,
+    CHANNEL_OBSTACLE = 2,
+    CHANNEL_LIDAR = 3,
+    CHANNEL_LIFT = 4,
+};
+
+#endif  // NC_STATUS_CHANNEL_H

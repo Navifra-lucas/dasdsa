@@ -1,0 +1,51 @@
+#ifndef NC_ACTION_TASK_H
+#define NC_ACTION_TASK_H
+
+#include <core_agent/action/action_base.h>
+
+namespace NaviFra {
+
+class NcActionTask : public ActionBase {
+public:
+    NcActionTask();
+    virtual ~NcActionTask();
+
+    struct ActionData {
+        Pos o_last_pos;
+        float f_curve_start_dist;
+
+        std::vector<GoalInfo> goal_info;
+    };
+
+    std::optional<std::string> getParamValue(Poco::JSON::Array::Ptr params, const std::string& param_name);
+
+    double getYawFromOrientation(const Orientation& o);
+    std::string getNcActionType(int n_curr_action_type);
+
+    void pubTaskResult(const std::string& result);
+
+    void action(
+        int n_curr_action_type, Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data,
+        bool b_trigger);
+    Poco::JSON::Object::Ptr createBasicWaypoint(int n_action_id, int drive_type, float speed, Pos o_goal_pos);
+
+    void actionMove(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data, bool b_trigger);
+
+    Poco::JSON::Object::Ptr addMoveData(const std::unordered_map<std::string, std::string>& action_params, Poco::JSON::Object::Ptr obj);
+
+    void actionStandby(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data);
+    void actionLift(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data);
+    void actionSpin(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data);
+    void actionDocking(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data);
+    void actionUnDocking(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data);
+    Pos calcPosfromPassingDist(Pos o_start_pos, Pos o_end_pos, float f_passing_dist);
+    std::unordered_map<std::string, std::string> parseParams(Poco::JSON::Array::Ptr params);
+
+protected:
+    virtual void implonAction(std::string source, Poco::JSON::Object::Ptr obj) override;
+    std::string implName() override;
+};
+
+REGISTER_ACTION("task", NcActionTask, ActionType::DEFAULT)
+}  // namespace NaviFra
+#endif  // NC_ACTION_AMR_BASIC_H

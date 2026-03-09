@@ -1,0 +1,45 @@
+@startuml
+
+class NcActionManager {
+    - actions_: std::map<std::string, NcActionBase::Ptr>
+    + NcActionManager()
+    + ~NcActionManager()
+    + onAction(Poco::JSON::Object::Ptr)
+    + initialize()
+    + printActions()
+    # implInitialize()
+}
+
+class NcActionManagerVolvo {
+    + implInitialize()
+}
+
+NcActionManager <|-- NcActionManagerVolvo
+
+class NcActionManagerFactory {
+    + createNcActionManager(std::string): NcActionManager::Ptr
+}
+
+class NcActionBase {
+    + onAction(Poco::JSON::Object::Ptr)
+}
+
+class NcActionInitPose {
+    + onAction(Poco::JSON::Object::Ptr)
+}
+
+class NcActionDeviceGoal {
+    + onAction(Poco::JSON::Object::Ptr)
+}
+
+class NcRobotAgent {
+    + onMessage(const void*, MessageSubscriberArgs&)
+}
+
+NcActionManagerFactory --> NcActionManager
+NcActionManager o--> NcActionBase
+NcActionBase <|-- NcActionInitPose
+NcActionBase <|-- NcActionDeviceGoal
+NcRobotAgent --> NcActionManager
+
+@enduml

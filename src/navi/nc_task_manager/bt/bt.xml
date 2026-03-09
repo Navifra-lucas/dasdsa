@@ -1,0 +1,34 @@
+<root BTCPP_format="4" >
+            <BehaviorTree ID="MainTree">
+                <RetryUntilSuccessful num_attempts="5">
+                    <Fallback>
+                        <ReactiveSequence name="TMove">
+                                <IsTotalMove tasks="{tasks}" current_task="{current_task}" need_update_goal="{need_update_goal}" goals="{goals}"/>
+                                <TotalMoveToGoal goals="{goals}" updated_goals="{updated_goals}"/>
+                                <TotalGoalReached goals="{goals}" current_task="{current_task}" previous_task="{previous_task}" current_node="{current_node}" tasks="{tasks}"/>
+                        </ReactiveSequence>
+                        <ReactiveSequence name="Move">
+                                <IsMove tasks="{tasks}" current_task="{current_task}" need_update_goal="{need_update_goal}" goals="{goals}"/>
+                                <MoveToGoal goals="{goals}" updated_goals="{updated_goals}"/>
+                                <GoalReached goals="{goals}" current_task="{current_task}" current_node="{current_node}" tasks="{tasks}"/>
+                        </ReactiveSequence>
+                        <Sequence name="Lift">
+                            <IsLift  current_task="{current_task}"/>
+                            <LiftReached current_task="{current_task}" tasks="{tasks}" driverDoneReceived="{driverDoneReceived}" />
+                        </Sequence>
+                        <Sequence name="Manual">
+                            <IsManual current_task="{current_task}"/>
+                            <WaitForManual current_task="{current_task}" tasks="{tasks}" driverDoneReceived="{driverDoneReceived}"/>
+                        </Sequence>
+                        <Sequence  name="Turn">
+                            <IsTurn current_task="{current_task}" current_node="{current_node}" />
+                            <TurnReached current_task="{current_task}" tasks="{tasks}" turn_reached="{turn_reached}"/>
+                        </Sequence>
+                        <Sequence  name="Action">
+                            <IsAction current_task="{current_task}" />
+                            <ActionReached current_task="{current_task}" tasks="{tasks}" action_reached="{action_reached}"/>
+                        </Sequence>
+                    </Fallback>
+                </RetryUntilSuccessful>
+             </BehaviorTree>
+        </root>

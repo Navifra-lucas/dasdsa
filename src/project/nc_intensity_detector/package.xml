@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nc_intensity_detector</name>
+  <version>0.1.0</version>
+  <description>Intensity-based reflective tape detector for robot navigation using SICK Visionary T Mini sensor</description>
+
+  <maintainer email="navifra@example.com">navifra</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>image_transport</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>yaml-cpp</depend>
+
+  <export>
+  </export>
+</package>
+

@@ -1,0 +1,89 @@
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/welcon_dd"
+
+master:
+  node_id: 100 # slave id 가 1 번 부터 시작 함
+  baudrate: 500 # kbit/s
+  sync_period: 50000 # us
+
+slave_1:
+  dcf: "driver/eds/welcon/WelconSystems_CANopen_V2_10_P0x20000001_WE2x.eds"
+  node_id: 1
+  boot: false
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+        - index: 0x6840  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6860  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x68FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x687a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+        - index: 0x6841  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6861  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x686C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6864  # Position actual value <int32>
+          sub_index: 0
+    4:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6078  # Current actual value Axis 0 <int16> mA
+          sub_index: 0
+        - index: 0x6878  # Current actual value Axis 1 <int16> mA
+          sub_index: 0
+        - index: 0x603f # Error Code Axis 0  <u16>
+          sub_index: 0
+        - index: 0x683f # Error Code Axis 1  <u16>
+          sub_index: 0

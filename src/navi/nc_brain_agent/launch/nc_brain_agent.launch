@@ -1,0 +1,7 @@
+<launch>
+	<arg name="launch_folder_path" value="$(find nc_brain_agent)/launch"/>
+	<node pkg="nc_brain_agent" type="nc_brain_agent" name="nc_brain_agent" output="screen" />
+
+	<node pkg="nc_task_manager" type="nc_task_manager" name="nc_task_manager_node" output="screen"/>
+    <node name="hw_driver" pkg="hw_driver" type="hw_driver.py" output="screen"/>	
+</launch>

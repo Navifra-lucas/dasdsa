@@ -1,0 +1,86 @@
+# Master 설정 정보
+master:
+  master_id: 100 
+  dcf_txt: "generated/roboteq_dd_v100/master.dcf"
+  interface_name: "can0"
+  # fake_bootup_nodes : [1, 2, 3, 4] # node id
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 1
+    eds_path: "driver/eds/roboteq/roboteq_motor_controllers_v100.eds"
+    binary_path: "generated/roboteq_dd_v100/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+# 모터 설정 정보
+motors:
+  - motor_id: 3
+    driver_id: 1
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 0
+    driver_id: 1
+    motor_driver: "default"
+    multiaxis_index: 1
+    mode_of_operation: 3
+    handle_interval: 1
+    ratio: 28
+    ppr: 10000
+
+motor_extra_info:
+  - motor_id: 3
+    voltage: 
+      index: 0x210d
+      subindex: 0x01
+      type: "int16_t"
+      multiplier: 0.1
+    current:
+      index: 0x2100
+      subindex: 0x01
+      type: "int16_t"
+      multiplier: 0.1
+    error:
+      index: 0x2112
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "OverHeat" }
+        - { value: 0x0002, message: "OverVoltage" }
+        - { value: 0x0004, message: "UnderVoltage" }
+        - { value: 0x0008, message: "Short" }
+        - { value: 0x0010, message: "EStop" }
+        - { value: 0x0020, message: "Motor/Sensor" }
+        - { value: 0x0040, message: "MOSFail" }
+        - { value: 0x0080, message: "DefConfig" }
+        - { value: 0x0100, message: "STOFault" }
+      
+  - motor_id: 0
+    voltage: 
+      index: 0x210d
+      subindex: 0x01
+      type: "int16_t"
+      multiplier: 0.1
+    current:
+      index: 0x2100
+      subindex: 0x02
+      type: "int16_t"
+      multiplier: 0.1 
+    error:
+      index: 0x2112
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "OverHeat" }
+        - { value: 0x0002, message: "OverVoltage" }
+        - { value: 0x0004, message: "UnderVoltage" }
+        - { value: 0x0008, message: "Short" }
+        - { value: 0x0010, message: "EStop" }
+        - { value: 0x0020, message: "Motor/Sensor" }
+        - { value: 0x0040, message: "MOSFail" }
+        - { value: 0x0080, message: "DefConfig" }
+        - { value: 0x0100, message: "STOFault" }

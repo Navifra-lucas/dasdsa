@@ -1,0 +1,104 @@
+#Master 설정 정보
+master:
+  master_id: 100
+  dcf_txt: "generated/moons_dd/master.dcf"
+  interface_name: "can0"
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 1
+    eds_path: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+    binary_path: "generated/moons_dd/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 2
+    eds_path: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+    binary_path: "generated/moons_dd/slave_2.bin"
+    sdo_timeout: 300 # ms
+
+# 모터 설정 정보
+motors:
+  - motor_id: 3
+    driver_id: 1
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 0
+    driver_id: 2
+    motor_driver: "default"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+
+motor_extra_info:
+  - motor_id: 3
+    voltage: 
+      index: 0x2030
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.001
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "Position Limit" }
+        - { value: 0x0002, message: "CCW limit" }
+        - { value: 0x0004, message: "CW limit" }
+        - { value: 0x0008, message: "Over temp" }
+        - { value: 0x0010, message: "Internal Voltage" }
+        - { value: 0x0020, message: "Over Voltage" }
+        - { value: 0x0040, message: "UnderVoltae" }
+        - { value: 0x0080, message: "Over Current" }
+        - { value: 0x0100, message: "Open Motor Winding" }
+        - { value: 0x0200, message: "Bad Encoder" }
+        - { value: 0x0400, message: "Comm Error" }
+        - { value: 0x0800, message: "Bad Flash" }
+        - { value: 0x1000, message: "No Move" }
+        - { value: 0x2000, message: "Current Foldback" }
+        - { value: 0x4000, message: "Blank Q Segment" }
+        - { value: 0x8000, message: "Not Used" }
+  - motor_id: 0
+    voltage: 
+      index: 0x2030
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 0.001
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        - { value: 0x0001, message: "Position Limit" }
+        - { value: 0x0002, message: "CCW limit" }
+        - { value: 0x0004, message: "CW limit" }
+        - { value: 0x0008, message: "Over temp" }
+        - { value: 0x0010, message: "Internal Voltage" }
+        - { value: 0x0020, message: "Over Voltage" }
+        - { value: 0x0040, message: "UnderVoltae" }
+        - { value: 0x0080, message: "Over Current" }
+        - { value: 0x0100, message: "Open Motor Winding" }
+        - { value: 0x0200, message: "Bad Encoder" }
+        - { value: 0x0400, message: "Comm Error" }
+        - { value: 0x0800, message: "Bad Flash" }
+        - { value: 0x1000, message: "No Move" }
+        - { value: 0x2000, message: "Current Foldback" }
+        - { value: 0x4000, message: "Blank Q Segment" }
+        - { value: 0x8000, message: "Not Used" }

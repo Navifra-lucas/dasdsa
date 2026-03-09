@@ -1,0 +1,86 @@
+{
+    "preprocessor": {
+        "use_voxel_filter": true,
+        "voxel_leaf_size": 0.1,
+        "use_range_filter": true,
+        "min_range": 2.0,
+        "max_range": 20.0,
+        "ground_removal": true,
+        //roi_filter
+        "roi_filter": false,
+        //deg, meter
+        "horizontal_angle_range": 30.0,
+        "min_height": 0.0,
+        "max_height": 5.0,
+        "max_width": 3.0, //hlf width
+        //compute normals
+        "use_radius_search": false,
+        "search_radius": 0.3,
+        "view_point_arrange": false,
+        "use_sor_filter": false,
+        "sor_mean_k": 10,
+        "sor_std_dev_mul_thresh": 0.7,
+        "use_template_range_filter": false,
+        "ground_removal_distance_threshold": 0.05,
+        "ground_removal_max_iterations": 100
+    },
+    "clustering": {
+        "use_normals": true,
+        "angle_threshold": 1, // cos(5 degrees)
+        "cluster_tolerance": 0.3,
+        "min_cluster_size": 100,
+        "max_cluster_size": 1000000
+    },
+    "icp": {
+        "rmse_threshold": 0.1,
+        "confidence_threshold": 15.0
+    },
+    "template": {
+        "template_lists": [
+            {
+                // "file_name": "cont3.ply",
+                "file_name": "a_3.ply",
+                "width": 4.0,
+                "height": 2.0
+            }
+        ],
+        "lack_positions": [
+            {
+                "x": 0.0,
+                "y": 3.97,
+                "z": 0.0,
+                "deg": 0.0
+            },
+            {
+                "x": 0.0,
+                "y": 1.770,
+                "z": 0.0,
+                "deg": 0.0
+            },
+            {
+                "x": 0.0,
+                "y": -0.43,
+                "z": 0.0,
+                "deg": 0.0
+            },
+            {
+                "x": 0.0,
+                "y": -2.630,
+                "z": 0.0,
+                "deg": 0.0
+            },
+            {
+                "x": 0.0,
+                "y": -4.27,
+                "z": 0.0,
+                "deg": 0.0
+            }
+        ],
+        "first_to_center": {
+            "x": -1.5,
+            "y": 0.43,
+            "z": 0.0,
+            "deg": 0.0
+        }
+    }
+}

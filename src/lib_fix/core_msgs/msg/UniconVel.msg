@@ -1,0 +1,2 @@
+float32 f_FL_target_rpm
+float32 f_RR_target_rpm

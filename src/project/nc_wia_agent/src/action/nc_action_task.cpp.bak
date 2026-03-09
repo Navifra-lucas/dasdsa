@@ -1,0 +1,715 @@
+#include "nc_wia_agent/util/task_result_publisher.h"
+#include "nc_wia_agent/data/battery_status.h"
+#include "nc_wia_agent/data/robot_basic_status.h"
+#include "nc_wia_agent/nc_wia_agent.h"
+#include "nc_wia_agent/util/task_memory_util.h"
+
+#include <core_agent/core/navicore.h>
+#include <core_agent/data/memory_repository.h>
+#include <nc_wia_agent/action/nc_action_task.h>
+#include <std_msgs/String.h>
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2/LinearMath/Quaternion.h>
+
+#include <fstream>
+#define TESTMAX 100000
+
+using namespace NaviFra;
+
+enum NcActionType
+{
+    ACTION_MOVE = 1,
+    ACTION_DOCKING = 6,
+    ACTION_STANDBY = 7,
+    ACTION_DOCKING_OUT = 18,
+    ACTION_LIFT = 20
+};
+
+enum MoveDirection
+{
+    MOVE_FRONT = 1000,
+    MOVE_REAR = 2000
+};
+
+// struct ActionData {
+//     Pos o_last_pos;
+//     float f_curve_start_dist;
+
+//     std::vector<GoalInfo> goal_info;
+// };
+
+std::string NcActionTask::getNcActionType(int n_curr_action_type)
+{
+    std::string s_curr_action_type;
+    switch (n_curr_action_type) {
+        case ACTION_MOVE:
+            s_curr_action_type = "move";
+            break;
+        case ACTION_DOCKING:
+            s_curr_action_type = "docking";
+            break;
+        case ACTION_STANDBY:
+            s_curr_action_type = "wait";
+            break;
+        case ACTION_DOCKING_OUT:
+            s_curr_action_type = "undocking";
+            break;
+        case ACTION_LIFT:
+            s_curr_action_type = "lift";
+            break;
+        default:
+            break;
+    }
+    return s_curr_action_type;
+}
+
+// 곡선경로 진입점, 종료 지점 계산용 함수
+// 시작 좌표, 끝 좌표를 기준으로 진행 방향을 계산, f_passing_dist 가 양수면 곡선경로 종료 지점, 음수면 곡선경로 시작지점을 도출
+Pos NcActionTask::calcPosfromPassingDist(Pos o_start_pos, Pos o_end_pos, float f_passing_dist)
+{
+    float f_angle_rad = std::atan2(o_end_pos.GetYm() - o_start_pos.GetYm(), o_end_pos.GetXm() - o_start_pos.GetXm());
+    float f_angle_deg = f_angle_rad * 180.0f / M_PI;
+
+    float new_x, new_y;
+
+    if (f_passing_dist < 0) {
+        new_x = o_end_pos.GetXm() + f_passing_dist * std::cos(f_angle_rad);
+        new_y = o_end_pos.GetYm() + f_passing_dist * std::sin(f_angle_rad);
+    }
+    else {
+        new_x = o_start_pos.GetXm() + f_passing_dist * std::cos(f_angle_rad);
+        new_y = o_start_pos.GetYm() + f_passing_dist * std::sin(f_angle_rad);
+    }
+
+    Pos o_tmp_pos;
+    o_tmp_pos.SetXm(new_x);
+    o_tmp_pos.SetYm(new_y);
+    o_tmp_pos.SetDeg(f_passing_dist < 0 ? o_end_pos.GetDeg() : o_start_pos.GetDeg());
+    NLOG(info) << "Make new Pos. X : " << o_tmp_pos.GetXm() << ", Y : " << o_tmp_pos.GetYm() << ", Deg : " << o_tmp_pos.GetDeg();
+
+    return o_tmp_pos;
+}
+
+double NcActionTask::getYawFromOrientation(const Orientation& o)
+{
+    tf2::Quaternion quat(o.x, o.y, o.z, o.w);
+    double roll, pitch, yaw;
+    tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);
+    return yaw;  // 라디안
+}
+
+std::unordered_map<std::string, std::string> NcActionTask::parseParams(Poco::JSON::Array::Ptr params)
+{
+    std::unordered_map<std::string, std::string> param_map;
+    for (size_t i = 0; i < params->size(); ++i) {
+        Poco::JSON::Object::Ptr param = params->getObject(i);
+        param_map[param->getValue<std::string>("param_name")] = param->getValue<std::string>("value");
+    }
+    return param_map;
+}
+
+NcActionTask::NcActionTask()
+{
+}
+
+NcActionTask::~NcActionTask()
+{
+}
+
+std::string NcActionTask::implName()
+{
+    return "NcActionTask";
+}
+void NcActionTask::implonAction(std::string source, Poco::JSON::Object::Ptr obj)
+{
+    try {
+        std::string json_template = R"({
+            "action": "add_task",
+            "uuid" : "76f6ce59-9bc6-467e-9e13-e69f149b3c8f",
+            "data": []
+        })";
+        std::string cmd = obj->getValue<std::string>("Cmd");
+        std::string rid = obj->getValue<std::string>("RID");
+        int msg_id = obj->getValue<int>("msg_id");
+        Poco::JSON::Object::Ptr goal_id = obj->getObject("goal_id");
+        std::string uuid = goal_id->getValue<std::string>("id");
+
+            // goal
+        Poco::JSON::Object::Ptr goal_obj = obj->getObject("goal");
+        int loop_flag = goal_obj->getValue<int>("loop_flag");
+        int start_idx = goal_obj->getValue<int>("start_idx");
+        std::string task_id = goal_obj->getValue<std::string>("task_id");
+
+        TaskResultPublisher::instance().setTaskContext(rid, task_id, msg_id);
+
+        // 응답 메시지 구성
+        Poco::JSON::Object::Ptr response = new Poco::JSON::Object;
+        response->set("Cmd", "task");
+        response->set("msg_time", Poco::DateTimeFormatter::format(Poco::LocalDateTime(), "%Y-%m-%d %H:%M:%S.%i"));
+        response->set("msg_id", msg_id);
+        response->set("RID", rid);
+        response->set("Result", "S");
+        response->set("AmrId", rid);
+
+        std::ostringstream oss;
+        response->stringify(oss);
+
+        MessageBroker::instance().publish(source, rid + ".ACS", oss.str());
+
+        auto battery_status = InMemoryRepository::instance().get<BatteryStatus>(BatteryStatus::KEY);
+        auto f_curr_battery = battery_status->getCapacity();
+
+        if (f_curr_battery <= 20.0) {
+            NLOG(info) << "Battery Capacity is lower then 20%";
+            TaskResultPublisher::instance().publish("REJECTED");
+            return;
+        }
+
+        // mission_list
+        Poco::JSON::Array::Ptr missionlist = goal_obj->getArray("missionlist");
+
+        // JSON 파싱
+        Poco::JSON::Parser parser;
+        Poco::Dynamic::Var result = parser.parse(json_template);
+        Poco::JSON::Object::Ptr jsonObject = result.extract<Poco::JSON::Object::Ptr>();
+
+        Poco::JSON::Array::Ptr dataArray = jsonObject->getArray("data");
+        dataArray->clear();
+
+        int n_prev_action_type = -1;
+        Poco::JSON::Object::Ptr currentEntry;
+
+        ActionData action_data;
+        action_data.o_last_pos.SetXm(TESTMAX);
+        action_data.o_last_pos.SetYm(TESTMAX);
+        for (size_t now_loop_cnt = 0; now_loop_cnt < loop_flag; now_loop_cnt++) {
+            for (size_t i = start_idx; i < missionlist->size(); ++i) {
+                Poco::JSON::Object::Ptr mission = missionlist->getObject(i);
+                Poco::JSON::Array::Ptr work_array = mission->getArray("work");
+                size_t action_start_idx = mission->getValue<int>("action_start_idx");
+
+                std::string work_id = mission->optValue("work_id", std::string("WP"));
+                // jsonObject->set("work_id", work_id);
+
+                size_t now_idx = action_start_idx;
+
+                while (now_idx < work_array->size()) {
+                    NLOG(info) << "start parsing" << now_idx << " index";
+
+                    Poco::JSON::Object::Ptr work = work_array->getObject(now_idx);
+                    int n_curr_action_type = work->getValue<int>("action_type");
+                    std::string s_curr_action_type;
+
+                    bool b_trigger = false;
+                    //연속된 무브를 제외하고 Entry 새로 만들기
+                    if (!(n_curr_action_type == ACTION_MOVE && n_curr_action_type == n_prev_action_type) || currentEntry.isNull()) {
+                        if (!currentEntry.isNull())
+                            dataArray->add(currentEntry);
+                        b_trigger = true;
+
+                        // 도킹인데, arg[2] -> 7 or 9,0 이면 task manager에 move 전달
+                        // wia_agent에선 도킹으로 기억
+                        if (n_curr_action_type == ACTION_DOCKING) {
+                            Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+                            std::string s_direction = (action_args->getElement<int>(0) == 1) ? "front" : "rear";
+                            if (s_direction == "rear") {
+                                Poco::JSON::Object::Ptr spinEntry = new Poco::JSON::Object;
+                                spinEntry->set("uuid", uuid);
+                                spinEntry->set("type", "turn");
+                                actionSpin(work, spinEntry, action_data);
+                                dataArray->add(spinEntry);
+                            }
+                        }
+                        currentEntry = new Poco::JSON::Object;
+                        currentEntry->set("uuid", uuid);
+
+                        if (n_curr_action_type == ACTION_DOCKING) {
+                            Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+                            Poco::JSON::Array::Ptr action_params = work->getArray("action_params");
+                            int n_docking_type, n_pallet_exist;
+                            n_docking_type = action_args->getElement<int>(2);
+                            for (size_t k = 0; k < action_params->size(); ++k) {
+                                Poco::JSON::Object::Ptr param = action_params->getObject(k);
+                                if (param->getValue<std::string>("param_name") == "PalletExist") {
+                                    n_pallet_exist = std::stoi(param->getValue<std::string>("value"));
+                                }
+                            }
+                            if (n_docking_type == 7) {
+                                n_curr_action_type = ACTION_MOVE;
+                            }
+                            s_curr_action_type = getNcActionType(n_curr_action_type);
+                            n_curr_action_type = ACTION_DOCKING;
+                        }
+                        else if (n_curr_action_type == ACTION_LIFT) {
+                            Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+                            float lift_type = action_args->getElement<float>(0);
+                            s_curr_action_type = (lift_type > 0) ? "loading" : "unloading";
+                        }
+                        else {
+                            s_curr_action_type = getNcActionType(n_curr_action_type);
+                        }
+
+                        currentEntry = new Poco::JSON::Object;
+                        currentEntry->set("uuid", uuid);
+                        currentEntry->set("type", s_curr_action_type);
+                        n_prev_action_type = n_curr_action_type;
+                    }
+                    action(n_curr_action_type, work, currentEntry, action_data, b_trigger);  //여기 데이터 채우는 함수
+                    now_idx++;
+                }
+            }
+        }
+
+        if (!currentEntry.isNull()) {
+            dataArray->add(currentEntry);
+        }
+
+        std::ostringstream oss2;
+        jsonObject->stringify(oss2);
+        std::string final_json = oss2.str();
+        NLOG(info) << oss2.str();
+        bool b_srvCallReq = requestStringSrv("add_task", oss2.str());
+        NLOG(info) << "service request result : " << b_srvCallReq;
+
+        std::string s_req_msg;
+        if (b_srvCallReq) {
+            auto status = InMemoryRepository::instance().get<RobotBasicStatus>(RobotBasicStatus::KEY);
+            if (status) {
+                NLOG(info) << "s_req_msg : " << s_req_msg << " id : " << uuid;
+                status->setMsgID(msg_id);
+                status->setTaskID(task_id);
+                status->setLoopCnt(loop_flag);
+                status->setGoalInfo(action_data.goal_info);
+                saveTaskTxt(final_json);
+
+                // saveTask(final_json);
+            }
+        }
+        else if (!b_srvCallReq) {
+            TaskResultPublisher::instance().publish("REJECTED");
+        }
+    }
+    catch (const Poco::Exception& ex) {
+        NLOG(error) << "Exception: " << ex.displayText();
+    }
+}
+
+Poco::JSON::Object::Ptr NcActionTask::createBasicWaypoint(int n_action_id, int drive_type, float speed, Pos o_goal_pos)
+{
+    Poco::JSON::Object::Ptr waypoint = new Poco::JSON::Object();
+    std::ostringstream oss;
+    oss << std::setw(4) << std::setfill('0') << n_action_id;
+    std::string s_name = oss.str();
+    waypoint->set("s_name", s_name);
+    waypoint->set("n_drive_type", drive_type);
+    waypoint->set("f_speed_ms", speed);
+    waypoint->set("f_x_m", o_goal_pos.GetXm());
+    waypoint->set("f_y_m", o_goal_pos.GetYm());
+    waypoint->set("f_angle_deg", o_goal_pos.GetDeg());
+    return waypoint;
+}
+
+Poco::JSON::Object::Ptr NcActionTask::addMoveData(
+    const std::unordered_map<std::string, std::string>& action_params, Poco::JSON::Object::Ptr obj)
+{
+    float f_target_length = std::stof(action_params.at("target_length"));
+    float f_target_width = std::stof(action_params.at("target_width"));
+    int n_payload_level = std::stoi(action_params.at("payload_level"));
+    bool b_last_waypoint = action_params.at("last_waypoint") == "True" ? true : false;
+
+    // 절반 값
+    float half_length = f_target_length / 2.0f;
+    float half_width = f_target_width / 2.0f;
+
+    // JSON Array 생성
+    Poco::JSON::Array::Ptr margins = new Poco::JSON::Array;
+    margins->add(half_length);
+    margins->add(half_length);
+    margins->add(half_width);
+    margins->add(half_width);
+    // JSON에 추가
+    obj->set("obstacle_margin", margins);
+    obj->set("b_lccs_off", b_last_waypoint);
+    obj->set("b_arrive_align", true);
+    // obj->set("payload_level", n_payload_level);
+
+    return obj;
+}
+
+void NcActionTask::actionMove(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data, bool b_trigger)
+{
+    try {
+        Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+
+        std::string action_id = work->getValue<std::string>("action_id");
+        int n_action_id = std::stoi(action_id);
+        auto action_params = parseParams(work->getArray("action_params"));
+
+        Poco::JSON::Array::Ptr vec;
+        if (currentEntry->has("vec_move_data")) {
+            vec = currentEntry->getArray("vec_move_data");
+        }
+        else {
+            vec = new Poco::JSON::Array;
+            currentEntry->set("vec_move_data", vec);
+        }
+        Pos o_goal_pos;
+        o_goal_pos.SetXm(action_args->getElement<float>(0));
+        o_goal_pos.SetYm(action_args->getElement<float>(1));
+        o_goal_pos.SetDeg(action_args->getElement<float>(2) * 180.0 / M_PI);
+
+        int drive_type = std::stoi(action_params.at("driving_dir")) == 0 ? MOVE_FRONT : MOVE_REAR;
+        float f_speed_ms = std::stof(action_params.at("max_trans_vel"));
+        float f_curve_speed_ms = std::stof(action_params.at("curve_speed"));
+        float f_passing_dist = std::stof(action_params.at("passing_dist"));
+        float f_target_length = std::stof(action_params.at("target_length"));
+        float f_target_width = std::stof(action_params.at("target_width"));
+        int n_payload_level = std::stoi(action_params.at("payload_level"));
+
+        bool b_curve_end = (f_curve_speed_ms > 0 && f_passing_dist >= 0.5) ? true : false;
+
+        //최초 이동이 Move인 경우, last_pos랑 거리를 계산
+        //거리가 0.2보다 작으면 last_pos 넣기, 멀면 내 위치 넣기
+
+        auto robotPose = InMemoryRepository::instance().get<RobotPose>(RobotPose::KEY);
+        Pos o_curr_pos;
+        o_curr_pos.SetXm(robotPose->getPosition().x);
+        o_curr_pos.SetYm(robotPose->getPosition().y);
+        o_curr_pos.SetDeg(getYawFromOrientation(robotPose->getOrientation()) * 180.0 / M_PI);
+
+        bool b_initial_task = false;
+        if (action_data.o_last_pos.GetXm() == TESTMAX && action_data.o_last_pos.GetYm() == TESTMAX) {
+            b_initial_task = true;
+        }
+        float dist = std::hypot(action_data.o_last_pos.GetXm() - o_curr_pos.GetXm(), action_data.o_last_pos.GetYm() - o_curr_pos.GetYm());
+
+        if (b_trigger) {
+            bool b_need_update = false;
+            if (b_initial_task) {
+                action_data.o_last_pos.SetXm(o_curr_pos.GetXm());
+                action_data.o_last_pos.SetYm(o_curr_pos.GetYm());
+                action_data.o_last_pos.SetDeg(o_curr_pos.GetDeg());
+                b_need_update = true;
+            }
+            if(dist >0.2){
+                b_need_update = true;
+            }
+
+            if(b_need_update){
+                Poco::JSON::Object::Ptr startPosObj = createBasicWaypoint(n_action_id, drive_type, f_speed_ms, action_data.o_last_pos);
+                NLOG(info) << "[TASK] add goal / " << action_data.o_last_pos.GetXm() << " / " << action_data.o_last_pos.GetYm();
+                vec->add(startPosObj);
+            }
+        }
+
+        if (action_data.f_curve_start_dist >= 0.5 && !b_initial_task) {
+            auto tmp_pos = calcPosfromPassingDist(action_data.o_last_pos, o_goal_pos, action_data.f_curve_start_dist);
+            // NLOG(info) << "curve end, x: " << tmp_pos.GetXm() << ", y: " << tmp_pos.GetYm() << ", deg : " << tmp_pos.GetDeg();
+
+            Poco::JSON::Object::Ptr tmpPosObj = createBasicWaypoint(n_action_id, drive_type, f_speed_ms, tmp_pos);
+            NLOG(info) << "[TASK] add goal / " << tmp_pos.GetXm() << " / " << tmp_pos.GetYm();
+            tmpPosObj = addMoveData(action_params, tmpPosObj);
+            vec->add(tmpPosObj);
+        }
+
+        if (b_curve_end) {  // 패싱디스트 값 가져와서 그 전까지 멈추기
+            auto tmp_pos = calcPosfromPassingDist(action_data.o_last_pos, o_goal_pos, -f_passing_dist);
+            // NLOG(info) << "curve start , x: " << tmp_pos.GetXm() << ", y: " << tmp_pos.GetYm() << ", deg : " << tmp_pos.GetDeg();
+            Poco::JSON::Object::Ptr tmpPosObj = createBasicWaypoint(n_action_id, drive_type, f_speed_ms, tmp_pos);
+            NLOG(info) << "[TASK] add goal / " << tmp_pos.GetXm() << " / " << tmp_pos.GetYm();
+            tmpPosObj = addMoveData(action_params, tmpPosObj);
+            vec->add(tmpPosObj);
+
+            Poco::JSON::Object::Ptr tmp2PosObj = createBasicWaypoint(n_action_id, drive_type, f_curve_speed_ms, o_goal_pos);
+            NLOG(info) << "[TASK] add goal / " << o_goal_pos.GetXm() << " / " << o_goal_pos.GetYm();
+
+            tmp2PosObj = addMoveData(action_params, tmp2PosObj);
+
+            tmp2PosObj->set("f_curve_radius", f_passing_dist);
+            vec->add(tmp2PosObj);
+
+            action_data.goal_info.push_back({tmp_pos, "move"});
+        }
+        else {
+            Poco::JSON::Object::Ptr moveObj = createBasicWaypoint(n_action_id, drive_type, f_speed_ms, o_goal_pos);
+            NLOG(info) << "[TASK] add goal / " << o_goal_pos.GetXm() << " / " << o_goal_pos.GetYm();
+
+            moveObj = addMoveData(action_params, moveObj);
+
+            vec->add(moveObj);
+            action_data.goal_info.push_back({o_goal_pos, "move"});
+        }
+        action_data.o_last_pos.SetXm(o_goal_pos.GetXm());
+        action_data.o_last_pos.SetYm(o_goal_pos.GetYm());
+        action_data.o_last_pos.SetDeg(o_goal_pos.GetDeg());
+        action_data.f_curve_start_dist = f_passing_dist;
+    }
+    catch (std::exception& e) {
+        NLOG(error) << "error : " << e.what();
+    }
+}
+
+void NcActionTask::actionDocking(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data)
+{
+    try {
+        std::string action_id = work->getValue<std::string>("action_id");
+        int n_action_id = std::stoi(action_id);
+
+        Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+        auto action_params = parseParams(work->getArray("action_params"));
+        std::string s_direction = (action_args->getElement<int>(0) == 1) ? "front" : "rear";
+        int n_dock_type = action_args->getElement<int>(2);
+
+        static const std::unordered_map<int, std::string> docktype_map = {
+            {6, "aruco"},
+            {7, "slam"},
+            {8, "aruco charge"},
+        };
+
+        std::string s_docktype;
+        if (n_dock_type == 9) {
+            int pallet_exist = std::stoi(action_params.at("PalletExist"));
+            s_docktype = (pallet_exist == 1) ? "slam" : "aruco";
+        }
+        else {
+            s_docktype = docktype_map.count(n_dock_type) ? docktype_map.at(n_dock_type) : "error";
+        }
+        Pos o_goal_pos;
+        float f_goal_rad = std::stof(action_params.at("init_th"));
+        o_goal_pos.SetXm(std::stof(action_params.at("init_x")));
+        o_goal_pos.SetYm(std::stof(action_params.at("init_y")));
+        o_goal_pos.SetDeg(f_goal_rad * 180.0 / M_PI);
+        float f_docking_dist = std::stof(action_params.at("dock_dist"));
+        int n_pallet_exist = std::stoi(action_params.at("pallet_exist"));
+        float f_offset_xm = std::stof(action_params.at("ep_x"));
+        float f_offset_ym = std::stof(action_params.at("ep_y"));
+        float f_offset_deg = std::stof(action_params.at("ep_th")) * 180.0 / M_PI;
+
+        NLOG(info) << "Docking Pos x: " << o_goal_pos.GetXm() << ", y: " << o_goal_pos.GetYm() << ", deg: " << o_goal_pos.GetDeg()
+                   << ", dock_dist: " << f_docking_dist;
+
+        if (s_docktype == "slam") {
+            NLOG(info) << "SLAM docking.";
+
+            Poco::JSON::Array::Ptr vec;
+            if (currentEntry->has("vec_move_data")) {
+                vec = currentEntry->getArray("vec_move_data");
+            }
+            else {
+                vec = new Poco::JSON::Array;
+                currentEntry->set("vec_move_data", vec);
+            }
+
+            int drive_type = (s_direction == "front") ? MOVE_FRONT : MOVE_REAR;
+            Poco::JSON::Object::Ptr moveObj = createBasicWaypoint(n_action_id, drive_type, 0.5, o_goal_pos);
+            vec->add(moveObj);
+
+            action_data.o_last_pos.SetXm(o_goal_pos.GetXm());
+            action_data.o_last_pos.SetYm(o_goal_pos.GetYm());
+            action_data.o_last_pos.SetDeg(o_goal_pos.GetDeg());
+            action_data.goal_info.push_back({o_goal_pos, "slam_docking"});
+
+            return;
+        }
+
+        Poco::JSON::Object::Ptr dataObj = new Poco::JSON::Object();
+
+        // 시작 좌표 (도킹 시작점 = 이전 move 좌표)
+        Poco::JSON::Object::Ptr startObj = new Poco::JSON::Object();
+        startObj->set("x", action_data.o_last_pos.GetXm());
+        startObj->set("y", action_data.o_last_pos.GetYm());
+        startObj->set("deg", action_data.o_last_pos.GetDeg());
+
+        // 끝 좌표 (도킹 완료 지점)
+        Poco::JSON::Object::Ptr endObj = new Poco::JSON::Object();
+
+        float f_docking_end_x = o_goal_pos.GetXm() - f_docking_dist * cos(f_goal_rad);
+        float f_docking_end_y = o_goal_pos.GetYm() - f_docking_dist * sin(f_goal_rad);
+        o_goal_pos.SetXm(f_docking_end_x);
+        o_goal_pos.SetYm(f_docking_end_y);
+
+        endObj->set("x", o_goal_pos.GetXm());
+        endObj->set("y", o_goal_pos.GetYm());
+        endObj->set("deg", o_goal_pos.GetDeg());
+
+        dataObj->set("start", startObj);
+        dataObj->set("end", endObj);
+        currentEntry->set("data", dataObj);
+
+        std::vector<float> list_f_camera_roi, list_f_camera_roi2, list_f_move_obstacle;
+        list_f_camera_roi.push_back(std::stof(action_params.at("camera_detect_width")));
+        list_f_camera_roi.push_back(std::stof(action_params.at("camera_detect_height")));
+        list_f_camera_roi2.push_back(std::stof(action_params.at("camera_detect_width2")));
+
+        list_f_move_obstacle.push_back(std::stof(action_params.at("footprint_f")));
+        list_f_move_obstacle.push_back(std::stof(action_params.at("footprint_b")));
+        list_f_move_obstacle.push_back(std::stof(action_params.at("footprint_l")));
+        list_f_move_obstacle.push_back(std::stof(action_params.at("footprint_r")));
+        std::ostringstream oss;
+        oss << std::setw(4) << std::setfill('0') << n_action_id;
+        std::string s_name = oss.str();
+        currentEntry->set("start_node_name", s_name);
+        currentEntry->set("end_node_name", s_name);
+        currentEntry->set("direction", s_direction);
+        currentEntry->set("docking_type", s_docktype);
+        currentEntry->set("pallet_exist", n_pallet_exist);
+        currentEntry->set("goal_offset_x", f_offset_xm);
+        currentEntry->set("goal_offset_y", f_offset_ym);
+        currentEntry->set("goal_offset_deg", f_offset_deg);
+        currentEntry->set("list_f_camera_roi", list_f_camera_roi);
+        currentEntry->set("list_f_camera_roi2", list_f_camera_roi2);
+        currentEntry->set("lift_f_move_obstacle", list_f_move_obstacle);
+
+        if (n_dock_type == 6) {
+            action_data.goal_info.push_back({o_goal_pos, "docking"});
+        }
+        else if (n_dock_type == 8) {
+            action_data.goal_info.push_back({o_goal_pos, "charge_docking"});
+        }
+    }
+    catch (std::exception& e) {
+        // 예외처리 오류 올리기 전부 수정
+        NLOG(error) << "error : " << e.what();
+    }
+}
+void NcActionTask::actionLift(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data)
+{
+    try {
+        std::string action_id = work->getValue<std::string>("action_id");
+
+        Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+        int n_lift_state = action_args->getElement<int>(0);
+        Poco::JSON::Object::Ptr dataObj = new Poco::JSON::Object();
+
+        action_data.goal_info.push_back({action_data.o_last_pos, "lift"});
+    }
+    catch (std::exception& e) {
+        NLOG(error) << "error : " << e.what();
+    }
+}
+
+void NcActionTask::actionStandby(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data)
+{
+    try {
+        std::string action_id = work->getValue<std::string>("action_id");
+
+        Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+        int n_standby_time = action_args->getElement<int>(0);
+
+        auto action_params = parseParams(work->getArray("action_params"));
+
+        std::string s_standby_id = action_params.at("id");
+
+        Poco::JSON::Object::Ptr dataObj = new Poco::JSON::Object();
+        currentEntry->set("wait_seconds", n_standby_time);
+        currentEntry->set("wait_id", s_standby_id);
+
+        action_data.goal_info.push_back({action_data.o_last_pos, "standby"});
+    }
+    catch (std::exception& e) {
+        NLOG(error) << "error : " << e.what();
+    }
+}
+void NcActionTask::actionSpin(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data)
+{
+    try {
+        Poco::JSON::Array::Ptr vec;
+        if (currentEntry->has("vec_move_data")) {
+            vec = currentEntry->getArray("vec_move_data");
+        }
+        else {
+            vec = new Poco::JSON::Array;
+            currentEntry->set("vec_move_data", vec);
+        }
+        auto action_params = parseParams(work->getArray("action_params"));
+
+        float f_goal_rad = std::stof(action_params.at("init_th"));
+        float f_goal_deg = f_goal_rad * 180.0 / M_PI;
+
+        Poco::JSON::Object::Ptr waypoint = new Poco::JSON::Object();
+        waypoint->set("f_x_m", action_data.o_last_pos.GetXm());
+        waypoint->set("f_y_m", action_data.o_last_pos.GetYm());
+        waypoint->set("f_angle_deg", f_goal_deg);
+        vec->add(waypoint);
+        currentEntry->set("b_arrive_align", true);
+
+        action_data.o_last_pos.SetDeg(f_goal_deg);
+
+        action_data.goal_info.push_back({action_data.o_last_pos, "turn"});
+    }
+    catch (std::exception& e) {
+        NLOG(error) << "error in actionSpin: " << e.what();
+    }
+}
+
+void NcActionTask::actionUnDocking(Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data)
+{
+    try {
+        std::string action_id = work->getValue<std::string>("action_id");
+        int n_action_id = std::stoi(action_id);
+
+        Poco::JSON::Array::Ptr action_args = work->getArray("action_args");
+
+        auto action_params = parseParams(work->getArray("action_params"));
+
+        double docking_dist = action_args->getElement<float>(0);
+        int drive_type = docking_dist > 0 ? MOVE_FRONT : MOVE_REAR;
+
+        std::vector<float> list_f_target_obstacle_margin, list_f_obstacle_margin;
+        // float dockout_speed = std::stof(action_params.at("approach_vx"));
+        float f_x_m = std::stof(action_params.at("init_x"));
+        float f_y_m = std::stof(action_params.at("init_y"));
+        float f_goal_rad = std::stof(action_params.at("init_th"));
+        float f_angle_deg = f_goal_rad * 180.0 / M_PI;
+        list_f_target_obstacle_margin.push_back(std::stof(action_params.at("target_obstacle_f")));
+        list_f_target_obstacle_margin.push_back(std::stof(action_params.at("target_obstacle_b")));
+        list_f_target_obstacle_margin.push_back(std::stof(action_params.at("target_obstacle_l")));
+        list_f_target_obstacle_margin.push_back(std::stof(action_params.at("target_obstacle_r")));
+        for (size_t i = 0; i < 4; i++) {
+            list_f_obstacle_margin.emplace_back(0.01);
+        }
+        std::ostringstream oss;
+        oss << std::setw(4) << std::setfill('0') << n_action_id;
+        std::string s_name = oss.str();
+        currentEntry->set("start_node_name", s_name);
+        currentEntry->set("end_node_name", s_name);
+        currentEntry->set("s_name", s_name);
+        currentEntry->set("velocity", 0.2);
+        currentEntry->set("docking_dist", docking_dist);
+        currentEntry->set("drive_type", drive_type);
+        currentEntry->set("list_f_target_obstacle", list_f_target_obstacle_margin);
+
+        action_data.o_last_pos.SetXm(f_x_m);
+        action_data.o_last_pos.SetYm(f_y_m);
+        action_data.o_last_pos.SetDeg(f_angle_deg);
+        action_data.goal_info.push_back({action_data.o_last_pos, "undocking"});
+    }
+    catch (std::exception& e) {
+        NLOG(error) << "error : " << e.what();
+    }
+}
+
+void NcActionTask::action(
+    int n_action_type, Poco::JSON::Object::Ptr work, Poco::JSON::Object::Ptr currentEntry, ActionData& action_data, bool b_trigger)
+{
+    NLOG(info) << "action type : " << n_action_type;
+    switch (n_action_type) {
+        case ACTION_MOVE:
+            actionMove(work, currentEntry, action_data, b_trigger);
+            break;
+        case ACTION_DOCKING:
+            actionDocking(work, currentEntry, action_data);
+            break;
+        case ACTION_STANDBY:
+            actionStandby(work, currentEntry, action_data);
+            break;
+        case ACTION_DOCKING_OUT:
+            actionUnDocking(work, currentEntry, action_data);
+            break;
+        case ACTION_LIFT:
+            actionLift(work, currentEntry, action_data);
+            break;
+        default:
+            break;
+    }
+}

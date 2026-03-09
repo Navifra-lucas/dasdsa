@@ -1,0 +1,53 @@
+# nc_wingbody_loader parameters
+
+# Topic configuration (sick_visionary_t_mini_bt = 바닥(bottom) 카메라)
+topics:
+  pointcloud: "/sick_visionary_t_mini_bt/points"
+  cmd: "/nc_wingbody_loader/cmd"
+  pose: "/nc_wingbody_loader/pose"
+  status: "/nc_wingbody_loader/status"
+
+# Frame configuration
+frames:
+  camera: "sick_visionary_t_mini_bt"
+  base: "base_link"
+  camera_tf:
+    x: 0.0     # Translation X (base_link -> camera)
+    y: 0.0     # Translation Y
+    z: 0.0     # Translation Z
+    yaw: 0     # Rotation Yaw (radians)
+
+# Point cloud filtering (camera frame: Z=forward, X=lateral, Y=vertical)
+pointcloud:
+  min_distance: 1.0          # Z-axis min (forward, meters)
+  max_distance: 12.0         # Z-axis max
+  min_height: -2.0           # Y-axis min
+  max_height: 2.0            # Y-axis max
+  min_lateral: -2.5          # X-axis min
+  max_lateral: 2.5           # X-axis max
+  voxel_leaf_size: 0.02      # 2cm downsampling
+
+# Plane detection (iterative RANSAC)
+plane_detection:
+  max_planes: 10
+  ransac_distance_threshold: 0.03   # 3cm
+  ransac_max_iterations: 1000
+  min_plane_points: 50
+
+# Cargo classification thresholds
+classification:
+  door_max_distance: 5.0     # Max distance for door detection (m)
+  cargo_width: 2.35          # Wingbody interior width (m)
+  cargo_depth: 9.5           # Wingbody interior depth (m)
+
+# Pose calculation
+pose_calculation:
+  pallet_size: 2.2           # Pallet depth along cargo direction (m)
+  pallet_width: 1.2          # Pallet width for placement calc / visualization (m)
+  pallet_height: 0.15        # Pallet height for visualization (m)
+  safety_margin: 0.1         # Gap between pallets or from wall (m)
+  door_to_floor_offset: 0.05 # Floor height offset from door top (m, needs calibration)
+
+# Detection behavior
+detection:
+  max_retry_attempts: 3

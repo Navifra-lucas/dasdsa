@@ -1,0 +1,21 @@
+@startuml
+title Action 실행 시퀀스 (Astra 기반 멀티 브로커 대응)
+
+actor Client
+participant "Broker Manager" as BM
+participant "Broker Adapter" as BA
+participant "Action Dispatcher" as AD
+participant "Action Manager" as AM
+participant "Action 구현체" as AC
+
+Client -> BM: Action 요청 (REQ)
+BM -> BA: 브로커 선택 및 전달
+BA -> AD: 메시지 수신 → Action 실행 요청
+AD -> AM: 실행할 Action 식별 및 호출
+AM -> AC: Action 로직 수행
+AC --> AM: 실행 결과 반환
+AM --> AD: 결과 전달
+AD -> BA: 브로커 응답 전달
+BA -> BM: 브로커 응답 수신
+BM -> Client: 최종 응답 (REP)
+@enduml

@@ -1,0 +1,3 @@
+int32 motor_id
+int32 operation_mode
+float32 target

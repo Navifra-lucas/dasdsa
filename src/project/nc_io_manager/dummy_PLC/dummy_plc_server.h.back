@@ -1,0 +1,98 @@
+#ifndef DUMMY_PLC_SERVER_H
+#define DUMMY_PLC_SERVER_H
+
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <array>
+#include <vector>
+#include <chrono>
+#include <memory>
+#include <mutex>
+#include <iomanip>
+#include <sstream>
+
+// POCO 라이브러리
+#include <Poco/Net/ServerSocket.h>
+#include <Poco/Net/StreamSocket.h>
+#include <Poco/Net/SocketAddress.h>
+#include <Poco/Net/NetException.h>
+#include <Poco/Exception.h>
+#include <Poco/Thread.h>
+#include <Poco/Runnable.h>
+
+namespace DummyPLC {
+
+static constexpr size_t IO_DATA_SIZE = 64;
+extern std::atomic<bool> g_running;
+
+// PLC 상태 시뮬레이션 클래스
+class PLCSimulator {
+public:
+    PLCSimulator();
+    ~PLCSimulator();
+    
+    // 클라이언트로부터 데이터 수신 및 응답
+    std::array<uint8_t, IO_DATA_SIZE> processCommand(const std::array<uint8_t, IO_DATA_SIZE>& received_data);
+    void printStatus() const;
+
+private:
+    std::array<uint8_t, IO_DATA_SIZE> input_data_;
+    std::array<uint8_t, IO_DATA_SIZE> output_data_;
+    mutable std::mutex data_mutex_;
+    
+    // 시뮬레이션 상태
+    std::atomic<bool> running_{true};
+    std::thread simulation_thread_;
+    
+    // 리프트 시뮬레이션 상태
+    enum class LiftState { DOWN, MOVING_UP, UP, MOVING_DOWN } lift_state_ = LiftState::DOWN;
+    std::chrono::steady_clock::time_point lift_move_start_;
+    static constexpr int LIFT_MOVE_TIME_MS = 3000; // 3초
+    
+    void initializeDefaultStates();
+    void updateInputsBasedOnOutputs();
+    void simulationLoop();
+    void updateLiftSimulation();
+    void updateSensorSimulation();
+};
+
+// 클라이언트 연결 처리 클래스
+class ClientHandler : public Poco::Runnable {
+public:
+    ClientHandler(Poco::Net::StreamSocket socket, std::shared_ptr<PLCSimulator> simulator);
+    void run() override;
+
+private:
+    Poco::Net::StreamSocket socket_;
+    std::shared_ptr<PLCSimulator> simulator_;
+    int client_id_;
+    static std::atomic<int> client_counter_;
+    
+    int receiveExactBytes(uint8_t* buffer, int size);
+    int sendExactBytes(const uint8_t* buffer, int size);
+};
+
+// 메인 서버 클래스
+class DummyPLCServer {
+public:
+    DummyPLCServer(int port);
+    ~DummyPLCServer();
+    
+    void start();
+    void stop();
+
+private:
+    int port_;
+    std::unique_ptr<Poco::Net::ServerSocket> server_socket_;
+    std::shared_ptr<PLCSimulator> simulator_;
+    std::vector<std::unique_ptr<Poco::Thread>> client_threads_;
+    std::thread status_thread_;
+    
+    void statusLoop();
+    void cleanupFinishedThreads();
+};
+
+} // namespace DummyPLC
+
+#endif // DUMMY_PLC_SERVER_H

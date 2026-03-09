@@ -1,0 +1,12 @@
+# Request
+answer_msgs/MissionNodePath order
+---
+# Result
+int32 n_result
+---
+# Feedback
+string s_from_node
+string s_to_node
+bool b_pause
+bool b_avoid
+int32 n_obs_status

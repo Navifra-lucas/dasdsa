@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="device" default="R2000"/>
+
+  <include file="$(find pf_description)/launch/pf_bringup.launch" >
+    <arg name="scanner" value="r2000" />
+  </include>
+
+  <!-- R2000 Driver -->
+  <node pkg="pf_driver" type="ros_main" name="r2000_node" output="screen">
+    <param name="device" value="$(arg device)"/>
+    <rosparam file="$(find pf_driver)/config/r2000_params.yaml" command="load"/>
+  </node>
+</launch>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Static TF for camera frame (if not published by sensor) -->
+  <node pkg="tf" type="static_transform_publisher" name="base_to_camera_tf"
+        args="0 0 0 0 0 0 base_link sick_visionary_t_mini 100" />
+  
+  <!-- nc_intensity_detector 노드 실행 -->
+  <node name="nc_intensity_detector_node" 
+        pkg="nc_intensity_detector" 
+        type="nc_intensity_detector_node" 
+        output="screen">
+    <rosparam file="$(find nc_intensity_detector)/config/params.yaml" command="load" />
+  </node>
+  
+  <!-- 테스트 이미지 발행 노드 -->
+  <node name="intensity_test_publisher" 
+        pkg="nc_intensity_detector" 
+        type="test_intensity_publisher.py" 
+        output="screen">
+  </node>
+  
+  <!-- RViz 시각화 -->
+  <!-- <node name="rviz" 
+        pkg="rviz" 
+        type="rviz" 
+        args="-d $(find nc_intensity_detector)/rviz/nc_intensity_detector.rviz"
+        output="screen">
+  </node> -->
+</launch>
+

@@ -1,0 +1,9 @@
+string data
+---
+bool success
+string reason
+
+bool on_edge
+NodeInfo node1
+NodeInfo node2
+string edge_id

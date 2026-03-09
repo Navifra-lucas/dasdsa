@@ -1,0 +1,17 @@
+<launch>
+    <arg name="modbus_type" default="tcp"/>
+    <arg name="modbus_tcp_host" default="192.168.1.10"/>
+    <!-- <arg name="modbus_tcp_host" default="172.0.0.1"/> -->
+    <arg name="modbus_tcp_port" default="502"/>
+    <arg name="file_path" default="/home"/>
+    <arg name="emulator" default= "false"/>
+
+    <param name="is_emul" value="$(arg emulator)"/>
+    <param name="modbus_type" value="$(arg modbus_type)"/>
+    <param name="plc_host" value="$(arg modbus_tcp_host)"/>
+    <param name="plc_port" value="$(arg modbus_tcp_port)"/>
+    <param name="pduFilePath" value="$(arg file_path)"/>
+
+    <node name="nc_cheonil_agent" pkg="nc_cheonil_agent" type="nc_cheonil_agent" output="screen" >
+    </node>
+</launch>

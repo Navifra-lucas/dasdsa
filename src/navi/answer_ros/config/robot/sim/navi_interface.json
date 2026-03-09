@@ -1,0 +1,21 @@
+{
+    "base": {
+        "log_level": "info"
+    },
+    "navi_base": {
+        "kinematics": 0,
+        "controller": 3,
+        "avoidance": 0
+    },
+    "topic_type": {
+        "lidar": "sensor_msgs/point_cloud"
+    },
+    "topic_name": {
+        "lidar": "merged_cloud",
+        "odom": "odom",
+        "cmd_vel": "cmd_vel"
+    },
+    "tf_name": {
+        "base_link": "base_link"
+    }
+}

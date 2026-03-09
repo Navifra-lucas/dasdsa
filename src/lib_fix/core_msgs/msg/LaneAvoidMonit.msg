@@ -1,0 +1,3 @@
+bool b_use_msgs
+float32 f_avoid_offset_m
+int8 n_avoid_direction

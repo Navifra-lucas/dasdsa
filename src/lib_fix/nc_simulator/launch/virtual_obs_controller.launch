@@ -1,0 +1,5 @@
+<launch>
+  <node name="qt_ros_comm" pkg="nc_simulator" type="virtual_obs_controller.py" output="screen">
+    <param name="~sleep_rate" value="0.2"/>
+  </node>
+</launch>

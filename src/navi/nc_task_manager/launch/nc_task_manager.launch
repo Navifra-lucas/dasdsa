@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="nc_task_manager" type="nc_task_manager" name="nc_task_manager" output="screen">
+
+	</node>
+     <!-- <node name="hw_driver" pkg="hw_driver" type="hw_driver.py" output="screen"/> -->
+	
+</launch>

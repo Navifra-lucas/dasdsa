@@ -1,0 +1,12 @@
+#ifndef NB_BRAIN_AGENT_H
+#define NB_BRAIN_AGENT_H
+
+#include <Poco/Foundation.h>
+
+#include <memory>
+#include <string>
+#include <vector>
+
+const std::string PAKAGE_FILE_PATH = "@PAKAGE_FILE_PATH@";
+
+#endif  // NB_BRAIN_AGENT_H

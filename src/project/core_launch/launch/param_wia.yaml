@@ -1,0 +1,612 @@
+ipc_setting:
+  cpu_overload_threshold : 80                 # CPU overload threshold in percent  
+  cpu_overload_time_second : 20               # CPU overload threshold time in seconds
+  cpu_temper_warning_c : 60                   # CPU temperature warning threshold in Celsius
+  mem_overload_percent : 80                   # Memory overload threshold in percent
+  mem_overload_time_second : 20               # Memory overload threshold time in seconds
+  disk_avaliable_gbytes : 10                  # Disk available threshold in GB
+  disk_usage_percent : 90                     # Disk usage threshold in percent
+  disk_usage_time_second : 20                 # Disk usage threshold time in seconds
+
+navigation:                                   # 네비게이션 파라미터
+  b_release_mode : true                       # true: 로그 및 시각화 끄는 모드, false: 로그 및 시각화 켜는 모드 
+  b_live_topology_mode : false                # true: 실시간 경로 받는 모드(맵에 노드링크 불필요), false: normal mode
+  f_goal_receive_time_gap_sec : 0.3           # 이동 명링시 최소 수신 시간 간격 
+  n_icp_error_ratio_threshold : 10            # ☆ 위치추정 매칭 에러 발생 비율(confidence) 임계값 
+  n_icp_error_count_threshold : 3             # ☆ 위치추정 매칭 에러 발생 카운트 임계값 
+  f_current_node_change_before_m : 0.0        # 현재 노드 변경 거리
+
+motion_base:                                  # 모션 관련 기본 파라미터
+  n_kinematics_type : 0                       # 0: DD, 1: QD, 2: SD, 3: OD
+  f_linear_max_accel_mss : 1.0                # 최대 선형 가속도
+  f_linear_max_decel_mss : 1.0                # 최대 선형 감속도
+  f_rot_max_accdecel_degss : 50               # 최대 회전 가속도/감속도
+  f_move_deleay_time_sec : 0.05               # 출발시 딜레이 시간
+  f_linear_speed_max_ms : 1.8                 # 최대 선형 속도
+  f_linear_speed_min_ms : 0.02                # 최소 선형 속도
+  f_angular_speed_max_degs : 60               # 최대 회전 속도
+  f_angular_speed_min_degs : 5                # 최소 회전 속도
+  f_motion_control_period: 0.06               # 모션 계산/제어 주기 (초)
+  f_vel_percent_enable_standard_ms : 0.3      # 속도 퍼센트 제어 활성화 기준 속도
+  b_start_control_dist_flag : true            # true: 시작 거리 제어 활성화, false: 비활성화
+
+motion_align:                                 # 제자리 회전 관련 모션 파라미터
+  f_align_motion_range_accel_deg : 20.0       # 제자리 회전 가속하는 각도 : 작을수록 가속이 빨라짐
+  f_align_motion_range_decel_deg : 20.0       # 제자리 회전 감속하는 각도 : 작을수록 감속이 빨라짐
+  f_align_motion_max_rot_degs : 30.0          # 제자리 회전 최대 각속도   : 높을수록 전체 회전속도가 빠름
+  f_align_motion_min_rot_degs : 10.0          # 제자리 회전 최소 각속도   : 높을수록 출발 회전속도가 빠름
+  f_align_motion_min_rot_end_degs : 2.0       # 제자리 회전 최소 각속도 (종료시)
+  f_align_motion_min_rot_deg_range : 2.0      # 제자리 회전 최소 각속도 범위(종료시)
+  f_align_motion_threshold_for_start_deg : 5.0      # 제자리 회전 판단 시작 각도
+  f_align_motion_threshold_for_end_normal_deg : 1.0 # 제자리 회전 도착 조건 일반 각도
+  f_align_motion_threshold_for_end_fine_deg : 0.3   # 제자리 회전 도착 조건 정밀 각도
+  f_align_p_gain : 1.0                        # 제자리 회전 P 게인
+  f_align_d_gain : 0                          # 제자리 회전 D 게인
+  f_align_i_gain : 0.01                       # 제자리 회전 I 게인
+  f_align_pid_control_deg : 3                 # 제자리 회전 PID 제어 각도
+
+motion_arrive:                                # 도착 관련 모션 파라미터   
+  f_goal_arrive_min_vel_dist_m : 0.10         # 도착전 최저 속도 이동거리
+  f_goal_arrive_min_vel_default_dist_m : 0.03 # 도착전 최저 속도 기본 이동거리
+  f_goal_arrive_min_vel_dist_degs_ratio : 0.1 # 도착전 최저 속도 이동거리 각도 비율
+  f_goal_arrive_min_vel_dist_diagonal_ratio : 0.3 # 도착전 최저 속도 이동거리 사행 비율
+  f_goal_arrive_decel_m_ss : 0.2              # 도착전 감속도
+  f_near_goal_dist_thres: 0.5                 # 도착 모드 진입하는 잔여 거리 기준
+  f_near_goal_speed_thres: 0.2                # 도착 모드 진입하는 속도 기준
+  f_arrived_boundary_dist_x_m : 0.005         # 도착 직전 도착처리하는 거리 기준
+  f_goal_decel_mss: 0.2                       # 회피시 도착 감속도
+  f_motion_arrive_p_gain: 0.0                 # 도착시 속도제어 P 게인
+  f_motion_arrive_d_gain: 0.0                 # 도착시 속도제어 D 게인
+
+motion_safe:                                  # 안전 관련 모션 파라미터
+  f_safe_far_from_path_to_robot_distance : 0.5  # 경로에서 로봇이 벗어나면 정지하는 기준
+  f_control_velocity_far_from_path_m : 0.2    # 경로에서 벗어나서 감속제어가 들어가는 기준
+  f_safety_dist_from_obs_m: 1.5               # 장애물 회피 관련 정지 거리
+
+motion_track:                                 # 모션 경로 추종관련 파라미터
+  f_motion_steps : 20.0                       # 모션 계산 step : 높일수록 연산량이 늘어나고 예측이 늘어남
+  f_motion_ref_cte : 0.0                      # 모션 레터럴 오프셋
+  f_motion_vel : 1.0                          # 모션 기본목표 속도, 경로속도를 쓰기 때문에 의미 없음
+  f_motion_ref_etheta : 0.0                   # 모션 각도 오프셋
+  f_motion_w_cte : 70.0                       # ☆ 모션 경로 추종 웨이트 : 높을수록 경로로 빠르게 수렴, 너무 높으면 휘청임
+  f_motion_w_etheta : 5.0                     # ☆ 모션 헤딩 추종 웨이트 : 높을수록 빠르게 회전
+  f_motion_w_vel : 3.5                        # 모션 속도 추종 웨이트
+  f_motion_w_angvel : 5.0                     # ☆ 모션 각속도 추종 웨이트1 : 높을수록 천천히 회전
+  f_motion_w_angvel_d : 1.0                   # 모션 각속도 추종 웨이트2
+  f_motion_w_accel : 0.1                      # ☆ 모션 가속도 추종 웨이트1 : 낮을수록 가속을 빠르게 함
+  f_motion_w_accel_d : 1.0                    # ☆ 모션 가속도 추종 웨이트2 : 낮을수록 가속을 빠르게 함
+  f_motion_max_angvel : 3.0                   # 모션 최대 각속도
+  f_motion_throttle : 2.0                     # ☆ 모션 가속도 추종 웨이트3 : 높을수록 가속 빠름
+  f_motion_bound_value : 1000.0               # 변수 최대 값 범위
+  f_motion_front_path_idx : 100.0             # 레퍼런스 경로 생성시 로봇기준 앞쪽 경로 길이(cm)
+  f_motion_back_path_idx : 0.0                # 레퍼런스 경로 생성시 로봇기준 뒤쪽 경로 길이(cm)
+  f_motion_curve_front_path_idx : 140.0       # 곡선 레퍼런스 경로 생성시 로봇기준 앞쪽 경로 길이(cm)
+  f_motion_curve_back_path_idx : 20.0         # 곡선 레퍼런스 경로 생성시 로봇기준 뒤쪽 경로 길이(cm)
+  f_motion_start_dist : 0.05                  # ☆ 출발시 저속 이동 거리(m)
+  f_motion_start_speed : 0.15                 # 출발시 저속 이동 목표 속도(m/s)
+  f_motion_start_min_speed : 0.05             # 출발시 저속 이동 최소 속도(m/s)
+  f_motion_start_duration : 3.0               # 출발시 저속 최소에서 목표 속도까지 걸리는 시간(초)
+  f_motion_low_speed_std : 0.2                # 저속 주행 파라미터 변경기준 속도(m/s)
+  f_motion_low_speed_w_cte : 70.0             # ☆ 저속 주행시 경로 추종 웨이트 : 높을수록 경로로 빠르게 수렴, 너무 높으면 휘청임
+  f_motion_low_speed_w_etheta : 5.0           # ☆ 저속 주행시 헤딩 추종 웨이트 : 높을수록 빠르게 회전
+  f_motion_low_speed_w_angvel : 1.0           # ☆ 저속 주행시 각속도 추종 웨이트 : 높을수록 천천히 회전
+  f_motion_curve_w_angvel: 0.1                # ☆ 곡선 주행시 각속도 추종 웨이트 : 높을수록 천천히 회전
+  f_motion_curve_w_angvel_d : 10.0            # 곡선 주행시 각속도 추종 웨이트2
+  f_motion_curve_w_accel : 1                  # ☆ 곡선 주행시 가속도 추종 웨이트 : 낮을수록 가속을 빠르게 함
+  f_motion_curve_w_accel_d : 10.0             # 곡선 주행시 가속도 추종 웨이트2
+  f_motion_curve_throttle : 1                 # 곡선 주행시 가속도 추종 웨이트3
+  f_motion_high_speed_std : 1.2               # ☆ 고속 주행 파라미터 변경기준 속도(m/s)
+  f_motion_high_speed_w_angvel : 10.0         # ☆ 고속 주행시 각속도 추종 웨이트 : 높을수록 천천히 회전
+  f_motion_high_w_accel : 0.01                # 고속 주행시 가속도 추종 웨이트1 : 낮을수록 가속을 빠르게 함
+  f_motion_high_w_accel_d : 0.01              # 고속 주행시 가속도 추종 웨이트2
+  f_motion_high_throttle : 20                 # 고속 주행시 가속도 추종 웨이트3
+  f_motion_high_curve_speed_std : 1.2         # 고속 곡선 주행 파라미터 변경기준 속도(m/s)
+  f_motion_high_curve_speed_w_angvel : 5.0    # 고속 곡선 주행시 각속도 추종 웨이트 : 높을수록 천천히 회전
+  n_hacs_curve_speed_up_dist_cm : 120         # 곡선에서 서서히 가속하는 거리(cm)
+
+motion_diagonal:                              # 사행 관련 모션 파라미터   
+  b_diagonal_control : true                   # true: 사행 제어 활성화, false: 비활성화
+  f_diagonal_linear_lateral_w : 0.3           # ☆ QD타입 선형 횡방향 웨이트 : 높을수록 경로로 빠르게 수렴, 너무 높으면 휘청임
+  f_diagonal_low_speed : 0.21                 # 사행 저속 주행 파라미터 변경기준 속도(m/s)
+  f_diagonal_low_speed_w : 15.0               # ☆ 사행 저속 주행시 경로 추종 웨이트 : 높을수록 경로로 빠르게 수렴, 너무 높으면 휘청임
+  f_diagonal_high_speed_w : 4.0               # 사행 고속 주행시 경로 추종 웨이트 : 높을수록 경로로 빠르게 수렴, 너무 높으면 휘청임
+  f_diagonal_angle_kp : 1.2                   # 사행 각도 제어 P 게인
+  f_diagonal_angle_kd : 0.1                   # 사행 각도 제어 D 게인
+  f_diagonal_angle_ki : 0                     # 사행 각도 제어 I 게인
+  f_diagonal_curve_speed_ratio : 1.0          # 사행 곡선 주행시 속도 비율 : 1.0이면 곡선 주행시 속도 동일, 0.5이면 절반속도, 2.0이면 두배속도
+
+motion_avoid:                                 # 회피 관련 모션 파라미터  
+  f_avoid_vel_ms: 0.8                         # 회피시 목표 속도
+  f_avoid_check_vel_ms : 0.2                  # 회피시 장애물 감지 속도
+  f_avoid_margin_m : 0.1                      # 회피시 장애물 감지 마진 거리
+  f_avoid_detect_obs_dir_margin_m : 1.0       # 회피시 장애물 감지 방향 마진 거리
+  f_static_obs_check_time_sec : 1.0           # 정적 장애물 감지 시간
+  f_static_obs_check_dist_m : 0.2             # 정적 장애물 감지 거리
+  b_avoidance_auto_comeback_path : true       # 회피시 자동 복귀 경로 생성 여부
+
+planner_base:                                 # 경로 계획 관련 기본 파라미터
+  n_path_planner_period_ms: 100               # 경로 계획 주기
+  b_avoid_permission: true                    # 회피 허용 여부
+  f_min_dist_for_forward_path_m: 7.0          # 경로 계획시 최소 전진 거리
+  f_goal_arrive_turning_radius_m : 2          # 도착시 회전 반경
+  f_goal_arrive_path_step_size_m : 0.01       # 도착시 경로 계획 step 크기
+  f_goal_arrive_straight_line_ratio : 0.4     # 도착시 직선 경로 비율
+  n_goal_arrive_start_align_index : 150       # 도착시 시작 정렬 인덱스
+  f_angle_dividing_the_path_deg : 10.0        # 경로 분할 각도
+  b_allways_align_flag : false                # true: 항상 정렬 모드, false: 경로 계획시 정렬 모드
+  f_start_thr_dist_m: 0.3                     # 경로 계획시 시작 거리
+
+planner_local:                                # 로컬 경로 계획 관련 파라미터
+  updated_frequency_ms : 80                   # 로컬 경로 계획 업데이트 주기
+  map_size_x_m : 14.0                         # 로컬 맵 크기 X  
+  map_size_y_m : 14.0                         # 로컬 맵 크기 Y
+  map_res_m : 0.1                             # 로컬 맵 해상도
+  padding_size_m : 0.2                        # 로컬 맵 패딩 크기
+
+planner_avoid:                                # 회피 경로 계획 관련 파라미터
+  n_detection_period_ms: 700                  # 회피 경로 계획 장애물 감지 주기
+  n_avoidance_period_ms: 3000                 # 회피 경로 계획 주기  
+  f_force_comeback_start_dist_m: 1.0          # 회피시 복귀 시작 거리
+  f_force_comeback_target_dist_m: 1.0         # 회피시 복귀 목표 거리
+  f_force_comeback_in_curve_added_start_dist_m: 4.0        # 회피시 곡선에서 복귀 시작 거리
+  f_polynominal_max_curvature_m : 1.5         # 회피 경로 계획 최대 곡률
+  f_avoid_imposible_sec_s : 10.0              # 회피 불가능 판단 시간
+  f_dubins_normal_max_curve_radius_m: 6.0     # Dubins 경로 계획 일반 최대 곡률 반경
+  f_dubins_normal_min_curve_radius_m: 2.0     # Dubins 경로 계획 일반 최소 곡률 반경
+  f_dubins_normal_curve_interval_m: 0.5       # Dubins 경로 계획 일반 곡률 간격
+  f_dubins_force_max_curve_radius_m: 7.0      # Dubins 경로 계획 강제 최대 곡률 반경
+  f_dubins_force_min_curve_radius_m: 1.0      # Dubins 경로 계획 강제 최소 곡률 반경
+  f_dubins_force_curve_interval_m: 0.5        # Dubins 경로 계획 강제 곡률 간격
+  f_search_step_size_m: 0.5                   # 회피 경로 계획 검색 step 크기
+  n_search_min_step: 4                        # 회피 경로 계획 최소 step
+  n_search_max_step: 16                       # 회피 경로 계획 최대 step
+  f_interval_m: 0.5                           # 회피 경로 계획 간격
+  n_left_num: 10                              # 회피 경로 계획 왼쪽 경로 개수
+  n_right_num: 10                             # 회피 경로 계획 오른쪽 경로 개수
+
+obstacle:                                     # 장애물 관련 파라미터  
+  b_cluster_use : true                       # ☆ true: 클러스터링 사용, false: 클러스터링 사용 안함  
+  data_cluster_distance_m:                    # 클러스터링 거리
+  - 0.010
+  - 0.015
+  - 0.02
+  data_cluster_size_min:                      # 클러스터링 최소 크기
+  - 10
+  - 10
+  - 10
+  n_cluster_size_max: 10000                   # 클러스터링 최대 크기
+  f_cluster_obs_check_dist: 0.04              # 클러스터링 장애물 감지 거리
+  f_cluster_step_dist: 0.7                      # 클러스터링 step 거리
+  b_use_detection_mode_flag : true            # ☆ 장애물 감지 모드 사용 여부
+  b_use_predict_mode_flag : true              # 장애물 예측 모드 사용 여부
+  b_use_start_obs_check_flag : true          # ☆ 시작 장애물 감지 모드 사용 여부
+  b_use_side_check_flag : true               # ☆ 측면 장애물 감지 모드 사용 여부
+  b_use_obs_alarm_separate : true            # 장애물 알람 분리 사용 여부
+  f_start_obs_check_m : 1.8                     # 시작 장애물 감지 거리
+  f_start_obs_step_m : 0.2                    # 시작 장애물 감지 step 크기
+  f_move_obstacle_dist_max : 10               # 이동 장애물 최대 거리
+  n_start_obs_check_sec : 0.5                 # 시작 장애물 감지 시간
+  n_predict_step_num : 10                     # 장애물 예측 step 개수
+  n_reduce_predict_deg_step : 10              # 장애물 예측 각도 감소 step 개수
+  f_reduce_predict_deg_standard : 5.0         # 장애물 예측 각도 감소 기준
+  f_obstacle_change_delay : 0.1               # 장애물 변경 딜레이 시간
+  f_resume_start_delay : 0.1                  # 재개 시작 딜레이 시간
+  f_collision_predict_sec : 3.2               # ☆ 충돌 예측 시간
+  f_side_check_margin : 0.45                   # 측면 장애물 감지 마진 거리
+  f_side_target_speed_ratio : 0.5               # 측면 장애물 감지 속도 비율
+  f_detect_margin : 0                         # 장애물 감지 마진 거리
+  f_rotation_margin_m: 0.1                    # 장애물 회전 마진 거리
+  f_origin_detect_obs_dir_margin_m : 1        # 장애물 감지 방향 마진 거리
+  f_origin_path_detect_obs_margin_m : 0.0     # 경로에서 장애물 감지 마진 거리
+  n_origin_path_detect_obs_dist_m : 0         # 경로에서 장애물 감지 거리
+  b_use_remain_obs : false                    # ☆ 잔여 장애물 사용 여부
+  f_sec_remain_obs_check : 10                 # 잔여 장애물 감지 시간
+  f_camera_collision_predict_sec: 4.5         # 카메라 충돌 예측 시간
+  b_use_camera_predict_mode_flag: true       # 카메라 예측 모드 사용 여부 // 이거 키면 버그 있음
+  n_collision_estop_period_ms: 50             # 충돌 추정 이스톱 주기
+  n_unlock_suspending_duration_ms: 500        # 이스톱 해제 대기 시간
+  f_collision_extension_x_m: 0.7              # 충돌 확장 X 거리
+  f_collision_extension_y_m: 0.5              # 충돌 확장 Y 거리
+  f_collision_extension_max_vel_ms: 1.5       # 충돌 확장 최대 속도
+  f_collision_extension_min_vel_ms: 0.7       # 충돌 확장 최소 속도
+  f_camera_suspendmission_dist_m: 2.0
+  f_camera_path_check_m: 1.8
+  f_camera_path_check_step: 0.2
+  
+  poly_list:
+  - outline
+  - collision
+  - collision2
+  outline:                                    # ☆ 로봇 윤곽선 좌표
+  - 0.9
+  - -0.9
+  - -0.3
+  - 0.3
+  collision:                                  # ☆ 로봇 충돌감지 영역 좌표
+  - 1.5
+  - -1.5
+  - -0.4
+  - 0.4
+  collision2:
+  - 1.2
+  - -1.2
+  - -1.0
+  - 1.0
+  
+localization:                                 # 위치 추정 관련 파라미터 
+  b_use_localization : true                   # 위치 추정 사용 여부
+  
+lidarmerger:                                  # 라이다 병합 관련 파라미터 
+  b_use_lidar_info : true                     # 라이다 정보 사용 여부
+  destination_frame : "laser_link"            # 라이다 병합 결과 프레임
+  scan_destination_topic : "scan_cloud"       # 라이다 병합 결과 토픽
+  input_scans: ['scan_front','scan_rear']     # 라이다 병합 입력 토픽
+  lidar_merger_time_bound: 0.025              # 라이다 병합 시간 경계(초) 
+  angle_increment : 0.00174533                # 라이다 각도 증가량(라디안)
+  dist_min : 0.1                              # 라이다 최소 거리(m)
+  dist_max : 28                               # 라이다 최대 거리(m)
+  b_load_diff_range_use : true
+  x_front_m : 0.53                        # 라이다 필터링 영역 X 좌표(m)
+  x_back_m : -0.53                        # 라이다 필터링 영역 X 좌표(m)
+  y_left_m : 0.38                         # 라이다 필터링 영역 Y 좌표(m)
+  y_right_m : -0.38                       # 라이다 필터링 영역 Y 좌표(m)
+  load_x_front_m : 0.6
+  load_x_back_m : -0.6
+  load_y_left_m : 0.45
+  load_y_right_m : -0.45
+  n_full_lidar_m : 2.5                        # 라이다 병합 전체 시각화 거리(m)
+  n_skip_lidar_std : 10                       # 라이다 병합 스킵 표준값
+  lidar_ground_filter : 0                     # 라이다 지면 필터링 여부
+
+lidar:                                        # 라이다 관련 파라미터
+  front_x_m : 0.869                          # 앞 라이다 X 좌표(m)
+  front_y_m : 0.0                          # 앞 라이다 Y 좌표(m)
+  front_z_m : 0.0                             # 앞 라이다 Z 좌표(m)
+  front_roll_deg : 0.0                        # 앞 라이다 롤 각도(도)
+  front_pitch_deg : 0.0                       # 앞 라이다 피치 각도(도)
+  front_yaw_deg : 45.0                        # 앞 라이다 요 각도(도)
+  front_angle_increment : 0.0                 # 앞 라이다 각도 증가량(라디안)
+  front_angle_min : 0.0                       # 앞 라이다 최소 각도(라디안)
+  front_range_offset_m : 0.0                  # 앞 라이다 거리 오프셋(m)
+  rear_x_m : -0.869                          # 뒤 라이다 X 좌표(m)
+  rear_y_m : -0.0                          # 뒤 라이다 Y 좌표(m)
+  rear_z_m : 0.0                              # 뒤 라이다 Z 좌표(m)
+  rear_roll_deg : 0.0                         # 뒤 라이다 롤 각도(도)
+  rear_pitch_deg : 0.0                        # 뒤 라이다 피치 각도(도)
+  rear_yaw_deg : -135.0                       # 뒤 라이다 요 각도(도)
+  rear_angle_increment : 0.0                  # 뒤 라이다 각도 증가량(라디안)
+  rear_angle_min : 0.0                        # 뒤 라이다 최소 각도(라디안)
+  rear_range_offset_m : 0.0                   # 뒤 라이다 거리 오프셋(m)
+  left_x_m : 0.0                              # 왼쪽 라이다 X 좌표(m)
+  left_y_m : 0.0                              # 왼쪽 라이다 Y 좌표(m)
+  left_z_m : 0.0                              # 왼쪽 라이다 Z 좌표(m)
+  left_roll_deg : 0.0                         # 왼쪽 라이다 롤 각도(도)
+  left_pitch_deg : 0.0                        # 왼쪽 라이다 피치 각도(도)
+  left_yaw_deg : 0.0                          # 왼쪽 라이다 요 각도(도)
+  left_angle_increment : 0.0                  # 왼쪽 라이다 각도 증가량(라디안)
+  left_angle_min : 0.0                        # 왼쪽 라이다 최소 각도(라디안)
+  left_range_offset_m : 0.0                   # 왼쪽 라이다 거리 오프셋(m)
+  right_x_m : 0.0                             # 오른쪽 라이다 X 좌표(m)
+  right_y_m : 0.0                             # 오른쪽 라이다 Y 좌표(m)
+  right_z_m : 0.0                             # 오른쪽 라이다 Z 좌표(m)
+  right_roll_deg : 0.0                        # 오른쪽 라이다 롤 각도(도)
+  right_pitch_deg : 0.0                       # 오른쪽 라이다 피치 각도(도)
+  right_yaw_deg : 0.0                         # 오른쪽 라이다 요 각도(도)
+  right_angle_increment : 0.0                 # 오른쪽 라이다 각도 증가량(라디안)
+  right_angle_min : 0.0                       # 오른쪽 라이다 최소 각도(라디안)
+  right_range_offset_m : 0.0                  # 오른쪽 라이다 거리 오프셋(m)
+
+pgv:                                          # PGV 관련 파라미터   
+  f_xm_offset: 0.0                            # PGV X 좌표 오프셋(m)
+  f_ym_offset: 0.0                            # PGV Y 좌표 오프셋(m)
+  f_yaw_deg_offset: 0.0                       # PGV 요 각도 오프셋(도)
+
+driver_base:                                  # 드라이버 기본 파라미터
+  b_accdecel_enable: true                     # true: 가속/감속 제어 활성화, false: 비활성화
+  b_use_brake: false                           # true: 브레이크 사용, false: 브레이크 사용 안함
+  b_external_brake_control: false             # true: 외부 브레이크 제어 사용, false: 내부 브레이크 제어 사용
+  b_link_brake_and_servo: false               # true: 브레이크와 서보 연결, false: 브레이크와 서보 분리
+  f_brake_release_time_ms: 200                # 브레이크 해제 시간(ms)
+  f_brake_lock_wait_time_ms: 1000             # 브레이크 잠금 대기 시간(ms)
+  f_brake_threshold_rpm: 10                   # 브레이크 임계 RPM
+  s_target_frame_id: "odom"                   # 목표 프레임 ID
+  s_child_frame_id: "base_link"               # 자식 프레임 ID
+  b_tf_enable: true                           # true: TF 활성화, false: TF 비활성화
+  f_control_period_ms: 20                     # 제어 주기(ms)
+  f_heartbeat_ms: 400                         # 하트비트 주기(ms)
+  b_imuodom_enable: false                     # true: IMU Odom 활성화, false: 비활성화
+  b_abs_steer_encoder_use: false              # true: ABS 스티어링 엔코더 사용, false: 사용 안함
+  b_turn_table_use: false                     # true: 턴테이블 사용, false: 사용 안함
+  b_turn_table_target_rpmd: true              # true: 턴테이블 목표 RPM 사용, false: 사용 안함 
+  f_turn_table_gear_ratio: 1                  # 턴테이블 기어비
+  f_turn_table_abssteer_gear_ratio: 0         # 턴테이블 ABS 스티어링 기어비
+  f_turn_table_abssteer_offset: 0             # 턴테이블 ABS 스티어링 오프셋
+  s_gain_pid_1: "0/0/0"                       # PID 게인 1 (P/I/D)
+  s_gain_pid_2: "0/0/0"                       # PID 게인 2 (P/I/D)
+  s_gain_pid_3: "0/0/0"                       # PID 게인 3 (P/I/D)
+
+driver_wheel:                                 # 드라이버 휠 관련 파라미터
+  f_FL_wheel_x_m : 0.0                        # 앞 왼쪽 휠 X 좌표(m)
+  f_FR_wheel_x_m : 0.15                        # 앞 오른쪽 휠 X 좌표(m)
+  f_RL_wheel_x_m : -0.3                       # 뒤 왼쪽 휠 X 좌표(m)
+  f_RR_wheel_x_m : 0.0                       # 뒤 오른쪽 휠 X 좌표(m)
+  f_FL_wheel_y_m : 0.2515                        # 앞 왼쪽 휠 Y 좌표(m)
+  f_FR_wheel_y_m : -0.3                       # 앞 오른쪽 휠 Y 좌표(m)
+  f_RL_wheel_y_m : 0.3                        # 뒤 왼쪽 휠 Y 좌표(m)
+  f_RR_wheel_y_m : -0.2515                       # 뒤 오른쪽 휠 Y 좌표(m)
+  f_FL_wheel_axis_offset_m : 0.0              # 앞 왼쪽 휠 축 오프셋(m)
+  f_FR_wheel_axis_offset_m : 0.0              # 앞 오른쪽 휠 축 오프셋(m)
+  f_RL_wheel_axis_offset_m : 0.0              # 뒤 왼쪽 휠 축 오프셋(m)
+  f_RR_wheel_axis_offset_m : 0.0              # 뒤 오른쪽 휠 축 오프셋(m)
+  f_FL_wheel_diameter_m : 0.18                # 앞 왼쪽 휠 지름(m)
+  f_FR_wheel_diameter_m : 0.15                # 앞 오른쪽 휠 지름(m)
+  f_RL_wheel_diameter_m : 0.15                # 뒤 왼쪽 휠 지름(m)
+  f_RR_wheel_diameter_m : 0.18                # 뒤 오른쪽 휠 지름(m)
+
+driver_traction:                              # 드라이버 트랙션 관련 파라미터
+  b_FL_traction_target_rpmd : true            # true: 앞 왼쪽 트랙션 목표 RPM 정방향, false: 역방향
+  b_FR_traction_target_rpmd : true            # true: 앞 오른쪽 트랙션 목표 RPM 정방향, false: 역방향
+  b_RL_traction_target_rpmd : true            # true: 뒤 왼쪽 트랙션 목표 RPM 정방향, false: 역방향
+  b_RR_traction_target_rpmd : true            # true: 뒤 오른쪽 트랙션 목표 RPM 정방향, false: 역방향
+  b_FL_traction_feedback_rpmd : false          # true: 앞 왼쪽 트랙션 피드백 RPM 정방향, false: 역방향
+  b_FR_traction_feedback_rpmd : true          # true: 앞 오른쪽 트랙션 피드백 RPM 정방향, false: 역방향
+  b_RL_traction_feedback_rpmd : true          # true: 뒤 왼쪽 트랙션 피드백 RPM 정방향, false: 역방향
+  b_RR_traction_feedback_rpmd : true          # true: 뒤 오른쪽 트랙션 피드백 RPM 정방향, false: 역방향
+  b_FL_traction_encoderd : false               # true: 앞 왼쪽 트랙션 엔코더 정방향, false: 역방향
+  b_FR_traction_encoderd : true               # true: 앞 오른쪽 트랙션 엔코더 정방향, false: 역방향
+  b_RL_traction_encoderd : true               # true: 뒤 왼쪽 트랙션 엔코더 정방향, false: 역방향
+  b_RR_traction_encoderd : true               # true: 뒤 오른쪽 트랙션 엔코더 정방향, false: 역방향
+  f_FL_traction_gear_ratio : 9               # 앞 왼쪽 트랙션 기어비
+  f_FR_traction_gear_ratio : 20               # 앞 오른쪽 트랙션 기어비
+  f_RL_traction_gear_ratio : 20               # 뒤 왼쪽 트랙션 기어비
+  f_RR_traction_gear_ratio : 9               # 뒤 오른쪽 트랙션 기어비
+  f_FL_traction_encoder_pulse : 15931         # 앞 왼쪽 트랙션 엔코더 펄스
+  f_FR_traction_encoder_pulse : 10000         # 앞 오른쪽 트랙션 엔코더 펄스
+  f_RL_traction_encoder_pulse : 10000         # 뒤 왼쪽 트랙션 엔코더 펄스
+  f_RR_traction_encoder_pulse : 15931         # 뒤 오른쪽 트랙션 엔코더 펄스
+  f_FL_traction_rpm_min : 0                   # 앞 왼쪽 트랙션 최소 RPM
+  f_FR_traction_rpm_min : 0                   # 앞 오른쪽 트랙션 최소 RPM
+  f_RL_traction_rpm_min : 0                   # 뒤 왼쪽 트랙션 최소 RPM
+  f_RR_traction_rpm_min : 0                   # 뒤 오른쪽 트랙션 최소 RPM
+  f_FL_traction_rpm_max : 3000.0               # 앞 왼쪽 트랙션 최대 RPM
+  f_FR_traction_rpm_max : 10000               # 앞 오른쪽 트랙션 최대 RPM
+  f_RL_traction_rpm_max : 10000               # 뒤 왼쪽 트랙션 최대 RPM
+  f_RR_traction_rpm_max : 3000.0               # 뒤 오른쪽 트랙션 최대 RPM
+  f_traction_overcurrent_amp_std : 40        # 트랙션 오버커런트 표준 전류(A)
+  f_traction_overcurrent_time_std : 3         # 트랙션 오버커런트 표준 시간(초)
+  s_target_unit : "rpm"                       # 트랙션 타겟 명령 단위
+  n_target_pulse : 1                          # 트랙션 타겟 명령 단위가 pps일경우 pulse 값 
+
+driver_steer:                                 # 드라이버 스티어 관련 파라미터
+  b_FL_target_steer_angled : true             # true: 앞 왼쪽 스티어 목표 각도 정방향, false: 역방향
+  b_FR_target_steer_angled : true             # true: 앞 오른쪽 스티어 목표 각도 정방향, false: 역방향
+  b_RL_target_steer_angled : true             # true: 뒤 왼쪽 스티어 목표 각도 정방향, false: 역방향
+  b_RR_target_steer_angled : true             # true: 뒤 오른쪽 스티어 목표 각도 정방향, false: 역방향
+  b_FL_feedback_steer_angled : true           # true: 앞 왼쪽 스티어 피드백 각도 정방향, false: 역방향
+  b_FR_feedback_steer_angled : true           # true: 앞 오른쪽 스티어 피드백 각도 정방향, false: 역방향
+  b_RL_feedback_steer_angled : true           # true: 뒤 왼쪽 스티어 피드백 각도 정방향, false: 역방향
+  b_RR_feedback_steer_angled : true           # true: 뒤 오른쪽 스티어 피드백 각도 정방향, false: 역방향
+  f_steer_stop_thr_deg : 5.0                  # 스티어 정지 임계 각도(도)
+  f_steer_start_thr_deg : 50.0                # 스티어 시작 임계 각도(도)
+  f_FL_steer_gear_ratio : 80                 # 앞 왼쪽 스티어 기어비
+  f_FR_steer_gear_ratio : 0.1                 # 앞 오른쪽 스티어 기어비
+  f_RL_steer_gear_ratio : 0.1                 # 뒤 왼쪽 스티어 기어비
+  f_RR_steer_gear_ratio : 80                 # 뒤 오른쪽 스티어 기어비
+  f_FL_steer_encoder_pulse : 10000.0          # 앞 왼쪽 스티어 엔코더 펄스
+  f_FR_steer_encoder_pulse : 10000.0          # 앞 오른쪽 스티어 엔코더 펄스
+  f_RL_steer_encoder_pulse : 10000.0          # 뒤 왼쪽 스티어 엔코더 펄스
+  f_RR_steer_encoder_pulse : 10000.0          # 뒤 오른쪽 스티어 엔코더 펄스
+  f_FL_steer_max_angle_deg : 97.0            # 앞 왼쪽 스티어 최대 각도(도)
+  f_FR_steer_max_angle_deg : 120.0            # 앞 오른쪽 스티어 최대 각도(도)
+  f_RL_steer_max_angle_deg : 120.0            # 뒤 왼쪽 스티어 최대 각도(도)
+  f_RR_steer_max_angle_deg : 97.0            # 뒤 오른쪽 스티어 최대 각도(도)
+  f_FL_steer_min_angle_deg : -97.0           # 앞 왼쪽 스티어 최소 각도(도)
+  f_FR_steer_min_angle_deg : -120.0           # 앞 오른쪽 스티어 최소 각도(도)
+  f_RL_steer_min_angle_deg : -120.0           # 뒤 왼쪽 스티어 최소 각도(도)
+  f_RR_steer_min_angle_deg : -97.0           # 뒤 오른쪽 스티어 최소 각도(도)
+  f_FL_steer_rpm_min : 5.0                    # 앞 왼쪽 스티어 최소 RPM
+  f_FR_steer_rpm_min : 0.0                    # 앞 오른쪽 스티어 최소 RPM
+  f_RL_steer_rpm_min : 0.0                    # 뒤 왼쪽 스티어 최소 RPM
+  f_RR_steer_rpm_min : 5.0                    # 뒤 오른쪽 스티어 최소 RPM
+  f_FL_steer_rpm_max : 2000.0                 # 앞 왼쪽 스티어 최대 RPM
+  f_FR_steer_rpm_max : 2000.0                 # 앞 오른쪽 스티어 최대 RPM
+  f_RL_steer_rpm_max : 2000.0                 # 뒤 왼쪽 스티어 최대 RPM
+  f_RR_steer_rpm_max : 2000.0                 # 뒤 오른쪽 스티어 최대 RPM
+  f_steer_pid_convergence_deg : 0.0          # 스티어 PID 수렴 각도(도)
+  f_steer_speed_std_ms : 0.5                  # 스티어 속도 게인 변경기준 로봇속도(m/s)
+  f_steer_low_speed_pid_kp_gain : 20.0        # 스티어 저속 PID P 게인
+  f_steer_low_speed_pid_ki_gain : 0.0         # 스티어 저속 PID I 게인
+  f_steer_low_speed_pid_kd_gain : 0.0         # 스티어 저속 PID D 게인
+  f_steer_high_speed_pid_kp_gain : 50.0       # 스티어 고속 PID P 게인
+  f_steer_high_speed_pid_ki_gain : 0.0        # 스티어 고속 PID I 게인
+  f_steer_high_speed_pid_kd_gain : 0.0        # 스티어 고속 PID D 게인
+  f_steer_overcurrent_amp_std : 130           # 스티어 오버커런트 표준 전류(A)
+  f_steer_overcurrent_time_std : 3            # 스티어 오버커런트 표준 시간(초)
+  n_steer_control_mode : 0                    # 스티어 제어 모드 (0: 속도, 1: 각도)
+  s_target_unit : "rpm"                       # 스티어 속도 제어 모드일경우 타겟 명령 단위
+  n_target_pulse : 1                          # 스티어 타겟 명령 단위가 pps일경우 pulse 값
+
+driver_etc:                                   # 드라이버 기타 관련 파라미터
+  b_abs_steer_encoder_use : false             # true: ABS 스티어링 엔코더 사용, false: 사용 안함
+  b_FL_steer_absfeedback_angled : true        # true: 앞 왼쪽 ABS 스티어링 피드백 각도 정방향, false: 역방향
+  b_FR_steer_absfeedback_angled : true        # true: 앞 오른쪽 ABS 스티어링 피드백 각도 정방향, false: 역방향
+  b_RL_steer_absfeedback_angled : true        # true: 뒤 왼쪽 ABS 스티어링 피드백 각도 정방향, false: 역방향
+  b_RR_steer_absfeedback_angled : true        # true: 뒤 오른쪽 ABS 스티어링 피드백 각도 정방향, false: 역방향
+  f_FL_abssteer_offset : -15.0                  # 앞 왼쪽 ABS 스티어링 오프셋
+  f_FR_abssteer_offset : 0.0                  # 앞 오른쪽 ABS 스티어링 오프셋
+  f_RL_abssteer_offset : 0.0                  # 뒤 왼쪽 ABS 스티어링 오프셋
+  f_RR_abssteer_offset : -5.0                  # 뒤 오른쪽 ABS 스티어링 오프셋
+  f_FL_abssteer_pulse : 4096.0                # 앞 왼쪽 ABS 스티어링 펄스
+  f_FR_abssteer_pulse : 4096.0                # 앞 오른쪽 ABS 스티어링 펄스
+  f_RL_abssteer_pulse : 4096.0                # 뒤 왼쪽 ABS 스티어링 펄스
+  f_RR_abssteer_pulse : 4096.0                # 뒤 오른쪽 ABS 스티어링 펄스
+  f_FL_abssteer_gearratio : 0.0006866              # 앞 왼쪽 ABS 스티어링 기어비
+  f_FR_abssteer_gearratio : 0.05              # 앞 오른쪽 ABS 스티어링 기어비
+  f_RL_abssteer_gearratio : 0.05              # 뒤 왼쪽 ABS 스티어링 기어비
+  f_RR_abssteer_gearratio : 0.0006866              # 뒤 오른쪽 ABS 스티어링 기어비
+  n_rpm_warning_std : 100                     # RPM 경고 표준값
+  n_rpm_warning_count_std : 30                # RPM 경고 카운트 표준값
+
+pcan:                                         # PCAN 관련 파라미터
+  b_pcan_use : false                          # PCAN 사용 여부
+  n_pcan_mode : 6                             # PCAN 모드 (0: PCAN-USB, 1: PCAN-PCI)
+  n_pcan_baudrate : 20                        # PCAN 보드 레이트 (0: 1M, 1: 800K, 2: 500K, 3: 250K, 4: 125K, 5: 100K, 6: 50K, 7: 20K, 8: 10K)
+  n_pcan_bus: 81                              # PCAN 버스 번호 (81: PCAN-USB, 82: PCAN-PCI)
+  n_dd_FL_pcan_write_id : 0x123               # DD 앞 왼쪽 PCAN 쓰기 ID
+  n_dd_RR_pcan_write_id : 0x223               # DD 뒤 오른쪽 PCAN 쓰기 ID
+  n_dd_FL_pcan_read_id : 0x150                # DD 앞 왼쪽 PCAN 읽기 ID
+  n_dd_RR_pcan_read_id : 0x250                # DD 뒤 오른쪽 PCAN 읽기 ID
+  b_dd_FL_pcan_read_check : true              # DD 앞 왼쪽 PCAN 읽기 체크 여부
+  b_dd_RR_pcan_read_check : true              # DD 뒤 오른쪽 PCAN 읽기 체크 여부
+  n_FL_traction_pcan_id : 8
+  n_RR_traction_pcan_id : 7
+  n_qd_FL_steer_pcan_id : 1                   # QD 앞 왼쪽 스티어 PCAN ID
+  n_qd_RR_steer_pcan_id : 2                   # QD 뒤 오른쪽 스티어 PCAN ID
+  n_qd_FL_traction_pcan_write_id : 8      # QD 앞 왼쪽 트랙션 PCAN 쓰기 ID
+  n_qd_RR_traction_pcan_write_id : 7      # QD 뒤 오른쪽 트랙션 PCAN 쓰기 ID
+  n_qd_FL_steer_pcan_write_id : 5         # QD 앞 왼쪽 스티어 PCAN 쓰기 ID
+  n_qd_RR_steer_pcan_write_id : 6         # QD 뒤 오른쪽 스티어 PCAN 쓰기 ID
+  n_qd_FL_traction_pcan_read_id : 8       # QD 앞 왼쪽 트랙션 PCAN 읽기 ID
+  n_qd_RR_traction_pcan_read_id : 7       # QD 뒤 오른쪽 트랙션 PCAN 읽기 ID
+  b_qd_FL_traction_pcan_read_check : true     # QD 앞 왼쪽 트랙션 PCAN 읽기 체크 여부
+  b_qd_RR_traction_pcan_read_check : true     # QD 뒤 오른쪽 트랙션 PCAN 읽기 체크 여부
+  n_qd_FL_steer_pcan_read_id : 5          # QD 앞 왼쪽 스티어 PCAN 읽기 ID
+  n_qd_RR_steer_pcan_read_id : 6          # QD 뒤 오른쪽 스티어 PCAN 읽기 ID
+  b_qd_FL_steer_pcan_read_check : true        # QD 앞 왼쪽 스티어 PCAN 읽기 체크 여부
+  b_qd_RR_steer_pcan_read_check : true        # QD 뒤 오른쪽 스티어 PCAN 읽기 체크 여부
+  b_qd_steer_abs_encoder_use : true          # QD 스티어 ABS 엔코더 사용 여부
+  n_qd_FL_abssteer_pcan_id : 5                # QD 앞 왼쪽 ABS 스티어 PCAN ID
+  n_qd_RR_abssteer_pcan_id : 6                # QD 뒤 오른쪽 ABS 스티어 PCAN ID
+  n_qd_FL_abssteer_pcan_read_id : 0x185       # QD 앞 왼쪽 ABS 스티어 PCAN 읽기 ID
+  n_qd_RR_abssteer_pcan_read_id : 0x186       # QD 뒤 오른쪽 ABS 스티어 PCAN 읽기 ID
+  b_qd_FL_abssteer_pcan_read_check : true     # QD 앞 왼쪽 ABS 스티어 PCAN 읽기 체크 여부
+  b_qd_RR_abssteer_pcan_read_check : true     # QD 뒤 오른쪽 ABS 스티어 PCAN 읽기 체크 여부
+  n_sd_FL_steer_pcan_id : 2                   # SD 앞 왼쪽 스티어 PCAN ID
+  n_sd_FL_traction_pcan_write_id : 0x123      # SD 앞 왼쪽 트랙션 PCAN 쓰기 ID
+  n_sd_FL_traction_pcan_read_id : 0x150       # SD 앞 왼쪽 트랙션 PCAN 읽기 ID
+  n_sd_FL_steer_pcan_write_id : 0x202         # SD 앞 왼쪽 스티어 PCAN 쓰기 ID
+  n_sd_FL_steer_pcan_read_id: 0x251           # SD 앞 왼쪽 스티어 PCAN 읽기 ID
+  n_sd_FL_abssteer_pcan_read_id : 0x289       # SD 앞 왼쪽 ABS 스티어 PCAN 읽기 ID
+  n_sd_FL_abssteer_pcan_id : 9                # SD 앞 왼쪽 ABS 스티어 PCAN ID
+
+can:                                          # CAN 관련 파라미터
+  b_can_use : true                           # CAN 사용 여부
+  n_can_mode : 5                              # CAN 모드 
+  n_upper_can_mode : 1                        # 상위 CAN 모드
+  s_upper_can_dev : "can1"                    # 상위 CAN 디바이스
+  n_turn_table_abssteer_can_id : 12           # 턴테이블 ABS 스티어 CAN ID
+  b_can_sim_use : false                       # CAN 시뮬레이션 사용 여부
+  n_FL_traction_can_id : 8                    # 앞 왼쪽 트랙션 CAN ID
+  n_RR_traction_can_id : 7                    # 뒤 오른쪽 트랙션 CAN ID
+  n_FL_steer_can_id : 5                       # 앞 왼쪽 스티어 CAN ID
+  n_RR_steer_can_id : 6                       # 뒤 오른쪽 스티어 CAN ID
+  n_qd_FL_traction_can_write_id : 0x00        # QD 앞 왼쪽 트랙션 CAN 쓰기 ID
+  n_qd_RR_traction_can_write_id : 0x00        # QD 뒤 오른쪽 트랙션 CAN 쓰기 ID
+  n_qd_FL_steer_can_write_id : 0x141          # QD 앞 왼쪽 스티어 CAN 쓰기 ID
+  n_qd_RR_steer_can_write_id : 0x142          # QD 뒤 오른쪽 스티어 CAN 쓰기 ID
+  n_qd_FL_steer_can_read_id : 0x241           # QD 앞 왼쪽 스티어 CAN 읽기 ID
+  n_qd_RR_steer_can_read_id : 0x242           # QD 뒤 오른쪽 스티어 CAN 읽기 ID
+  b_qd_FL_steer_can_read_check : true         # QD 앞 왼쪽 스티어 CAN 읽기 체크 여부
+  b_qd_RR_steer_can_read_check : true         # QD 뒤 오른쪽 스티어 CAN 읽기 체크 여부
+  n_turn_table_can_id : 1                     # 턴테이블 CAN ID
+
+serial:
+  b_serial_use : false
+  s_serial_tty: "/dev/ttyUSB_Serial"
+  n_serial_mode : 0   # 0 = comodo
+  n_serial_baudrate : 57600
+  n_serial_rec_buf : 256
+
+obstacle_detector_base:                       # 옵스타클 디텍터 기본 파라미터
+  b_t_mini: false                             # true: T-Mini 사용, false: T-Mini 사용 안함     
+  b_use_dynamic_roi: true                     # 도킹 시 도킹 포트 ROI 동적 사용 여부
+  f_docking_x_filter_m: 3.0                   # 도킹 시 도킹방향 필터링 거리
+  d_z_upper_max_m: 0.75                       # 리프트 파래트 필터링 상하 범위
+  b_do_post_processing: true                  # merge 데이터 PUBLISH 여부(false 시 merge 데이터는 PUBLISH)
+ 
+obstacle_detector_ransac:                     # 옵스타클 디텍터 지면, PATH-THROUGH 필터링 파라미터
+  b_use: true                                # RANSAC 평면 모델 추출 사용 여부
+  n_k_search: 50                              # RANSAC 평명 모델 추출 시 사용 포인트 갯수
+  u_iteration: 3                              # RANSAC 평면 모델 추출 시 반복 횟수 
+  d_distance_weight: 0.1                      # 미사용
+  d_prob: 0.99                                # 미사용
+  d_distance_m_ : 0.1                         # 평면 감지 inliner 구별 거리
+  d_distance_m_default: 0.1                   # 평면 감지 inliner 구별 거리 (그레이트 미감지 시)
+  d_voxel_leaf_size_m: 0.025                   # 다운샘플링 필터링거리 (10x10x10cm 거리 내 포인트를 1개로)
+  d_x_min_th_m: -6.0                          # 앞 뒤 방향 카메라 감지 범위 (최소)
+  d_x_max_th_m: 6.0                           # 앞 뒤 방향 카메라 감지 범위 (최대)
+  d_y_min_th_m: -7.0                          # 양 옆 방향 카메라 감지 범위 (최소)
+  d_y_max_th_m: 7.0                           # 양 옆 방향 카메라 감지 범위 (최대) 
+  d_z_min_th_m: -0.1                         # 상하 방향 카메라 감지 범위 (최소)
+  d_z_max_th_m: 3.0                           # 상하 방향 카메라 감지 범위 (최대)
+  d_x_filter_m: 0.48                           # 앞 뒤 방향 포인트 필터링 범위 
+  d_y_filter_m: 0.33                           # 영 옆 방향 카메라 감지 범위 
+  d_z_filter_m: 0.30                           # 앞 뒤 방향 카메라 감지 범위
+  d_collision_ratio_x: 0.9
+  d_collision_ratio_y: 0.9
+  d_ground_limit_m: 0.25                       # 평면 감지 포인트 구별 높이
+  d_ground_limit_m_default: 0.25               # 평면 감지 포인트 구별 높이 (평상 시)
+  d_hole_detect_distance_m : 0.1              # 평면 감지 inliner 구별 거리(그레이트 감지 시)
+  d_hole_detect_ground_limit_m: 0.1           # 그레이트 감지 시 평면 감지 범위 
+
+
+obstacle_detector_dbscan:                     # 사영한 3D 포인트 노이즈 파라미터 (클러스터링 파라미터)
+  b_use_fec: true                             # Fast Euclidean Cluster 사용 여부
+  b_use_concave_hull: true                    # Concave Hull 사용 여부 (미사용 시 Convex Hull 사용)
+  d_alpha: 0.3                                # Concave Hull 사용 시 알파 값
+  d_voxel_leaf_size_m: 0.025                   # 사영 후 다운 샘플링 거리 (10x10 거리 내 포인트를 1개로)
+  d_max_cluster_distance_m: 0.02              # 클러스터링에 포함할 포인트 간 최대 거리
+  n_cluster_size_min: 50                      # 클러스터를 형성함에 있어 최소 포인트 갯수
+  n_cluster_size_max: 3000                    # 클러스터를 형성함에 있어 최대 포인트 갯수
+
+obstacle_detector_data_association:           # 클러스터 매칭 파라미터
+  b_hole_detect: false                        # 그레이트 감지 여부
+  n_ui_ratio: 10                              # UI에 표시할 비율
+  d_non_avoid_missed_time_max: 1.0            # 비 회피 시 잔상 남기는 시간 (초)
+  d_avoid_missed_time_max: 25.0               # 회피 시 잔상 남기는 시간 (초)
+  b_do_merging: true                          # 클러스터 병합 여부
+  d_area_min_ratio_th: 0.3                    # hull 간 병합되는 최소 비율
+  d_area_max_ratio_th: 1                    # hull 간 병합되는 최대 비율
+  b_use_concave_hull : true                   # Concave Hull 사용 여부 (미사용 시 Convex Hull 사용)
+  d_alpha : 0.3                               # Concave Hull 사용 시 알파 
+  b_do_cost_map : true                        # Cost Map 사용 여부
+  d_area_ratio_th_docking: 0.7                # 도킹 시 hull 간 병합되는 최소 비율 
+  n_score_th: 5                              # Cost Map 사용 시 클러스터 매칭 점수 임계값     
+
+
+docking:
+  f_diff_x_limit: 0.015
+  f_diff_y_limit: 0.015
+  f_diff_deg_limit: 1.1
+
+vmaker:
+  f_front_v_marker_xm_offset: 0
+  f_front_v_marker_ym_offset: 0
+  f_front_v_marker_deg_offset: 0
+  f_rear_v_marker_xm_offset: 0
+  f_rear_v_marker_ym_offset: 0
+  f_rear_v_marker_deg_offset: 0
+  f_front_distortion_start_dist_m_offset : 0.25
+  f_front_lidar_distort_lateral_m_offset : 0.015
+  f_front_lidar_distort_deg_offset : 1.0
+  f_rear_distortion_start_dist_m_offset : 0.25
+  f_rear_lidar_distort_lateral_m_offset : 0.015
+  f_rear_lidar_distort_deg_offset : 1.0
+
+playback_cpp:                           # 플레이백 관련 파라미터
+  n_lidar_skip_count: 2                 # 라이다 스킵 카운트
+  f_move_sec: 5                         # 멈추고 플레이백 정지까지 시간(초)
+  f_change_sec: 2                       # 변경 시간(초)
+  f_bag_onefile_size: 50                # 하나의 bag 파일 크기(MB)
+  f_bag_size: 10000                     # 전체 bag 파일 크기(MB)
+  b_use: true                           # 플레이백 사용 여부
+
+action:
+  b_use: true                            # 액션 사용 여부
+  n_action_timeout_sec: 60               # 액션 타임아웃 시간(초)
+  n_action_retry_count: 3                # 액션 재시도 횟수
+  n_action_wait_time_ms: 100             # 액션 대기 시간(ms)
+  # action 리스트 
+  test_action: ['wait','wait','done']  # 테스트 액션 시퀀스
+  sim_action: ['wait','wait','done']    # subacton 시퀀스
+  liftup_action: ['plt_docking','lift_get','lift_up','done']    

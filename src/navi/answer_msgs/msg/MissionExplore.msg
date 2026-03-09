@@ -1,0 +1,4 @@
+string uuid
+
+float64 d_target_speed
+geometry_msgs/Pose2D o_target_pose

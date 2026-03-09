@@ -1,0 +1,14 @@
+<launch>
+  <node name="fakeslave" pkg="navican" type="fake_slave" output="screen">
+    <param name="navican_path" value="$(find navican)"/>
+    <rosparam>
+      configs:
+        - node_id: 1
+          eds_path: driver/eds/leadshine/2ELD2-CAN.eds
+          binary_path: generated/leadshine_dd/slave_1.bin
+        - node_id: 2
+          eds_path: driver/eds/leadshine/2ELD2-CAN.eds
+          binary_path: generated/leadshine_dd/slave_2.bin
+    </rosparam>
+  </node>
+</launch>

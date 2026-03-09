@@ -1,0 +1,3 @@
+// version 헤더는 자동으로 생성 됩니다.
+#define COMMIT_HASH "@GIT_COMMIT_HASH@"
+#define PROJECT_VERSION "@PROJECT_VERSION@"

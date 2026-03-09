@@ -1,0 +1,4 @@
+bool b_brake_control
+bool b_brake_target
+bool b_link_brake_and_servo
+bool b_servo_on

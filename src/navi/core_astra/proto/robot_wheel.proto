@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package core_astra;
+
+import "common.proto";
+// 개별 휠 정보
+message RobotWheel
+{
+    string id = 1;  // ex) "fl", "fr", "rl", "rr"
+    double diameter = 2;
+    double degree = 3;  // 조향각
+    Position position = 4;
+}
+
+// 휠 정보 전체
+message RobotWheelInfoStore
+{
+    repeated RobotWheel wheels = 1;
+}

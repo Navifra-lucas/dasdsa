@@ -1,0 +1,1 @@
+include 폴더 없으면 core_all_install 안됩니다. 삭제 하심안대여..

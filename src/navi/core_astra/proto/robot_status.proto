@@ -1,0 +1,97 @@
+syntax = "proto3";
+package core_astra;
+
+import "robot_pose.proto";
+import "robot_collision.proto";
+import "robot_wheel.proto";
+
+message ErrorPose
+{
+    double x = 1;
+    double y = 2;
+    double deg = 3;
+}
+
+message RobotSize
+{
+    double width = 1;
+    double height = 2;
+}
+
+message Setting
+{
+    int32 map = 1;
+    int32 total_nodes = 2;
+    int32 teached_nodes = 3;
+}
+
+message JigInfo
+{
+    int32 rotation = 1;
+    int32 lift = 2;
+    bool clamp = 3;
+    bool hold = 4;
+    bool product = 5;
+    bool error = 6;
+    bool communication = 7;
+}
+
+message RobotDrivingInfo
+{
+    double max_linear_vel_of_path = 1;
+    int64 liftcmd = 2;
+    int64 piocmd = 3;
+    bool reset_cmd = 4;
+    int32 batterystartcmd = 5;
+}
+
+message Errors
+{
+    ErrorPose position = 1;
+}
+
+message RobotStatus
+{
+    string id = 1;
+    string robot_status = 2;
+    string robot_alarm = 3;
+
+    double battery = 4;
+    double error_dist = 5;
+    Errors errors = 6;
+
+    RobotPose robot_pose = 7;
+
+    repeated double robot_linear_velocity = 8;
+    double robot_angular_velocity = 9;
+
+    double confidence = 10;
+
+    string now_node = 12;
+    string next_node = 13;
+    string goal_node = 14;
+    string work_id = 15;
+    double path_progress = 16;
+
+    string now_task = 17;
+    string is_load = 18;
+
+    RobotSize robot_size = 19;
+    Setting setting = 20;
+
+    double robot_base = 21;
+    double robot_wheeloffset = 22;
+    repeated double robot_footprint = 23;
+    RobotCollisionInfo robot_collision_info = 24;
+    repeated RobotWheel robot_wheels = 25;
+
+    // JigInfo jiginfo = 25;
+    RobotDrivingInfo driving_info = 26;
+
+    bool isrobotManual = 27;
+    bool barcode_reader = 28;
+
+    repeated string errortable = 29;
+    string robottype = 30;
+    double battery_voltage = 31;
+}

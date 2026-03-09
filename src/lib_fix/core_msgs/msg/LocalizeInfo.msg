@@ -1,0 +1,8 @@
+int64 localize_result_error_code
+int64 localize_angle_error_code 
+bool b_localizer_ready
+int64 n_confidence
+string s_localizer_mode
+float64 f_correct_x_m
+float64 f_correct_y_m
+float64 f_correct_deg

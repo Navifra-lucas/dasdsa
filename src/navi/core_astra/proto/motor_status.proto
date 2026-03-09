@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package core_astra;
+
+message MotorStatus {
+  int32 motor_id = 1;
+  int32 status = 2;
+  int32 error_code = 3;
+  double voltage = 4;
+  double current = 5;
+  double target_velocity = 6;
+  double feedback_velocity = 7;
+  double target_angle = 8;
+  double feedback_angle = 9;
+  int32 encoder = 10;
+  double accumulated_encoder = 11;
+  bool fault_flag = 12;
+  int32 bus_state = 13;
+  double last_update_time = 14;
+}
+
+// 리스트 형태로 전송
+message MotorStatusList {
+  repeated MotorStatus motors = 1;
+}

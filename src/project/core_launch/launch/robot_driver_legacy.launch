@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="nc_motor_driver_ros" type="nc_motor_driver_ros" name="nc_motor_driver_node" output="screen">
+        <param name="b_sim_use" value="true"/>
+    </node>
+  
+</launch>

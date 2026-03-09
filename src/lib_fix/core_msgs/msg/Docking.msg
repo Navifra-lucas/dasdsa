@@ -1,0 +1,10 @@
+int8 drive_type
+float32 speed
+float32 x_m
+float32 y_m
+float32 angle_deg
+float32 f_global_offset_x
+float32 f_global_offset_y
+float32 f_global_offset_deg
+int64 n_count
+float32 f_dock_data

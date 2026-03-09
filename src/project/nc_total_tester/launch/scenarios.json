@@ -1,0 +1,1426 @@
+[
+  {
+    "name": "Scenario 1 : Forward High Speed",
+    "initial_pose": {"x": -19.440, "y": 8.850, "theta": 0.0},
+    "task": {
+        "goal_name": "0069"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 1.2,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 2 : Forward Low Speed",
+    "initial_pose": {"x": -14.440, "y": 8.850, "theta": 0.0},
+    "task": {
+        "goal_name": "0070"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.2,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 20,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 3 : Backward High Speed",
+    "initial_pose": {"x": -12.440, "y": 8.85, "theta": -180.0},
+    "task": {
+        "goal_name": "0071"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 1.2,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 4 : Backward Low Speed",
+    "initial_pose": {"x": -7.440, "y": 8.850, "theta": -180.0},
+    "task": {
+        "goal_name": "0072"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.2,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 20,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 5 : Spin Turn Left",
+    "initial_pose": {"x": -5.440, "y": 8.850, "theta": -90.0},
+    "task": {
+        "goal_name": "0072"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 15,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 6 : Spin Turn Right",
+    "initial_pose": {"x": -5.440, "y": 8.850, "theta": 90.0},
+    "task": {
+        "goal_name": "0072"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 15,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 7 : Forward Left Turn",
+    "initial_pose": {"x": -5.440, "y": 8.850, "theta": 0.0},
+    "task": {
+        "goal_name": "0073"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.7},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 8 : Forward Right Turn",
+    "initial_pose": {"x": -3.130, "y": 11.530, "theta": 180.0},
+    "task": {
+        "goal_name": "0074"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 1.2},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 9 : Backward Left Turn",
+    "initial_pose": {"x": -5.440, "y": 14.560, "theta": -90.0},
+    "task": {
+        "goal_name": "0075"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.03, "angle": 0.8},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 10 : Backward Right Turn",
+    "initial_pose": {"x": -3.210, "y": 17.190, "theta": -90.0},
+    "task": {
+        "goal_name": "0076"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.03, "angle": 0.8},
+      "lateral_check": false,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 17,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 11 : Short distance Forward",
+    "initial_pose": {"x": -19.440, "y": 8.850, "theta": 0.0},
+    "task": {
+        "goal_name": "0078"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 22,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 12 : Forward + 90 Degree Turn + Forward",
+    "initial_pose": {"x": -17.760, "y": 10.420, "theta": 0.0},
+    "task": {
+        "goal_name": "0080"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 37,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 13 : Forward + Right Turn",
+    "initial_pose": {"x": -14.470, "y": 13.02, "theta": 0.0},
+    "task": {
+        "goal_name": "0082"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 0.9},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 35,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 14 : Backward + Left Turn",
+    "initial_pose": {"x": -8.960, "y": 10.380, "theta": -90.0},
+    "task": {
+        "goal_name": "0084"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 0.9},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 23,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 15 : Lateral Left",
+    "initial_pose": {"x": -6.230, "y": 15.390, "theta": 90.0},
+    "task": {
+        "goal_name": "0085"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.5,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 20,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 16 : Lateral Right",
+    "initial_pose": {"x": -9.090, "y": 15.390, "theta": 90.0},
+    "task": {
+        "goal_name": "0084"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.5,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 20,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 17 : Forward + Lateral Left Turn + Lateral Left",
+    "initial_pose": {"x": -6.230, "y": 15.390, "theta": -90.0},
+    "task": {
+        "goal_name": "0088"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.5,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 36,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 18 : Big curve High Speed",
+    "initial_pose": {"x": -14.800, "y": 18.800, "theta": -90.0},
+    "task": {
+        "goal_name": "0089"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 1.2,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.03, "angle": 1.0},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 29,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 19 : Forward Left Turn + Forward Right Turn",
+    "initial_pose": {"x": -6.370, "y": 10.380, "theta": 0.0},
+    "task": {
+        "goal_name": "0091"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.5,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 2.0},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 23,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 20 : Backward Left Turn + Backward Right Turn",
+    "initial_pose": {"x": -3.510, "y": 13.250, "theta": 0.0},
+    "task": {
+        "goal_name": "0093"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.5,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 3.0},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 23,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 21 : Tight Space Linear Pass",
+    "initial_pose": {"x": -6.370, "y": 16.470, "theta": -180.0},
+    "task": {
+        "goal_name": "0094"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 1.2,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 1.0},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 32,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 22 : Obstalce Stop",
+    "initial_pose": {"x": -16.080, "y": 16.470, "theta": -90.0},
+    "task": {
+        "goal_name": "0095"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 1.2,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.02, "angle": 1.0},
+      "lateral_check": false,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": true
+    }
+  },
+  {
+    "name": "Scenario 23 : Node 1 to Node 2 Interrupt",
+    "initial_pose": {"x": -16.080, "y": 11.000, "theta": 0.0},
+    "task": {
+        "goal_name": "0096",
+        "interrupt_goal": "0097"
+    },
+    "expected_result": {
+      "max_speed_check": true,
+      "max_speed_ms": 0.5,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 1.0},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 34,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 24 : Forward + Obstacle Avoidance",
+    "initial_pose": {"x": -5.440, "y": 20.800, "theta": -180.0},
+    "task": {
+        "goal_name": "0077"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": false,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 40,
+      "link_speed_check": true,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 25 : BackWard + Obstacle Avoidance",
+    "initial_pose": {"x": -19.440, "y": 20.800, "theta": 90.0},
+    "task": {
+        "goal_name": "0068"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  }
+  ,{
+    "name": "Scenario 26 : Strait Forward Node list",
+    "initial_pose": {"x": -19.440, "y": 8.850, "theta": 0.0},
+    "task": {
+        "path_nodes": ["0068", "0069", "0070"]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 27 : Strait Rear Node list",
+    "initial_pose": {"x": -12.440, "y": 8.850, "theta": 180.0},
+    "task": {
+        "path_nodes": ["0070", "0071", "0072"]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 28 : Cancel Test",
+    "initial_pose": {"x": -12.440, "y": 8.850, "theta": 180.0},
+    "task": {
+        "path_nodes": ["0070", "0071", "0072"],
+        "stop_test": true
+    },
+    "expected_result": {
+    }
+  },
+  {
+    "name": "Scenario 29 : High Speed Curve",
+    "initial_pose": {"x": -24.990, "y": 7.34, "theta": -90.0},
+    "task": {
+        "path_nodes": ["0098", "0099", "0100", "0101", "0102"]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 0.9},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 30 : vec move Linear forward",
+    "initial_pose": {"x": -7, "y": 21, "theta": -90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : -7,
+            "f_y_m" : 21,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : -7,
+            "f_y_m" : -3,
+            "f_angle_deg" : -90
+          }
+        ]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 31 : vec move Linear backward",
+    "initial_pose": {"x": -7, "y": 21, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -7,
+            "f_y_m" : 21,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -7,
+            "f_y_m" : 10,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -7,
+            "f_y_m" : 6,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0004",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -7,
+            "f_y_m" : -3,
+            "f_angle_deg" : -90
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 32 : lateral error start",
+    "initial_pose": {"x": -15.880, "y": 16.170, "theta": -90.0},
+    "task": {
+        "goal_name": "0095"
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 1.2,
+      "final_pose_check": false,
+      "tolerance": {"position": 0.02, "angle": 1.0},
+      "lateral_check": false,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": true
+    }
+  },
+  {
+    "name": "Scenario 33 : path list sporadically move",
+    "initial_pose": {"x": -19.440, "y": 8.850, "theta": 180.0},
+    "task": {
+        "path_nodes": ["0068", "0070", "0072"]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 34 : path list bending point skip test",
+    "initial_pose": {"x": -16.15, "y": 10.41, "theta": 0.0},
+    "task": {
+        "path_nodes": ["0068", "0078", "0079", "0080", "0081"]
+    },
+    "expected_result": {
+      "max_speed_check": false,
+      "max_speed_ms": 0.8,
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 35 : live path, curve",
+    "initial_pose": {"x": -7, "y": 21, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -7,
+            "f_y_m" : 21,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -7,
+            "f_y_m" : 10,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -7,
+            "f_y_m" : 8,
+            "f_angle_deg" : -90,
+            "f_curve_radius": 2.0
+          },
+          {
+            "s_name": "0004",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -9,
+            "f_y_m" : 8,
+            "f_angle_deg" : -90
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.03, "angle": 1.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": false,
+      "expected_time": 25,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 36 : live path, long path",
+    "initial_pose": {"x": -24, "y": 12, "theta": 135.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -24,
+            "f_y_m" : 12,
+            "f_angle_deg" : -90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 17,
+            "f_y_m" : -16,
+            "f_angle_deg" : -90
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.15,
+      "time_check": true,
+      "expected_time": 50,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 37 : Pause/Resume Test",
+    "initial_pose": {"x": -7, "y": 21, "theta": 90.0},
+    "task": {
+      "vec_move_data": [
+        {
+          "s_name": "0001",
+          "n_drive_type": 2000,
+          "f_speed_ms": 1.8,
+          "f_x_m" : -7,
+          "f_y_m" : 21,
+          "f_angle_deg" : -90
+        },
+        {
+          "s_name": "0002",
+          "n_drive_type": 2000,
+          "f_speed_ms": 0.5,
+          "f_x_m" : -7,
+          "f_y_m" : 10,
+          "f_angle_deg" : -90
+        },
+        {
+          "s_name": "0003",
+          "n_drive_type": 2000,
+          "f_speed_ms": 0.5,
+          "f_x_m" : -7,
+          "f_y_m" : 8,
+          "f_angle_deg" : -90
+        }
+      ],
+    "pause_test": true
+  },  
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false,
+      "pause_check": true
+    }
+  },
+  {
+    "name": "Scenario 38 : live path, quick start",
+    "initial_pose": {"x": -19, "y": 8, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -19,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0,
+            "b_start_quick" : true
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -9,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 39 : live path, quick stop",
+    "initial_pose": {"x": -9, "y": 8, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 1.8,
+            "f_x_m" : -9,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0,
+            "b_stop_quick" : true
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -19,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0,
+            "b_stop_quick" : true
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 40 : live path, Cancel Test2",
+    "initial_pose": {"x": -14, "y": 8, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 8,
+            "f_angle_deg" : 90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 12,
+            "f_angle_deg" : 90
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 16,
+            "f_angle_deg" : 90
+          }
+        ],
+        "stop_test2": true
+      },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 41 : live path, diagonal align skip",
+    "initial_pose": {"x": -14, "y": 16, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 16,
+            "f_angle_deg" : 90,
+            "b_diagonal_align_skip" : true
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 13,
+            "f_angle_deg" : 90,
+            "b_diagonal_align_skip" : true
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 70,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 42 : live path, diagonal align skip",
+    "initial_pose": {"x": -14, "y": 8, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 8,
+            "f_angle_deg" : 0,
+            "b_diagonal_align_skip" : true
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 11,
+            "f_angle_deg" : 0,
+            "b_diagonal_align_skip" : true
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 1001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 16,
+            "f_angle_deg" : 90
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 43 : live path, diagonal align move",
+    "initial_pose": {"x": -14, "y": 16, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 16,
+            "f_angle_deg" : 0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 12,
+            "f_angle_deg" : 0
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2001,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -14,
+            "f_y_m" : 8,
+            "f_angle_deg" : 180
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 50,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 44 : live path, diagonal curve(heading_bias)",
+    "initial_pose": {"x": -7, "y": 10, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -7,
+            "f_y_m" : 10,
+            "f_angle_deg" : 90,
+            "f_diagonal_heading_bias" : -90
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -7,
+            "f_y_m" : 8,
+            "f_angle_deg" : 90,
+            "f_curve_radius": 2.0,
+            "f_diagonal_heading_bias" : -90
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : -9,
+            "f_y_m" : 8,
+            "f_angle_deg" : 90,
+            "f_diagonal_heading_bias" : -90
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 45,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 45 : live path, Forward + Curve + Obstacle Avoidance",
+    "initial_pose": {"x": 9.28, "y": 20.14, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 9.28,
+            "f_y_m" : 20.14,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 13.06,
+            "f_y_m" : 20.14,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 20.66,
+            "f_y_m" : 20.14,
+            "f_angle_deg" : 90,
+            "f_curve_radius": 7.6,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0004",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 20.66,
+            "f_y_m" : 11.47,
+            "f_angle_deg" : -90,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0005",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 20.66,
+            "f_y_m" : 5.84,
+            "f_angle_deg" : -90,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 0.5},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 70,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 46 : live path, Backward + Curve + Obstacle Avoidance Arrive",
+    "initial_pose": {"x": 20.660, "y": 11.470, "theta": -90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 20.66,
+            "f_y_m" : 11.47,
+            "f_angle_deg" : -90,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 20.66,
+            "f_y_m" : 20.14,
+            "f_angle_deg" : 90,
+            "f_curve_radius": 7.6,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 13.06,
+            "f_y_m" : 20.14,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 50,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 47 : live path, Forward + Obstacle Avoidance, Lane 10 -> 1",
+    "initial_pose": {"x": 9.0, "y": 1.0, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 9,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 10.0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 17,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 1.0
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 24,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 1.0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 50,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 48 : live path, Backward + Obstacle Avoidance, Lane 1 -> 10",
+    "initial_pose": {"x": 24, "y": 1, "theta": 0.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 24,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 1.0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 17,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 10.0
+          },
+          {
+            "s_name": "0003",
+            "n_drive_type": 2000,
+            "f_speed_ms": 0.5,
+            "f_x_m" : 9,
+            "f_y_m" : 1,
+            "f_angle_deg" : 0,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 10.0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 55,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 49 : live path, Forward + Obstacle Avoidance, Two Obstacle",
+    "initial_pose": {"x": 14.7, "y": -5, "theta": 90.0},
+    "task": {
+        "vec_move_data": [
+          {
+            "s_name": "0001",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 14.7,
+            "f_y_m" : -5,
+            "f_angle_deg" : 90,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          },
+          {
+            "s_name": "0002",
+            "n_drive_type": 1000,
+            "f_speed_ms": 0.8,
+            "f_x_m" : 14.7,
+            "f_y_m" : 12,
+            "f_angle_deg" : 90,
+            "n_avoid_type" : 1,
+            "f_avoid_lanewidth" : 5.0
+          }
+        ]
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 90,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  },
+  {
+    "name": "Scenario 50 : Forward + Obstacle Avoidance, Add Goal during avoidance",
+    "initial_pose": {"x": 9.0, "y": 1.0, "theta": 0.0},
+    "task": {
+        "goal_name": "0040",
+        "interrupt_goal": "0041"
+    },
+    "expected_result": {
+      "final_pose_check": true,
+      "tolerance": {"position": 0.02, "angle": 180},
+      "lateral_check": true,
+      "max_lateral_error": 0.1,
+      "time_check": true,
+      "expected_time": 60,
+      "link_speed_check": false,
+      "link_speed_tolerance": 0.05,
+      "obstacle_stop_check": false
+    }
+  }
+]

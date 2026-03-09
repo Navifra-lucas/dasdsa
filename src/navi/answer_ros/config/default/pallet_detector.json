@@ -1,0 +1,161 @@
+{
+    "clustering" : {
+        "angle_threshold" : 0.9962,
+        "cluster_tolerance" : 0.02,
+        "max_cluster_size" : 1000000,
+        "min_cluster_size" : 500,
+        "use_normals" : false
+    },
+    "icp" : {
+        "confidence_threshold" : 80,
+        "max_correspondence_distance" : 0.05,
+        "max_iteration" : 100,
+        "rmse_threshold" : 0.05,
+        "transformation_epsilon" : 0.000001,
+        "use_pcl_icp" : false
+    },
+    "pillar_detection" : {
+        "pillar_cluster_tolerance" : 0.05,
+        "pillar_max_cluster_size" : 200,
+        "pillar_min_cluster_size" : 5,
+        "pillar_normal_z_max" : 0.3,
+        "pillar_spacing_tolerance" : 0.15,
+        "pillar_x_distance_tolerance" : 0.1,
+        "skip_ground_removal" : false
+    },
+    "preprocessor" : {
+        "ground_removal" : true,
+        "ground_removal_distance_threshold" : 0.05,
+        "ground_removal_max_iterations" : 100,
+        "horizontal_angle_range" : 30,
+        "max_height" : 5,
+        "max_range" : 5,
+        "max_width" : 3,
+        "min_height" : 1,
+        "min_range" : 2,
+        "roi_filter" : true,
+        "search_radius" : 0.3,
+        "sor_mean_k" : 10,
+        "sor_std_dev_mul_thresh" : 0.7,
+        "use_radius_search" : false,
+        "use_range_filter" : true,
+        "use_sor_filter" : true,
+        "use_template_range_filter" : false,
+        "use_voxel_filter" : true,
+        "view_point_arrange" : false,
+        "voxel_leaf_size" : 0.05
+    },
+    "template" : {
+        "jong" : {
+            "file_name" : "jong.ply",
+            "height" : 1,
+            "width" : 1
+        },
+        "plastic_1100" : {
+            "file_name" : "plastic.ply",
+            "height" : 1.1,
+            "width" : 1.1
+        },
+        "template_lists" : [
+            {
+                "center_template" : false,
+                "deg_offset" : 0,
+                "file_name" : "type1.pcd",
+                "ground_removal" : false,
+                "height" : 2.1,
+                "output_pose_offset_deg" : 0,
+                "output_pose_offset_x" : 0,
+                "output_pose_offset_y" : 0,
+                "output_pose_offset_z" : 0,
+                "width" : 2.1,
+                "x_offset" : 0,
+                "y_offset" : 0,
+                "z_offset" : 0
+            },
+            {
+                "center_template" : false,
+                "deg_offset" : 0,
+                "file_name" : "type2.pcd",
+                "ground_removal" : false,
+                "height" : 1.96,
+                "output_pose_offset_deg" : 0,
+                "output_pose_offset_x" : 0,
+                "output_pose_offset_y" : 0,
+                "output_pose_offset_z" : 0,
+                "width" : 1.5,
+                "x_offset" : 0,
+                "y_offset" : 0,
+                "z_offset" : 0
+            },
+            {
+                "center_template" : true,
+                "deg_offset" : 0,
+                "file_name" : "jong.ply",
+                "ground_pallet" : false,
+                "ground_removal" : true,
+                "height" : 1,
+                "output_pose_offset_deg" : 0,
+                "output_pose_offset_x" : 0,
+                "output_pose_offset_y" : 0,
+                "output_pose_offset_z" : 0,
+                "width" : 1,
+                "x_offset" : -4,
+                "y_offset" : 0,
+                "z_offset" : 0.4
+            },
+            {
+                "center_template" : true,
+                "deg_offset" : 0,
+                "file_name" : "plastic.ply",
+                "ground_pallet" : false,
+                "ground_removal" : true,
+                "height" : 1.1,
+                "output_pose_offset_deg" : 0,
+                "output_pose_offset_x" : 0,
+                "output_pose_offset_y" : 0,
+                "output_pose_offset_z" : 0,
+                "use_pillar_detection" : true,
+                "width" : 1.1,
+                "x_offset" : -3.5,
+                "y_offset" : 0,
+                "z_offset" : 0
+            },
+            {
+                "center_template" : true,
+                "deg_offset" : 0,
+                "file_name" : "wood.ply",
+                "ground_pallet" : false,
+                "ground_removal" : true,
+                "height" : 1.1,
+                "output_pose_offset_deg" : 0,
+                "output_pose_offset_x" : 0,
+                "output_pose_offset_y" : 0,
+                "output_pose_offset_z" : 0,
+                "use_pillar_detection" : true,
+                "width" : 1.2,
+                "x_offset" : -3.5,
+                "y_offset" : 0,
+                "z_offset" : 0
+            }
+        ],
+        "type1" : {
+            "file_name" : "type1.pcd",
+            "height" : 2.1,
+            "width" : 2.1
+        },
+        "type2" : {
+            "file_name" : "type2.pcd",
+            "height" : 1.96,
+            "width" : 1.5
+        },
+        "wood" : {
+            "file_name" : "wood.ply",
+            "height" : 1,
+            "width" : 1
+        }
+    },
+    "unloading" : {
+        "height_max" : 2,
+        "height_min" : 1.2
+    }
+}

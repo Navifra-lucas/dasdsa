@@ -1,0 +1,140 @@
+syntax = "proto3";
+package core_astra;
+
+import "common.proto";
+import "robot_pose.proto";
+
+enum EventType
+{
+    EVENT_UNKNOWN = 0;
+    EVENT_OBSTACLE = 1;
+    EVENT_NAVI_ALARM = 2;
+    EVENT_TASK_ALARM = 3;
+    EVENT_TASK_RESPONSE = 4;
+    EVENT_GLOBAL_PATH = 5;
+    EVENT_LOCAL_PATH = 6;
+    EVENT_REFLECTORS = 7;
+    EVENT_PREDICT_COLLISION = 8;
+    EVENT_CUSTOM = 9;
+    EVENT_MAPPING_PROGRESS = 10;
+    EVENT_MOTOR_INFO = 11;
+    EVENT_SLAM_GRAPH = 12;
+    EVENT_CALI_PROGRESS = 13;
+    EVENT_HARDWARE_INFO = 14;
+}
+
+// 기존 payload
+message ObstaclePayload
+{
+    string polygon_name = 1;
+    repeated Position points = 2;
+}
+
+message NaviAlarmPayload
+{
+    uint32 alarm_id = 1;
+    string description = 2;
+}
+
+message TaskAlarmPayload
+{
+    string uuid = 1;
+    string action = 2;
+    string from = 3;
+    string result = 4;
+    uint32 alarm = 5;
+    string task_id = 6;
+}
+
+message TaskResponsePayload
+{
+    string uuid = 1;
+    string result = 2;
+    uint32 alarm = 3;
+}
+
+message PathPayload
+{
+    repeated Pose poses = 1;
+}
+
+message ReflectorPayload
+{
+    string uuid = 1;
+    string name = 2;
+    string marker_type_cd = 3;
+    Position position = 4;
+    Orientation orientation = 5;
+}
+
+// 신규 payload
+message PredictCollisionPayload
+{
+    string polygon_name = 1;
+    repeated Position points = 2;
+}
+
+message CustomPayload
+{
+    string uuid = 1;
+    string message = 2;
+}
+
+message MappingProgressPayload
+{
+    double percent = 1;
+}
+
+message MotorInfoPayload
+{
+    repeated double wheel_speeds = 1;
+    repeated double currents = 2;
+    double battery_voltage = 3;
+}
+
+message SLAMGraphPayload
+{
+    repeated Pose nodes = 1;
+    repeated Pose links = 2;
+}
+
+message CaliProgressPayload
+{
+    string type = 1;
+    double percent = 2;
+    double x = 3;
+    double y = 4;
+    double deg = 5;
+    string cmd = 6;
+    int32 completed = 7;
+    int32 total = 8;
+}
+
+message HardwareInfoPayload
+{
+    string json_info = 1;
+}
+
+// 최상위 Event 메시지
+message EventMessage
+{
+    EventType type = 1;
+
+    oneof payload
+    {
+        ObstaclePayload obstacle = 2;
+        NaviAlarmPayload navi_alarm = 3;
+        TaskAlarmPayload task_alarm = 4;
+        TaskResponsePayload task_response = 5;
+        PathPayload global_path = 6;
+        PathPayload local_path = 7;
+        ReflectorPayload reflector = 8;
+        PredictCollisionPayload predict_collision = 9;
+        CustomPayload custom = 10;
+        MappingProgressPayload mapping_progress = 11;
+        MotorInfoPayload motor_info = 12;
+        SLAMGraphPayload slam_graph = 13;
+        CaliProgressPayload cali_progress = 14;
+        HardwareInfoPayload hardware_info = 15;
+    }
+}

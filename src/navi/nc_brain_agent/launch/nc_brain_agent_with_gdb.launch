@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="nc_brain_agent" type="nc_brain_agent" name="nc_brain_agent" output="screen" launch-prefix="gdbserver localhost:4000" />
+</launch>

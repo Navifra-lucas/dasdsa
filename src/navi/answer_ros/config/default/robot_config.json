@@ -1,0 +1,16 @@
+{
+    "st_robot_config_param": {
+        "n_robot_shape": 0,
+        "d_front_m": 0.25,
+        "d_rear_m": -0.25,
+        "d_left_m": 0.15,
+        "d_right_m": -0.15,
+        "d_body_resolution_m": 0.05,
+        "d_radius_m": 0.1
+    },
+    "vec_safety_area": [
+        // [ [m], [m/s], [deg/s] ]
+        [0.01, 0.0, 0],
+        [0.5, 0.5, 30]
+    ]
+}

@@ -1,0 +1,856 @@
+# Master 설정 정보
+master:
+  master_id: 100
+  dcf_txt: "generated/swzm_qd_ll_enc/master.dcf"
+  interface_name: "can0"
+  fake_bootup_nodes : [1, 2, 3, 4] # node id
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 1
+    eds_path: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+    binary_path: "generated/swzm_qd_ll_enc/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 2
+    eds_path: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+    binary_path: "generated/swzm_qd_ll_enc/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 3
+    eds_path: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+    binary_path: "generated/swzm_qd_ll_enc/slave_1.bin"
+    sdo_timeout: 300 # ms   
+
+  - driver_id: 4
+    eds_path: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+    binary_path: "generated/swzm_qd_ll_enc/slave_1.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 5
+    eds_path: "driver/eds/leinelinde/IxA_RxA_6xx_CANopen_v1_07.EDS"
+    binary_path: "generated/swzm_qd_ll_enc/slave_5.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 6
+    eds_path: "driver/eds/leinelinde/IxA_RxA_6xx_CANopen_v1_07.EDS"
+    binary_path: "generated/swzm_qd_ll_enc/slave_6.bin"
+    sdo_timeout: 300 # ms
+
+# 모터 설정 정보
+motors:
+  - motor_id: 0
+    driver_id: 1
+    motor_driver: "swzm"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 3
+    driver_id: 2
+    motor_driver: "swzm"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 4
+    driver_id: 3
+    motor_driver: "swzm"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    ratio: 28
+    ppr: 10000
+    use_external_encoder: true
+    encoder_id: 8
+
+  - motor_id: 7
+    driver_id: 4
+    motor_driver: "swzm"
+    multiaxis_index: 0
+    mode_of_operation: 3
+    ratio: 28
+    ppr: 10000
+    use_external_encoder : true
+    encoder_id: 11
+
+external_encoders:
+  - encoder_id: 8
+    driver_id: 5
+
+  - encoder_id: 11
+    driver_id: 6
+
+motor_extra_info:
+  - motor_id: 0
+    voltage:
+      index: 0x2124
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    current:
+      index: 0x211e
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    error:
+      index: 0x2120
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        # No error
+        - { value: 0x0000, message: "No error" }
+        # New software
+        - { value: 0x0101, message: "New software detected after download" }
+        # Error analog input, C1p11
+        - { value: 0x0B01, message: "Error analog input, C1p11; Config error at .FilterConfig" }
+        - { value: 0x0B02, message: "Error analog input, C1p11; Input out of range" }
+        - { value: 0x0B03, message: "Error analog input, C1p11, Hardware error" }
+        # Error general purpose input / output, C1p13
+        - { value: 0x0D01, message: "Error general purpose input / output, C1p13; Config error at .PinConfig" }
+        - { value: 0x0D02, message: "Error general purpose input / output, C1p13; Config error at .DebounceConfig" }
+        - { value: 0x0D03, message: "Error general purpose input / output, C1p13; Invalid value at .OutputValue" }
+        - { value: 0x0D04, message: "Error general purpose input / output, C1p13; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0D05, message: "Error general purpose input / output, C1p13; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0D06, message: "Error general purpose input / output, C1p13; Switched off because overload" }
+        - { value: 0x0D07, message: "Error general purpose input / output, C1p13; Switch on protection after overload" }
+        - { value: 0x0D08, message: "Error general purpose input / output, C1p13; Hardware watchdog error" }
+        - { value: 0x0D09, message: "Error general purpose input / output, C1p13; Safety error" }
+        # Error general purpose input / output, C1p14
+        - { value: 0x0E01, message: "Error general purpose input / output, C1p14; Config error at .PinConfig" }
+        - { value: 0x0E02, message: "Error general purpose input / output, C1p14; Config error at .DebounceConfig" }
+        - { value: 0x0E03, message: "Error general purpose input / output, C1p14; Invalid value at .OutputValue" }
+        - { value: 0x0E04, message: "Error general purpose input / output, C1p14; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0E05, message: "Error general purpose input / output, C1p14; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0E06, message: "Error general purpose input / output, C1p14; Switched off because overload" }
+        - { value: 0x0E07, message: "Error general purpose input / output, C1p14; Switch on protection after overload" }
+        - { value: 0x0E08, message: "Error general purpose input / output, C1p14; Hardware watchdog error" }
+        # Error general purpose input / output, C1p15
+        - { value: 0x0F01, message: "Error general purpose input / output, C1p15; Config error at .PinConfig" }
+        - { value: 0x0F02, message: "Error general purpose input / output, C1p15; Config error at .DebounceConfig" }
+        - { value: 0x0F03, message: "Error general purpose input / output, C1p15; Invalid value at .OutputValue" }
+        - { value: 0x0F04, message: "Error general purpose input / output, C1p15; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0F05, message: "Error general purpose input / output, C1p15; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0F06, message: "Error general purpose input / output, C1p15; Switched off because overload" }
+        - { value: 0x0F07, message: "Error general purpose input / output, C1p15; Switch on protection after overload" }
+        - { value: 0x0F08, message: "Error general purpose input / output, C1p15; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p16
+        - { value: 0x1001, message: "Error general purpose proportional input / output, C1p16; Config error at .PinConfig" }
+        - { value: 0x1002, message: "Error general purpose proportional input / output, C1p16; Config error at .DebounceConfig" }
+        - { value: 0x1003, message: "Error general purpose proportional input / output, C1p16; Invalid value at .OutputValue" }
+        - { value: 0x1004, message: "Error general purpose proportional input / output, C1p16; Invalid value at .DitherAmp" }
+        - { value: 0x1005, message: "Error general purpose proportional input / output, C1p16; Output disconnected / output shorted to -I/O / transistor shorted" }
+        - { value: 0x1006, message: "Error general purpose proportional input / output, C1p16; Hardware watchdog error" }
+        # Error digital input
+        - { value: 0x1301, message: "Error digital input, C1p19: Config error at .DebounceConfig" }
+        - { value: 0x1401, message: "Error digital input, C1p20: Config error at .DebounceConfig" }
+        - { value: 0x1501, message: "Error digital input, C1p21: Config error at .DebounceConfig" }
+        # Error analog input, C1p22
+        - { value: 0x1601, message: "Error analog input, C1p22; Config error at .FilterConfig" }
+        - { value: 0x1602, message: "Error analog input, C1p22; Input out of range" }
+        - { value: 0x1603, message: "Error analog input, C1p22, Hardware error" }
+        # Error sensor supply, C1p23
+        - { value: 0x1701, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1702, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1703, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1704, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1705, message: "Error sensor supply, C1p23; Config error at .PinConfig" }
+        - { value: 0x1706, message: "Error sensor supply, C1p23; Supply voltage feedback value out of range" }
+        # Error main contactor output, C1p24
+        - { value: 0x1801, message: "Error main contactor output, C1p24; Config error at .PinConfig" }
+        - { value: 0x1802, message: "Error main contactor output, C1p24; Invalid value at .OutputValue" }
+        - { value: 0x1803, message: "Error main contactor output, C1p24; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1804, message: "Error main contactor output, C1p24; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1805, message: "Error main contactor output, C1p24; Switched off because overload" }
+        - { value: 0x1806, message: "Error main contactor output, C1p24; Switch on protection after overload" }
+        - { value: 0x1807, message: "Error main contactor output, C1p24; Hardware watchdog error" }
+        # Error general purpose input / output, C1p25
+        - { value: 0x1901, message: "Error general purpose input / output, C1p25; Config error at .PinConfig" }
+        - { value: 0x1902, message: "Error general purpose input / output, C1p25; Config error at .DebounceConfig" }
+        - { value: 0x1903, message: "Error general purpose input / output, C1p25; Invalid value at .OutputValue" }
+        - { value: 0x1904, message: "Error general purpose input / output, C1p25; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1905, message: "Error general purpose input / output, C1p25; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1906, message: "Error general purpose input / output, C1p25; Switched off because overload" }
+        - { value: 0x1907, message: "Error general purpose input / output, C1p25; Switch on protection after overload" }
+        - { value: 0x1908, message: "Error general purpose input / output, C1p25; Hardware watchdog error" }
+        # Error general purpose input / output, C1p26
+        - { value: 0x1A01, message: "Error general purpose input / output, C1p26; Config error at .PinConfig" }
+        - { value: 0x1A02, message: "Error general purpose input / output, C1p26; Config error at .DebounceConfig" }
+        - { value: 0x1A03, message: "Error general purpose input / output, C1p26; Invalid value at .OutputValue" }
+        - { value: 0x1A04, message: "Error general purpose input / output, C1p26; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1A05, message: "Error general purpose input / output, C1p26; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1A06, message: "Error general purpose input / output, C1p26; Switched off because overload" }
+        - { value: 0x1A07, message: "Error general purpose input / output, C1p26; Switch on protection after overload" }
+        - { value: 0x1A08, message: "Error general purpose input / output, C1p26; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p27
+        - { value: 0x1B01, message: "Error general purpose proportional input / output, C1p27; Config error at .PinConfig" }
+        - { value: 0x1B02, message: "Error general purpose proportional input / output, C1p27; Config error at .DebounceConfig" }
+        - { value: 0x1B03, message: "Error general purpose proportional input / output, C1p27; Invalid value at .OutputValue" }
+        - { value: 0x1B04, message: "Error general purpose proportional input / output, C1p27; Invalid value at .DitherAmp" }
+        - { value: 0x1B05, message: "Error general purpose proportional input / output, C1p27; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1B06, message: "Error general purpose proportional input / output, C1p27; Hardware watchdog error" }
+        - { value: 0x1B07, message: "Error general purpose proportional input / output, C1p27; Safety error" }
+        # Error encoder supply, C1p28
+        - { value: 0x1C01, message: "Error encoder supply, C1p28; Overcurrent" }
+        - { value: 0x1C02, message: "Error encoder supply, C1p28; Undercurrent" }
+        - { value: 0x1C03, message: "Error encoder supply, C1p28; Current feedback out of range" }
+        # Error multi function input, C1p30
+        - { value: 0x1E01, message: "Error multi function input, C1p30: Config error at .DebounceConfig" }
+        - { value: 0x1E02, message: "Error multi function input, C1p30: Hardware watchdog error" }
+        - { value: 0x1E03, message: "Error multi function input, C1p30: Hardware configuration error" }
+        # Error digital input
+        - { value: 0x1F01, message: "Error digital input, C1p31: Config error at .DebounceConfig" }
+        - { value: 0x2001, message: "Error digital input, C1p32: Config error at .DebounceConfig" }
+        - { value: 0x2101, message: "Error digital input, C1p33: Config error at .DebounceConfig" }
+        # Error analog input (Rheo), C1p34
+        - { value: 0x2201, message: "Error analog input, C1p34; Config error at .FilterConfig" }
+        - { value: 0x2202, message: "Error analog input, C1p34; Input out of range" }
+        - { value: 0x2203, message: "Error analog input, C1p34, Hardware error" }
+        # Error power stage
+        - { value: 0x2401, message: "Error power stage: Wrong value at .PWMFreq" }
+        - { value: 0x2402, message: "Error power stage; Power stage overtemperature" }
+        - { value: 0x2403, message: "Error power stage; Power stage temperature sensor" }
+        - { value: 0x2404, message: "Error power stage; Overvoltage" }
+        - { value: 0x2405, message: "Error power stage; Overcurrent" }
+        - { value: 0x2406, message: "Error power stage; Unprotected mode active" }
+        - { value: 0x2407, message: "Error power stage; Power stage permanently locked because wrong motor data" }
+        - { value: 0x2408, message: "Error power stage; Power stage permanently locked because HW watchdog error" }
+        - { value: 0x2409, message: "Error power stage; Power stage permanently locked because current sensor error" }
+        - { value: 0x240A, message: "Error power stage; Power stage permanently locked because undervolt detection" }
+        - { value: 0x240B, message: "Error power stage; PCB overtemperature" }
+        - { value: 0x240C, message: "Error power stage; PCB temperature sensor" }
+        # Error selftest
+        - { value: 0x2501, message: "Error selftest; Error DC-Link circuit" }
+        - { value: 0x2502, message: "Error selftest; Error in Watchdog circuit, operation impossible" }
+        - { value: 0x2503, message: "Error selftest; Short circuit to -V DC-Link" }
+        - { value: 0x2504, message: "Error selftest; Short circuit to +V DC-Link" }
+        - { value: 0x2505, message: "Error selftest; Error in motor wiring or power stage" }
+        - { value: 0x2506, message: "Error selftest; Shorted power output (motor output)" }
+        - { value: 0x2507, message: "Error selftest; Test not passed, because of hardware overvoltage protection" }
+        - { value: 0x2508, message: "Error selftest; Corrupted production data in EEPROM detected" }
+        # Warning selftest
+        - { value: 0x2601, message: "Warning selftest; Error in Watchdog circuit, limited operation possible" }
+        - { value: 0x2602, message: "Warning selftest; Watchdog not tested, because low voltage at DC-Link" }
+        - { value: 0x2603, message: "Warning selftest; Corrupted user data (NVRam) in EEPROM detected" }
+        - { value: 0x2604, message: "Warning selftest; Corrupted error history data in EEPROM detected" }
+        # Status selftest
+        - { value: 0x2701, message: "Status selftest; DCLink selftest in progress" }
+        - { value: 0x2702, message: "Status selftest; Watchdog selftest in progress" }
+        - { value: 0x2703, message: "Status selftest; PowerStage selftest in progress" }
+        # Error motor control
+        - { value: 0x2801, message: "Error motor control; Invalid value at .RPMSetPoint" }
+        - { value: 0x2802, message: "Error motor control; Invalid value at .SpeedKP" }
+        - { value: 0x2803, message: "Error motor control; Invalid value at .SpeedKI" }
+        - { value: 0x2804, message: "Error motor control; Invalid value at .TorqueFF" }
+        - { value: 0x2805, message: "Error motor control; Invalid value at .UserTorqueLimit" }
+        - { value: 0x2806, message: "Error motor control; Invalid value at .UserCurrLimit" }
+        - { value: 0x280A, message: "Error motor control; Invalid value at .EncErrThreshold" }
+        - { value: 0x280B, message: "Error motor control; One encoder line disconnected" }
+        - { value: 0x280C, message: "Error motor control; Invalid value at .PartLoadReduc" }
+        - { value: 0x280D, message: "Error motor control; PCB temperature dependent current derating active" }
+        - { value: 0x280E, message: "Error motor control; Invalid value at .MagCurrBoost" }
+        # Error motor
+        - { value: 0x2901, message: "Error motor; Config error" }
+        - { value: 0x2902, message: "Error motor; ReInit in progress" }
+        # Error NVMem
+        - { value: 0x2A01, message: "Error NVMem; The NVMem was restored to a previous state" }
+        - { value: 0x2A02, message: "Error NVMem; The NVMem checksums are not correct" }
+        - { value: 0x2A03, message: "Error NVMem; The reset routine could not access the NV memory" }
+        # Error CAN
+        - { value: 0x2B01, message: "Error CAN; CAN driver error" }
+        - { value: 0x2B02, message: "Error CAN; CAN bus off mode" }
+        - { value: 0x2B03, message: "Error CAN; CAN bus overflow" }
+        # Error CAN timeout
+        - { value: 0x3201, message: "Error CAN timeout, SYNC" }
+        - { value: 0x3202, message: "Error CAN timeout, RPDO1" }
+        - { value: 0x3203, message: "Error CAN timeout, RHEART1" }
+        # Error power stage
+        - { value: 0x3301, message: "Error power stage; Min. temperature" }
+        # Error motor
+        - { value: 0x3401, message: "Error motor; Overtemperature" }
+        # Error loop time
+        - { value: 0x3501, message: "Error loop time (level 1)" }
+        - { value: 0x3502, message: "Error loop time (level 2)" }
+        # Error V_DC_Link
+        - { value: 0x3601, message: "Error V_DC_Link; Undervoltage (level 1)" }
+        - { value: 0x3602, message: "Error V_DC_Link; Undervoltage (level 2)" }
+
+  - motor_id: 3
+    voltage:
+      index: 0x2124
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    current:
+      index: 0x211e
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    error:
+      index: 0x2120
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        # No error
+        - { value: 0x0000, message: "No error" }
+        # New software
+        - { value: 0x0101, message: "New software detected after download" }
+        # Error analog input, C1p11
+        - { value: 0x0B01, message: "Error analog input, C1p11; Config error at .FilterConfig" }
+        - { value: 0x0B02, message: "Error analog input, C1p11; Input out of range" }
+        - { value: 0x0B03, message: "Error analog input, C1p11, Hardware error" }
+        # Error general purpose input / output, C1p13
+        - { value: 0x0D01, message: "Error general purpose input / output, C1p13; Config error at .PinConfig" }
+        - { value: 0x0D02, message: "Error general purpose input / output, C1p13; Config error at .DebounceConfig" }
+        - { value: 0x0D03, message: "Error general purpose input / output, C1p13; Invalid value at .OutputValue" }
+        - { value: 0x0D04, message: "Error general purpose input / output, C1p13; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0D05, message: "Error general purpose input / output, C1p13; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0D06, message: "Error general purpose input / output, C1p13; Switched off because overload" }
+        - { value: 0x0D07, message: "Error general purpose input / output, C1p13; Switch on protection after overload" }
+        - { value: 0x0D08, message: "Error general purpose input / output, C1p13; Hardware watchdog error" }
+        - { value: 0x0D09, message: "Error general purpose input / output, C1p13; Safety error" }
+        # Error general purpose input / output, C1p14
+        - { value: 0x0E01, message: "Error general purpose input / output, C1p14; Config error at .PinConfig" }
+        - { value: 0x0E02, message: "Error general purpose input / output, C1p14; Config error at .DebounceConfig" }
+        - { value: 0x0E03, message: "Error general purpose input / output, C1p14; Invalid value at .OutputValue" }
+        - { value: 0x0E04, message: "Error general purpose input / output, C1p14; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0E05, message: "Error general purpose input / output, C1p14; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0E06, message: "Error general purpose input / output, C1p14; Switched off because overload" }
+        - { value: 0x0E07, message: "Error general purpose input / output, C1p14; Switch on protection after overload" }
+        - { value: 0x0E08, message: "Error general purpose input / output, C1p14; Hardware watchdog error" }
+        # Error general purpose input / output, C1p15
+        - { value: 0x0F01, message: "Error general purpose input / output, C1p15; Config error at .PinConfig" }
+        - { value: 0x0F02, message: "Error general purpose input / output, C1p15; Config error at .DebounceConfig" }
+        - { value: 0x0F03, message: "Error general purpose input / output, C1p15; Invalid value at .OutputValue" }
+        - { value: 0x0F04, message: "Error general purpose input / output, C1p15; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0F05, message: "Error general purpose input / output, C1p15; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0F06, message: "Error general purpose input / output, C1p15; Switched off because overload" }
+        - { value: 0x0F07, message: "Error general purpose input / output, C1p15; Switch on protection after overload" }
+        - { value: 0x0F08, message: "Error general purpose input / output, C1p15; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p16
+        - { value: 0x1001, message: "Error general purpose proportional input / output, C1p16; Config error at .PinConfig" }
+        - { value: 0x1002, message: "Error general purpose proportional input / output, C1p16; Config error at .DebounceConfig" }
+        - { value: 0x1003, message: "Error general purpose proportional input / output, C1p16; Invalid value at .OutputValue" }
+        - { value: 0x1004, message: "Error general purpose proportional input / output, C1p16; Invalid value at .DitherAmp" }
+        - { value: 0x1005, message: "Error general purpose proportional input / output, C1p16; Output disconnected / output shorted to -I/O / transistor shorted" }
+        - { value: 0x1006, message: "Error general purpose proportional input / output, C1p16; Hardware watchdog error" }
+        # Error digital input
+        - { value: 0x1301, message: "Error digital input, C1p19: Config error at .DebounceConfig" }
+        - { value: 0x1401, message: "Error digital input, C1p20: Config error at .DebounceConfig" }
+        - { value: 0x1501, message: "Error digital input, C1p21: Config error at .DebounceConfig" }
+        # Error analog input, C1p22
+        - { value: 0x1601, message: "Error analog input, C1p22; Config error at .FilterConfig" }
+        - { value: 0x1602, message: "Error analog input, C1p22; Input out of range" }
+        - { value: 0x1603, message: "Error analog input, C1p22, Hardware error" }
+        # Error sensor supply, C1p23
+        - { value: 0x1701, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1702, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1703, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1704, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1705, message: "Error sensor supply, C1p23; Config error at .PinConfig" }
+        - { value: 0x1706, message: "Error sensor supply, C1p23; Supply voltage feedback value out of range" }
+        # Error main contactor output, C1p24
+        - { value: 0x1801, message: "Error main contactor output, C1p24; Config error at .PinConfig" }
+        - { value: 0x1802, message: "Error main contactor output, C1p24; Invalid value at .OutputValue" }
+        - { value: 0x1803, message: "Error main contactor output, C1p24; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1804, message: "Error main contactor output, C1p24; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1805, message: "Error main contactor output, C1p24; Switched off because overload" }
+        - { value: 0x1806, message: "Error main contactor output, C1p24; Switch on protection after overload" }
+        - { value: 0x1807, message: "Error main contactor output, C1p24; Hardware watchdog error" }
+        # Error general purpose input / output, C1p25
+        - { value: 0x1901, message: "Error general purpose input / output, C1p25; Config error at .PinConfig" }
+        - { value: 0x1902, message: "Error general purpose input / output, C1p25; Config error at .DebounceConfig" }
+        - { value: 0x1903, message: "Error general purpose input / output, C1p25; Invalid value at .OutputValue" }
+        - { value: 0x1904, message: "Error general purpose input / output, C1p25; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1905, message: "Error general purpose input / output, C1p25; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1906, message: "Error general purpose input / output, C1p25; Switched off because overload" }
+        - { value: 0x1907, message: "Error general purpose input / output, C1p25; Switch on protection after overload" }
+        - { value: 0x1908, message: "Error general purpose input / output, C1p25; Hardware watchdog error" }
+        # Error general purpose input / output, C1p26
+        - { value: 0x1A01, message: "Error general purpose input / output, C1p26; Config error at .PinConfig" }
+        - { value: 0x1A02, message: "Error general purpose input / output, C1p26; Config error at .DebounceConfig" }
+        - { value: 0x1A03, message: "Error general purpose input / output, C1p26; Invalid value at .OutputValue" }
+        - { value: 0x1A04, message: "Error general purpose input / output, C1p26; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1A05, message: "Error general purpose input / output, C1p26; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1A06, message: "Error general purpose input / output, C1p26; Switched off because overload" }
+        - { value: 0x1A07, message: "Error general purpose input / output, C1p26; Switch on protection after overload" }
+        - { value: 0x1A08, message: "Error general purpose input / output, C1p26; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p27
+        - { value: 0x1B01, message: "Error general purpose proportional input / output, C1p27; Config error at .PinConfig" }
+        - { value: 0x1B02, message: "Error general purpose proportional input / output, C1p27; Config error at .DebounceConfig" }
+        - { value: 0x1B03, message: "Error general purpose proportional input / output, C1p27; Invalid value at .OutputValue" }
+        - { value: 0x1B04, message: "Error general purpose proportional input / output, C1p27; Invalid value at .DitherAmp" }
+        - { value: 0x1B05, message: "Error general purpose proportional input / output, C1p27; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1B06, message: "Error general purpose proportional input / output, C1p27; Hardware watchdog error" }
+        - { value: 0x1B07, message: "Error general purpose proportional input / output, C1p27; Safety error" }
+        # Error encoder supply, C1p28
+        - { value: 0x1C01, message: "Error encoder supply, C1p28; Overcurrent" }
+        - { value: 0x1C02, message: "Error encoder supply, C1p28; Undercurrent" }
+        - { value: 0x1C03, message: "Error encoder supply, C1p28; Current feedback out of range" }
+        # Error multi function input, C1p30
+        - { value: 0x1E01, message: "Error multi function input, C1p30: Config error at .DebounceConfig" }
+        - { value: 0x1E02, message: "Error multi function input, C1p30: Hardware watchdog error" }
+        - { value: 0x1E03, message: "Error multi function input, C1p30: Hardware configuration error" }
+        # Error digital input
+        - { value: 0x1F01, message: "Error digital input, C1p31: Config error at .DebounceConfig" }
+        - { value: 0x2001, message: "Error digital input, C1p32: Config error at .DebounceConfig" }
+        - { value: 0x2101, message: "Error digital input, C1p33: Config error at .DebounceConfig" }
+        # Error analog input (Rheo), C1p34
+        - { value: 0x2201, message: "Error analog input, C1p34; Config error at .FilterConfig" }
+        - { value: 0x2202, message: "Error analog input, C1p34; Input out of range" }
+        - { value: 0x2203, message: "Error analog input, C1p34, Hardware error" }
+        # Error power stage
+        - { value: 0x2401, message: "Error power stage: Wrong value at .PWMFreq" }
+        - { value: 0x2402, message: "Error power stage; Power stage overtemperature" }
+        - { value: 0x2403, message: "Error power stage; Power stage temperature sensor" }
+        - { value: 0x2404, message: "Error power stage; Overvoltage" }
+        - { value: 0x2405, message: "Error power stage; Overcurrent" }
+        - { value: 0x2406, message: "Error power stage; Unprotected mode active" }
+        - { value: 0x2407, message: "Error power stage; Power stage permanently locked because wrong motor data" }
+        - { value: 0x2408, message: "Error power stage; Power stage permanently locked because HW watchdog error" }
+        - { value: 0x2409, message: "Error power stage; Power stage permanently locked because current sensor error" }
+        - { value: 0x240A, message: "Error power stage; Power stage permanently locked because undervolt detection" }
+        - { value: 0x240B, message: "Error power stage; PCB overtemperature" }
+        - { value: 0x240C, message: "Error power stage; PCB temperature sensor" }
+        # Error selftest
+        - { value: 0x2501, message: "Error selftest; Error DC-Link circuit" }
+        - { value: 0x2502, message: "Error selftest; Error in Watchdog circuit, operation impossible" }
+        - { value: 0x2503, message: "Error selftest; Short circuit to -V DC-Link" }
+        - { value: 0x2504, message: "Error selftest; Short circuit to +V DC-Link" }
+        - { value: 0x2505, message: "Error selftest; Error in motor wiring or power stage" }
+        - { value: 0x2506, message: "Error selftest; Shorted power output (motor output)" }
+        - { value: 0x2507, message: "Error selftest; Test not passed, because of hardware overvoltage protection" }
+        - { value: 0x2508, message: "Error selftest; Corrupted production data in EEPROM detected" }
+        # Warning selftest
+        - { value: 0x2601, message: "Warning selftest; Error in Watchdog circuit, limited operation possible" }
+        - { value: 0x2602, message: "Warning selftest; Watchdog not tested, because low voltage at DC-Link" }
+        - { value: 0x2603, message: "Warning selftest; Corrupted user data (NVRam) in EEPROM detected" }
+        - { value: 0x2604, message: "Warning selftest; Corrupted error history data in EEPROM detected" }
+        # Status selftest
+        - { value: 0x2701, message: "Status selftest; DCLink selftest in progress" }
+        - { value: 0x2702, message: "Status selftest; Watchdog selftest in progress" }
+        - { value: 0x2703, message: "Status selftest; PowerStage selftest in progress" }
+        # Error motor control
+        - { value: 0x2801, message: "Error motor control; Invalid value at .RPMSetPoint" }
+        - { value: 0x2802, message: "Error motor control; Invalid value at .SpeedKP" }
+        - { value: 0x2803, message: "Error motor control; Invalid value at .SpeedKI" }
+        - { value: 0x2804, message: "Error motor control; Invalid value at .TorqueFF" }
+        - { value: 0x2805, message: "Error motor control; Invalid value at .UserTorqueLimit" }
+        - { value: 0x2806, message: "Error motor control; Invalid value at .UserCurrLimit" }
+        - { value: 0x280A, message: "Error motor control; Invalid value at .EncErrThreshold" }
+        - { value: 0x280B, message: "Error motor control; One encoder line disconnected" }
+        - { value: 0x280C, message: "Error motor control; Invalid value at .PartLoadReduc" }
+        - { value: 0x280D, message: "Error motor control; PCB temperature dependent current derating active" }
+        - { value: 0x280E, message: "Error motor control; Invalid value at .MagCurrBoost" }
+        # Error motor
+        - { value: 0x2901, message: "Error motor; Config error" }
+        - { value: 0x2902, message: "Error motor; ReInit in progress" }
+        # Error NVMem
+        - { value: 0x2A01, message: "Error NVMem; The NVMem was restored to a previous state" }
+        - { value: 0x2A02, message: "Error NVMem; The NVMem checksums are not correct" }
+        - { value: 0x2A03, message: "Error NVMem; The reset routine could not access the NV memory" }
+        # Error CAN
+        - { value: 0x2B01, message: "Error CAN; CAN driver error" }
+        - { value: 0x2B02, message: "Error CAN; CAN bus off mode" }
+        - { value: 0x2B03, message: "Error CAN; CAN bus overflow" }
+        # Error CAN timeout
+        - { value: 0x3201, message: "Error CAN timeout, SYNC" }
+        - { value: 0x3202, message: "Error CAN timeout, RPDO1" }
+        - { value: 0x3203, message: "Error CAN timeout, RHEART1" }
+        # Error power stage
+        - { value: 0x3301, message: "Error power stage; Min. temperature" }
+        # Error motor
+        - { value: 0x3401, message: "Error motor; Overtemperature" }
+        # Error loop time
+        - { value: 0x3501, message: "Error loop time (level 1)" }
+        - { value: 0x3502, message: "Error loop time (level 2)" }
+        # Error V_DC_Link
+        - { value: 0x3601, message: "Error V_DC_Link; Undervoltage (level 1)" }
+        - { value: 0x3602, message: "Error V_DC_Link; Undervoltage (level 2)" }
+
+  - motor_id: 4
+    voltage:
+      index: 0x2124
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    current:
+      index: 0x211e
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    error:
+      index: 0x2120
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        # No error
+        - { value: 0x0000, message: "No error" }
+        # New software
+        - { value: 0x0101, message: "New software detected after download" }
+        # Error analog input, C1p11
+        - { value: 0x0B01, message: "Error analog input, C1p11; Config error at .FilterConfig" }
+        - { value: 0x0B02, message: "Error analog input, C1p11; Input out of range" }
+        - { value: 0x0B03, message: "Error analog input, C1p11, Hardware error" }
+        # Error general purpose input / output, C1p13
+        - { value: 0x0D01, message: "Error general purpose input / output, C1p13; Config error at .PinConfig" }
+        - { value: 0x0D02, message: "Error general purpose input / output, C1p13; Config error at .DebounceConfig" }
+        - { value: 0x0D03, message: "Error general purpose input / output, C1p13; Invalid value at .OutputValue" }
+        - { value: 0x0D04, message: "Error general purpose input / output, C1p13; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0D05, message: "Error general purpose input / output, C1p13; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0D06, message: "Error general purpose input / output, C1p13; Switched off because overload" }
+        - { value: 0x0D07, message: "Error general purpose input / output, C1p13; Switch on protection after overload" }
+        - { value: 0x0D08, message: "Error general purpose input / output, C1p13; Hardware watchdog error" }
+        - { value: 0x0D09, message: "Error general purpose input / output, C1p13; Safety error" }
+        # Error general purpose input / output, C1p14
+        - { value: 0x0E01, message: "Error general purpose input / output, C1p14; Config error at .PinConfig" }
+        - { value: 0x0E02, message: "Error general purpose input / output, C1p14; Config error at .DebounceConfig" }
+        - { value: 0x0E03, message: "Error general purpose input / output, C1p14; Invalid value at .OutputValue" }
+        - { value: 0x0E04, message: "Error general purpose input / output, C1p14; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0E05, message: "Error general purpose input / output, C1p14; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0E06, message: "Error general purpose input / output, C1p14; Switched off because overload" }
+        - { value: 0x0E07, message: "Error general purpose input / output, C1p14; Switch on protection after overload" }
+        - { value: 0x0E08, message: "Error general purpose input / output, C1p14; Hardware watchdog error" }
+        # Error general purpose input / output, C1p15
+        - { value: 0x0F01, message: "Error general purpose input / output, C1p15; Config error at .PinConfig" }
+        - { value: 0x0F02, message: "Error general purpose input / output, C1p15; Config error at .DebounceConfig" }
+        - { value: 0x0F03, message: "Error general purpose input / output, C1p15; Invalid value at .OutputValue" }
+        - { value: 0x0F04, message: "Error general purpose input / output, C1p15; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0F05, message: "Error general purpose input / output, C1p15; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0F06, message: "Error general purpose input / output, C1p15; Switched off because overload" }
+        - { value: 0x0F07, message: "Error general purpose input / output, C1p15; Switch on protection after overload" }
+        - { value: 0x0F08, message: "Error general purpose input / output, C1p15; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p16
+        - { value: 0x1001, message: "Error general purpose proportional input / output, C1p16; Config error at .PinConfig" }
+        - { value: 0x1002, message: "Error general purpose proportional input / output, C1p16; Config error at .DebounceConfig" }
+        - { value: 0x1003, message: "Error general purpose proportional input / output, C1p16; Invalid value at .OutputValue" }
+        - { value: 0x1004, message: "Error general purpose proportional input / output, C1p16; Invalid value at .DitherAmp" }
+        - { value: 0x1005, message: "Error general purpose proportional input / output, C1p16; Output disconnected / output shorted to -I/O / transistor shorted" }
+        - { value: 0x1006, message: "Error general purpose proportional input / output, C1p16; Hardware watchdog error" }
+        # Error digital input
+        - { value: 0x1301, message: "Error digital input, C1p19: Config error at .DebounceConfig" }
+        - { value: 0x1401, message: "Error digital input, C1p20: Config error at .DebounceConfig" }
+        - { value: 0x1501, message: "Error digital input, C1p21: Config error at .DebounceConfig" }
+        # Error analog input, C1p22
+        - { value: 0x1601, message: "Error analog input, C1p22; Config error at .FilterConfig" }
+        - { value: 0x1602, message: "Error analog input, C1p22; Input out of range" }
+        - { value: 0x1603, message: "Error analog input, C1p22, Hardware error" }
+        # Error sensor supply, C1p23
+        - { value: 0x1701, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1702, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1703, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1704, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1705, message: "Error sensor supply, C1p23; Config error at .PinConfig" }
+        - { value: 0x1706, message: "Error sensor supply, C1p23; Supply voltage feedback value out of range" }
+        # Error main contactor output, C1p24
+        - { value: 0x1801, message: "Error main contactor output, C1p24; Config error at .PinConfig" }
+        - { value: 0x1802, message: "Error main contactor output, C1p24; Invalid value at .OutputValue" }
+        - { value: 0x1803, message: "Error main contactor output, C1p24; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1804, message: "Error main contactor output, C1p24; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1805, message: "Error main contactor output, C1p24; Switched off because overload" }
+        - { value: 0x1806, message: "Error main contactor output, C1p24; Switch on protection after overload" }
+        - { value: 0x1807, message: "Error main contactor output, C1p24; Hardware watchdog error" }
+        # Error general purpose input / output, C1p25
+        - { value: 0x1901, message: "Error general purpose input / output, C1p25; Config error at .PinConfig" }
+        - { value: 0x1902, message: "Error general purpose input / output, C1p25; Config error at .DebounceConfig" }
+        - { value: 0x1903, message: "Error general purpose input / output, C1p25; Invalid value at .OutputValue" }
+        - { value: 0x1904, message: "Error general purpose input / output, C1p25; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1905, message: "Error general purpose input / output, C1p25; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1906, message: "Error general purpose input / output, C1p25; Switched off because overload" }
+        - { value: 0x1907, message: "Error general purpose input / output, C1p25; Switch on protection after overload" }
+        - { value: 0x1908, message: "Error general purpose input / output, C1p25; Hardware watchdog error" }
+        # Error general purpose input / output, C1p26
+        - { value: 0x1A01, message: "Error general purpose input / output, C1p26; Config error at .PinConfig" }
+        - { value: 0x1A02, message: "Error general purpose input / output, C1p26; Config error at .DebounceConfig" }
+        - { value: 0x1A03, message: "Error general purpose input / output, C1p26; Invalid value at .OutputValue" }
+        - { value: 0x1A04, message: "Error general purpose input / output, C1p26; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1A05, message: "Error general purpose input / output, C1p26; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1A06, message: "Error general purpose input / output, C1p26; Switched off because overload" }
+        - { value: 0x1A07, message: "Error general purpose input / output, C1p26; Switch on protection after overload" }
+        - { value: 0x1A08, message: "Error general purpose input / output, C1p26; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p27
+        - { value: 0x1B01, message: "Error general purpose proportional input / output, C1p27; Config error at .PinConfig" }
+        - { value: 0x1B02, message: "Error general purpose proportional input / output, C1p27; Config error at .DebounceConfig" }
+        - { value: 0x1B03, message: "Error general purpose proportional input / output, C1p27; Invalid value at .OutputValue" }
+        - { value: 0x1B04, message: "Error general purpose proportional input / output, C1p27; Invalid value at .DitherAmp" }
+        - { value: 0x1B05, message: "Error general purpose proportional input / output, C1p27; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1B06, message: "Error general purpose proportional input / output, C1p27; Hardware watchdog error" }
+        - { value: 0x1B07, message: "Error general purpose proportional input / output, C1p27; Safety error" }
+        # Error encoder supply, C1p28
+        - { value: 0x1C01, message: "Error encoder supply, C1p28; Overcurrent" }
+        - { value: 0x1C02, message: "Error encoder supply, C1p28; Undercurrent" }
+        - { value: 0x1C03, message: "Error encoder supply, C1p28; Current feedback out of range" }
+        # Error multi function input, C1p30
+        - { value: 0x1E01, message: "Error multi function input, C1p30: Config error at .DebounceConfig" }
+        - { value: 0x1E02, message: "Error multi function input, C1p30: Hardware watchdog error" }
+        - { value: 0x1E03, message: "Error multi function input, C1p30: Hardware configuration error" }
+        # Error digital input
+        - { value: 0x1F01, message: "Error digital input, C1p31: Config error at .DebounceConfig" }
+        - { value: 0x2001, message: "Error digital input, C1p32: Config error at .DebounceConfig" }
+        - { value: 0x2101, message: "Error digital input, C1p33: Config error at .DebounceConfig" }
+        # Error analog input (Rheo), C1p34
+        - { value: 0x2201, message: "Error analog input, C1p34; Config error at .FilterConfig" }
+        - { value: 0x2202, message: "Error analog input, C1p34; Input out of range" }
+        - { value: 0x2203, message: "Error analog input, C1p34, Hardware error" }
+        # Error power stage
+        - { value: 0x2401, message: "Error power stage: Wrong value at .PWMFreq" }
+        - { value: 0x2402, message: "Error power stage; Power stage overtemperature" }
+        - { value: 0x2403, message: "Error power stage; Power stage temperature sensor" }
+        - { value: 0x2404, message: "Error power stage; Overvoltage" }
+        - { value: 0x2405, message: "Error power stage; Overcurrent" }
+        - { value: 0x2406, message: "Error power stage; Unprotected mode active" }
+        - { value: 0x2407, message: "Error power stage; Power stage permanently locked because wrong motor data" }
+        - { value: 0x2408, message: "Error power stage; Power stage permanently locked because HW watchdog error" }
+        - { value: 0x2409, message: "Error power stage; Power stage permanently locked because current sensor error" }
+        - { value: 0x240A, message: "Error power stage; Power stage permanently locked because undervolt detection" }
+        - { value: 0x240B, message: "Error power stage; PCB overtemperature" }
+        - { value: 0x240C, message: "Error power stage; PCB temperature sensor" }
+        # Error selftest
+        - { value: 0x2501, message: "Error selftest; Error DC-Link circuit" }
+        - { value: 0x2502, message: "Error selftest; Error in Watchdog circuit, operation impossible" }
+        - { value: 0x2503, message: "Error selftest; Short circuit to -V DC-Link" }
+        - { value: 0x2504, message: "Error selftest; Short circuit to +V DC-Link" }
+        - { value: 0x2505, message: "Error selftest; Error in motor wiring or power stage" }
+        - { value: 0x2506, message: "Error selftest; Shorted power output (motor output)" }
+        - { value: 0x2507, message: "Error selftest; Test not passed, because of hardware overvoltage protection" }
+        - { value: 0x2508, message: "Error selftest; Corrupted production data in EEPROM detected" }
+        # Warning selftest
+        - { value: 0x2601, message: "Warning selftest; Error in Watchdog circuit, limited operation possible" }
+        - { value: 0x2602, message: "Warning selftest; Watchdog not tested, because low voltage at DC-Link" }
+        - { value: 0x2603, message: "Warning selftest; Corrupted user data (NVRam) in EEPROM detected" }
+        - { value: 0x2604, message: "Warning selftest; Corrupted error history data in EEPROM detected" }
+        # Status selftest
+        - { value: 0x2701, message: "Status selftest; DCLink selftest in progress" }
+        - { value: 0x2702, message: "Status selftest; Watchdog selftest in progress" }
+        - { value: 0x2703, message: "Status selftest; PowerStage selftest in progress" }
+        # Error motor control
+        - { value: 0x2801, message: "Error motor control; Invalid value at .RPMSetPoint" }
+        - { value: 0x2802, message: "Error motor control; Invalid value at .SpeedKP" }
+        - { value: 0x2803, message: "Error motor control; Invalid value at .SpeedKI" }
+        - { value: 0x2804, message: "Error motor control; Invalid value at .TorqueFF" }
+        - { value: 0x2805, message: "Error motor control; Invalid value at .UserTorqueLimit" }
+        - { value: 0x2806, message: "Error motor control; Invalid value at .UserCurrLimit" }
+        - { value: 0x280A, message: "Error motor control; Invalid value at .EncErrThreshold" }
+        - { value: 0x280B, message: "Error motor control; One encoder line disconnected" }
+        - { value: 0x280C, message: "Error motor control; Invalid value at .PartLoadReduc" }
+        - { value: 0x280D, message: "Error motor control; PCB temperature dependent current derating active" }
+        - { value: 0x280E, message: "Error motor control; Invalid value at .MagCurrBoost" }
+        # Error motor
+        - { value: 0x2901, message: "Error motor; Config error" }
+        - { value: 0x2902, message: "Error motor; ReInit in progress" }
+        # Error NVMem
+        - { value: 0x2A01, message: "Error NVMem; The NVMem was restored to a previous state" }
+        - { value: 0x2A02, message: "Error NVMem; The NVMem checksums are not correct" }
+        - { value: 0x2A03, message: "Error NVMem; The reset routine could not access the NV memory" }
+        # Error CAN
+        - { value: 0x2B01, message: "Error CAN; CAN driver error" }
+        - { value: 0x2B02, message: "Error CAN; CAN bus off mode" }
+        - { value: 0x2B03, message: "Error CAN; CAN bus overflow" }
+        # Error CAN timeout
+        - { value: 0x3201, message: "Error CAN timeout, SYNC" }
+        - { value: 0x3202, message: "Error CAN timeout, RPDO1" }
+        - { value: 0x3203, message: "Error CAN timeout, RHEART1" }
+        # Error power stage
+        - { value: 0x3301, message: "Error power stage; Min. temperature" }
+        # Error motor
+        - { value: 0x3401, message: "Error motor; Overtemperature" }
+        # Error loop time
+        - { value: 0x3501, message: "Error loop time (level 1)" }
+        - { value: 0x3502, message: "Error loop time (level 2)" }
+        # Error V_DC_Link
+        - { value: 0x3601, message: "Error V_DC_Link; Undervoltage (level 1)" }
+        - { value: 0x3602, message: "Error V_DC_Link; Undervoltage (level 2)" }
+  
+  - motor_id: 7
+    voltage:
+      index: 0x2124
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    current:
+      index: 0x211e
+      subindex: 0x00
+      multiplier: 0.01
+      type: "int16_t"
+    error:
+      index: 0x2120
+      subindex: 0x00
+      type: "uint16_t"
+      codes:
+        # No error
+        - { value: 0x0000, message: "No error" }
+        # New software
+        - { value: 0x0101, message: "New software detected after download" }
+        # Error analog input, C1p11
+        - { value: 0x0B01, message: "Error analog input, C1p11; Config error at .FilterConfig" }
+        - { value: 0x0B02, message: "Error analog input, C1p11; Input out of range" }
+        - { value: 0x0B03, message: "Error analog input, C1p11, Hardware error" }
+        # Error general purpose input / output, C1p13
+        - { value: 0x0D01, message: "Error general purpose input / output, C1p13; Config error at .PinConfig" }
+        - { value: 0x0D02, message: "Error general purpose input / output, C1p13; Config error at .DebounceConfig" }
+        - { value: 0x0D03, message: "Error general purpose input / output, C1p13; Invalid value at .OutputValue" }
+        - { value: 0x0D04, message: "Error general purpose input / output, C1p13; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0D05, message: "Error general purpose input / output, C1p13; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0D06, message: "Error general purpose input / output, C1p13; Switched off because overload" }
+        - { value: 0x0D07, message: "Error general purpose input / output, C1p13; Switch on protection after overload" }
+        - { value: 0x0D08, message: "Error general purpose input / output, C1p13; Hardware watchdog error" }
+        - { value: 0x0D09, message: "Error general purpose input / output, C1p13; Safety error" }
+        # Error general purpose input / output, C1p14
+        - { value: 0x0E01, message: "Error general purpose input / output, C1p14; Config error at .PinConfig" }
+        - { value: 0x0E02, message: "Error general purpose input / output, C1p14; Config error at .DebounceConfig" }
+        - { value: 0x0E03, message: "Error general purpose input / output, C1p14; Invalid value at .OutputValue" }
+        - { value: 0x0E04, message: "Error general purpose input / output, C1p14; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0E05, message: "Error general purpose input / output, C1p14; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0E06, message: "Error general purpose input / output, C1p14; Switched off because overload" }
+        - { value: 0x0E07, message: "Error general purpose input / output, C1p14; Switch on protection after overload" }
+        - { value: 0x0E08, message: "Error general purpose input / output, C1p14; Hardware watchdog error" }
+        # Error general purpose input / output, C1p15
+        - { value: 0x0F01, message: "Error general purpose input / output, C1p15; Config error at .PinConfig" }
+        - { value: 0x0F02, message: "Error general purpose input / output, C1p15; Config error at .DebounceConfig" }
+        - { value: 0x0F03, message: "Error general purpose input / output, C1p15; Invalid value at .OutputValue" }
+        - { value: 0x0F04, message: "Error general purpose input / output, C1p15; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x0F05, message: "Error general purpose input / output, C1p15; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x0F06, message: "Error general purpose input / output, C1p15; Switched off because overload" }
+        - { value: 0x0F07, message: "Error general purpose input / output, C1p15; Switch on protection after overload" }
+        - { value: 0x0F08, message: "Error general purpose input / output, C1p15; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p16
+        - { value: 0x1001, message: "Error general purpose proportional input / output, C1p16; Config error at .PinConfig" }
+        - { value: 0x1002, message: "Error general purpose proportional input / output, C1p16; Config error at .DebounceConfig" }
+        - { value: 0x1003, message: "Error general purpose proportional input / output, C1p16; Invalid value at .OutputValue" }
+        - { value: 0x1004, message: "Error general purpose proportional input / output, C1p16; Invalid value at .DitherAmp" }
+        - { value: 0x1005, message: "Error general purpose proportional input / output, C1p16; Output disconnected / output shorted to -I/O / transistor shorted" }
+        - { value: 0x1006, message: "Error general purpose proportional input / output, C1p16; Hardware watchdog error" }
+        # Error digital input
+        - { value: 0x1301, message: "Error digital input, C1p19: Config error at .DebounceConfig" }
+        - { value: 0x1401, message: "Error digital input, C1p20: Config error at .DebounceConfig" }
+        - { value: 0x1501, message: "Error digital input, C1p21: Config error at .DebounceConfig" }
+        # Error analog input, C1p22
+        - { value: 0x1601, message: "Error analog input, C1p22; Config error at .FilterConfig" }
+        - { value: 0x1602, message: "Error analog input, C1p22; Input out of range" }
+        - { value: 0x1603, message: "Error analog input, C1p22, Hardware error" }
+        # Error sensor supply, C1p23
+        - { value: 0x1701, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1702, message: "Error sensor supply, C1p23; Overvoltage" }
+        - { value: 0x1703, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1704, message: "Error sensor supply, C1p23; Undervoltage" }
+        - { value: 0x1705, message: "Error sensor supply, C1p23; Config error at .PinConfig" }
+        - { value: 0x1706, message: "Error sensor supply, C1p23; Supply voltage feedback value out of range" }
+        # Error main contactor output, C1p24
+        - { value: 0x1801, message: "Error main contactor output, C1p24; Config error at .PinConfig" }
+        - { value: 0x1802, message: "Error main contactor output, C1p24; Invalid value at .OutputValue" }
+        - { value: 0x1803, message: "Error main contactor output, C1p24; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1804, message: "Error main contactor output, C1p24; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1805, message: "Error main contactor output, C1p24; Switched off because overload" }
+        - { value: 0x1806, message: "Error main contactor output, C1p24; Switch on protection after overload" }
+        - { value: 0x1807, message: "Error main contactor output, C1p24; Hardware watchdog error" }
+        # Error general purpose input / output, C1p25
+        - { value: 0x1901, message: "Error general purpose input / output, C1p25; Config error at .PinConfig" }
+        - { value: 0x1902, message: "Error general purpose input / output, C1p25; Config error at .DebounceConfig" }
+        - { value: 0x1903, message: "Error general purpose input / output, C1p25; Invalid value at .OutputValue" }
+        - { value: 0x1904, message: "Error general purpose input / output, C1p25; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1905, message: "Error general purpose input / output, C1p25; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1906, message: "Error general purpose input / output, C1p25; Switched off because overload" }
+        - { value: 0x1907, message: "Error general purpose input / output, C1p25; Switch on protection after overload" }
+        - { value: 0x1908, message: "Error general purpose input / output, C1p25; Hardware watchdog error" }
+        # Error general purpose input / output, C1p26
+        - { value: 0x1A01, message: "Error general purpose input / output, C1p26; Config error at .PinConfig" }
+        - { value: 0x1A02, message: "Error general purpose input / output, C1p26; Config error at .DebounceConfig" }
+        - { value: 0x1A03, message: "Error general purpose input / output, C1p26; Invalid value at .OutputValue" }
+        - { value: 0x1A04, message: "Error general purpose input / output, C1p26; Overload / output shorted to +I/O supply / transistor damaged" }
+        - { value: 0x1A05, message: "Error general purpose input / output, C1p26; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1A06, message: "Error general purpose input / output, C1p26; Switched off because overload" }
+        - { value: 0x1A07, message: "Error general purpose input / output, C1p26; Switch on protection after overload" }
+        - { value: 0x1A08, message: "Error general purpose input / output, C1p26; Hardware watchdog error" }
+        # Error general purpose proportional input / output, C1p27
+        - { value: 0x1B01, message: "Error general purpose proportional input / output, C1p27; Config error at .PinConfig" }
+        - { value: 0x1B02, message: "Error general purpose proportional input / output, C1p27; Config error at .DebounceConfig" }
+        - { value: 0x1B03, message: "Error general purpose proportional input / output, C1p27; Invalid value at .OutputValue" }
+        - { value: 0x1B04, message: "Error general purpose proportional input / output, C1p27; Invalid value at .DitherAmp" }
+        - { value: 0x1B05, message: "Error general purpose proportional input / output, C1p27; Output disconnected / output shorted to -I/O supply / transistor shorted" }
+        - { value: 0x1B06, message: "Error general purpose proportional input / output, C1p27; Hardware watchdog error" }
+        - { value: 0x1B07, message: "Error general purpose proportional input / output, C1p27; Safety error" }
+        # Error encoder supply, C1p28
+        - { value: 0x1C01, message: "Error encoder supply, C1p28; Overcurrent" }
+        - { value: 0x1C02, message: "Error encoder supply, C1p28; Undercurrent" }
+        - { value: 0x1C03, message: "Error encoder supply, C1p28; Current feedback out of range" }
+        # Error multi function input, C1p30
+        - { value: 0x1E01, message: "Error multi function input, C1p30: Config error at .DebounceConfig" }
+        - { value: 0x1E02, message: "Error multi function input, C1p30: Hardware watchdog error" }
+        - { value: 0x1E03, message: "Error multi function input, C1p30: Hardware configuration error" }
+        # Error digital input
+        - { value: 0x1F01, message: "Error digital input, C1p31: Config error at .DebounceConfig" }
+        - { value: 0x2001, message: "Error digital input, C1p32: Config error at .DebounceConfig" }
+        - { value: 0x2101, message: "Error digital input, C1p33: Config error at .DebounceConfig" }
+        # Error analog input (Rheo), C1p34
+        - { value: 0x2201, message: "Error analog input, C1p34; Config error at .FilterConfig" }
+        - { value: 0x2202, message: "Error analog input, C1p34; Input out of range" }
+        - { value: 0x2203, message: "Error analog input, C1p34, Hardware error" }
+        # Error power stage
+        - { value: 0x2401, message: "Error power stage: Wrong value at .PWMFreq" }
+        - { value: 0x2402, message: "Error power stage; Power stage overtemperature" }
+        - { value: 0x2403, message: "Error power stage; Power stage temperature sensor" }
+        - { value: 0x2404, message: "Error power stage; Overvoltage" }
+        - { value: 0x2405, message: "Error power stage; Overcurrent" }
+        - { value: 0x2406, message: "Error power stage; Unprotected mode active" }
+        - { value: 0x2407, message: "Error power stage; Power stage permanently locked because wrong motor data" }
+        - { value: 0x2408, message: "Error power stage; Power stage permanently locked because HW watchdog error" }
+        - { value: 0x2409, message: "Error power stage; Power stage permanently locked because current sensor error" }
+        - { value: 0x240A, message: "Error power stage; Power stage permanently locked because undervolt detection" }
+        - { value: 0x240B, message: "Error power stage; PCB overtemperature" }
+        - { value: 0x240C, message: "Error power stage; PCB temperature sensor" }
+        # Error selftest
+        - { value: 0x2501, message: "Error selftest; Error DC-Link circuit" }
+        - { value: 0x2502, message: "Error selftest; Error in Watchdog circuit, operation impossible" }
+        - { value: 0x2503, message: "Error selftest; Short circuit to -V DC-Link" }
+        - { value: 0x2504, message: "Error selftest; Short circuit to +V DC-Link" }
+        - { value: 0x2505, message: "Error selftest; Error in motor wiring or power stage" }
+        - { value: 0x2506, message: "Error selftest; Shorted power output (motor output)" }
+        - { value: 0x2507, message: "Error selftest; Test not passed, because of hardware overvoltage protection" }
+        - { value: 0x2508, message: "Error selftest; Corrupted production data in EEPROM detected" }
+        # Warning selftest
+        - { value: 0x2601, message: "Warning selftest; Error in Watchdog circuit, limited operation possible" }
+        - { value: 0x2602, message: "Warning selftest; Watchdog not tested, because low voltage at DC-Link" }
+        - { value: 0x2603, message: "Warning selftest; Corrupted user data (NVRam) in EEPROM detected" }
+        - { value: 0x2604, message: "Warning selftest; Corrupted error history data in EEPROM detected" }
+        # Status selftest
+        - { value: 0x2701, message: "Status selftest; DCLink selftest in progress" }
+        - { value: 0x2702, message: "Status selftest; Watchdog selftest in progress" }
+        - { value: 0x2703, message: "Status selftest; PowerStage selftest in progress" }
+        # Error motor control
+        - { value: 0x2801, message: "Error motor control; Invalid value at .RPMSetPoint" }
+        - { value: 0x2802, message: "Error motor control; Invalid value at .SpeedKP" }
+        - { value: 0x2803, message: "Error motor control; Invalid value at .SpeedKI" }
+        - { value: 0x2804, message: "Error motor control; Invalid value at .TorqueFF" }
+        - { value: 0x2805, message: "Error motor control; Invalid value at .UserTorqueLimit" }
+        - { value: 0x2806, message: "Error motor control; Invalid value at .UserCurrLimit" }
+        - { value: 0x280A, message: "Error motor control; Invalid value at .EncErrThreshold" }
+        - { value: 0x280B, message: "Error motor control; One encoder line disconnected" }
+        - { value: 0x280C, message: "Error motor control; Invalid value at .PartLoadReduc" }
+        - { value: 0x280D, message: "Error motor control; PCB temperature dependent current derating active" }
+        - { value: 0x280E, message: "Error motor control; Invalid value at .MagCurrBoost" }
+        # Error motor
+        - { value: 0x2901, message: "Error motor; Config error" }
+        - { value: 0x2902, message: "Error motor; ReInit in progress" }
+        # Error NVMem
+        - { value: 0x2A01, message: "Error NVMem; The NVMem was restored to a previous state" }
+        - { value: 0x2A02, message: "Error NVMem; The NVMem checksums are not correct" }
+        - { value: 0x2A03, message: "Error NVMem; The reset routine could not access the NV memory" }
+        # Error CAN
+        - { value: 0x2B01, message: "Error CAN; CAN driver error" }
+        - { value: 0x2B02, message: "Error CAN; CAN bus off mode" }
+        - { value: 0x2B03, message: "Error CAN; CAN bus overflow" }
+        # Error CAN timeout
+        - { value: 0x3201, message: "Error CAN timeout, SYNC" }
+        - { value: 0x3202, message: "Error CAN timeout, RPDO1" }
+        - { value: 0x3203, message: "Error CAN timeout, RHEART1" }
+        # Error power stage
+        - { value: 0x3301, message: "Error power stage; Min. temperature" }
+        # Error motor
+        - { value: 0x3401, message: "Error motor; Overtemperature" }
+        # Error loop time
+        - { value: 0x3501, message: "Error loop time (level 1)" }
+        - { value: 0x3502, message: "Error loop time (level 2)" }
+        # Error V_DC_Link
+        - { value: 0x3601, message: "Error V_DC_Link; Undervoltage (level 1)" }
+        - { value: 0x3602, message: "Error V_DC_Link; Undervoltage (level 2)" }

@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_led_driver" type="nc_led_driver" name="nc_led_driver" output="screen">
+	</node>
+</launch>

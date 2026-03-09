@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="nc_localizer_ros" type="nc_localizer_ros" name="nc_localizer_ros" output="screen"/>
+</launch>

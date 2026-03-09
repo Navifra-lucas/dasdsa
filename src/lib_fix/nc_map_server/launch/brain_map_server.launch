@@ -1,0 +1,7 @@
+
+
+<launch>
+  <arg name="map" default="latest"/>
+  <node pkg="nc_brain_map_server" type="nc_brain_map_server" name="nc_brain_map_server" clear_params="true" output="screen">
+  </node>
+</launch>

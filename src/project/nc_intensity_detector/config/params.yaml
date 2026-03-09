@@ -1,0 +1,123 @@
+# Parameters for nc_intensity_detector
+
+# Topic configuration
+topics:
+  intensity: "/sick_visionary_t_mini/intensity"  # Input intensity image topic
+  output: "/nc_intensity_detector/pose"            # Output pose topic
+  cmd: "/nc_intensity_detector/cmd"              # Start detection topic (std_msgs/Bool)
+
+# Frame configuration
+frames:
+  camera: "sick_visionary_t_mini"  # Camera frame ID
+  base: "base_link"                # Base frame ID for output pose
+  # Camera TF parameters (base_link to camera frame transformation)
+  # These values are used for transforming poses from camera frame to base_link frame
+  camera_tf:
+    x: -0.363    # Translation X in meters (base_link -> camera)
+    y: 0.02      # Translation Y in meters (base_link -> camera)
+    yaw: 3.14159 # Rotation Yaw in radians (180 degrees = π radians)
+
+# Detection parameters
+detection:
+  intensity_threshold: 12000.0  # Minimum intensity value for tape detection (0-65535, reduced for far distance)
+  min_visible_ratio: 0.3  # Minimum visible ratio when tape is partially occluded (0.0 ~ 1.0, reduced for far distance)
+                             # 0.3 means at least 30% of the tape must be visible (reduced from 0.5)
+  crop_top_ratio: 0.40  # Crop top portion of image (0.0 ~ 1.0, 0.15 = 15%)
+  crop_bottom_ratio: 0.15  # Crop bottom portion of image (0.0 ~ 1.0, 0.15 = 15%)
+
+# Tape physical dimensions (in meters)
+tape:
+  width: 0.70      # Tape width (70 cm)
+  height: 0.50     # Tape height (50 cm)
+  thickness: 0.05  # Tape thickness (5 cm)
+
+# Distance range (in meters)
+distance:
+  min: 1.0  # Minimum detection distance (adjusted for test cases 1.5m~2.5m)
+  max: 10.0  # Maximum detection distance (increased for far distance detection)
+
+# Point cloud filtering parameters (for wall angle calculation)
+pointcloud:
+  min_distance: 1.0  # Minimum distance for point cloud filtering (meters)
+  max_distance: 10.0  # Maximum distance for point cloud filtering (meters)
+  max_y_range: 3.0    # Maximum lateral range for point cloud filtering (meters)
+  max_z_range: 2.0    # Maximum vertical range for point cloud filtering (meters)
+  z_is_forward: true  # If true, Z axis is forward (distance), X is lateral, Y is vertical
+                      # If false, X axis is forward (distance), Y is lateral, Z is vertical
+
+# Image save parameters
+image_save:
+  interval: 10  # Save image every N frames (1 = every frame, 5 = every 5th frame)
+
+# Camera intrinsic parameters
+# SICK Visionary T Mini: 이미지 크기 512x424
+# FOV를 이용한 초점거리 계산: f = (w/2) / tan(FoV/2)
+# 수평: fx = 256 / tan(35°) ≈ 365.6 픽셀 (70도 FOV 기준)
+# 수직: fy = 212 / tan(30°) ≈ 367.2 픽셀 (60도 FOV 기준)
+# Principal point: cx = 256, cy = 212 (이미지 중심)
+camera:
+  focal_length_x: 365.6  # Focal length in x direction (pixels, from 70deg FOV)
+  focal_length_y: 367.2  # Focal length in y direction (pixels, from 60deg FOV)
+  principal_point_x: 0.0  # Principal point x coordinate (pixels, relative to image center)
+  principal_point_y: 0.0  # Principal point y coordinate (pixels, relative to image center)
+  # Camera distortion coefficients (from SICK Visionary T Mini camera calibration)
+  # Visionary-T Mini 추정치: 왜곡 없음으로 가정 (dist_coeffs = zeros)
+  # 실제 값은 camera_info 토픽에서 확인 가능
+  distortion:
+    k1: 0.0  # Radial distortion coefficient 1
+    k2: 0.0  # Radial distortion coefficient 2
+    k3: 0.0  # Radial distortion coefficient 3
+    p1: 0.0  # Tangential distortion coefficient 1
+    p2: 0.0  # Tangential distortion coefficient 2
+
+# Calibration parameters (based on test results)
+calibration:
+  distance_calibration_factor: 1.0  # Distance correction factor (1.0 = no correction, for simulation should be 1.0)
+  angle_calibration_offset: 0  # Angle (yaw) correction offset in degrees (to correct systematic bias)
+  pnp_yaw_multiplier: 1.0  # PnP yaw multiplier (multiply PnP yaw result by this value, default: 5.0)
+  y_position_offset: 0.0  # Y position correction offset in meters (to correct lateral position bias)
+  y_scale_factor: 1.0  # Y position scale factor (multiply Y result by this value, default: 1.0, 0.5 = half)
+  occlusion_distance_penalty: 0.30  # Additional distance uncertainty factor when occlusion is detected (30%)
+  temporal_filter_alpha: 1  # Temporal filter coefficient (0.88 = more responsive, higher = more sensitive to changes)
+  max_y_change: 0.6  # Maximum allowed Y position change in meters for tracking validation (0.3 = 30cm)
+  # Deadzone and rate limiting parameters to prevent oscillation
+  y_deadzone: 0.005  # Y position deadzone in meters (ignore changes smaller than this to prevent oscillation, smaller = more sensitive)
+  yaw_deadzone: 0.5  # Yaw deadzone in degrees (ignore changes smaller than this to prevent oscillation, smaller = more sensitive)
+  max_y_rate: 0.08  # Maximum Y change rate per frame in meters (prevents sudden jumps, larger = faster response)
+  max_yaw_rate: 3.0  # Maximum yaw change rate per frame in degrees (prevents sudden jumps, larger = faster response)
+  # Height correction parameters (to compensate for distance-dependent Z measurement variation)
+  # Linear correction: height_corrected = z_raw + (height_correction_slope * x + height_correction_offset)
+  # Based on measured data: x vs z relationship
+  height_correction_slope: -0.019  # Slope of correction (m/m) - compensates for distance-dependent variation
+  height_correction_offset: 0.420  # Offset of correction (m) - to maintain constant height
+  reference_height: -0.63  # Reference height (m) - target height value to maintain
+  # Angular velocity correction (to compensate for lateral coordinate oscillation during rotation)
+  use_odom_correction: false  # Enable/disable odom-based angular velocity correction
+  odom_correction_gain: -0.5  # Gain for angular velocity correction (yaw_corrected = yaw + gain * angular_vel * time_diff)
+                              # To increase correction: increase this value (e.g., 2.0, 5.0, 10.0)
+                              # Higher values = more aggressive correction
+  odom_angular_vel_threshold: 0.005  # Minimum angular velocity to apply correction (rad/s, default: 0.01 = ~0.57 deg/s)
+                                     # Lower values = apply correction even for smaller angular velocities
+  odom_time_diff_threshold: 0.0001  # Minimum time difference to apply correction (sec, default: 0.001 = 1ms)
+                                    # Lower values = apply correction even for smaller time differences
+  odom_max_yaw_correction: 1.0  # Maximum yaw correction in radians (default: 0.5 = ~28.6 degrees, prevents over-correction)
+                                 # Increase this value to allow larger corrections (e.g., 1.0 = ~57 degrees)
+  odom_filter_alpha: 0.3  # EMA filter coefficient for angular velocity (0.0-1.0, higher = more responsive to changes)
+                          # 0.7 = 70% current value, 30% previous value (smoother)
+                          # Lower values (e.g., 0.5) = smoother but slower response
+                          # Higher values (e.g., 0.9) = faster response but more sensitive to noise
+  odom_max_angular_accel: 2.0  # Maximum angular acceleration (rad/s^2) - if exceeded, reduce correction
+                                # Higher values = allow more rapid changes before reducing correction
+                                # Lower values = more aggressive reduction during rapid direction changes
+  # PnP position error correction (distance-dependent)
+  # 기준 거리: 오차 보정을 시작하는 거리 (이 거리 이상에서만 보정 적용)
+  # x 오차율: 거리 1m당 x를 몇 m 보정할지
+  # y 오차율: 거리 1m당 y를 몇 m 보정할지
+  pnp_x_reference_distance: 1.77  # 기준 거리 (meters, default: 1.77m)
+                                   # 이 거리 이상에서만 보정 적용, 이 거리 미만에서는 보정 안 함
+  pnp_x_error_per_meter: 0.1  # X 오차율 (m/m, default: 0.1)
+                               # 거리 1m당 x를 0.1m 보정
+                               # 예: 거리 2m → x 오차 = 2 × 0.1 = 0.2m
+  pnp_y_error_per_meter: 0.01  # Y 오차율 (m/m, default: 0.05)
+                                # 거리 1m당 y를 0.05m 보정
+                                # 예: 거리 2m → y 오차 = 2 × 0.05 = 0.1m

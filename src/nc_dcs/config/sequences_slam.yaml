@@ -1,0 +1,135 @@
+# Docking Control System Sequences Configuration
+# Each sequence is identified by drive_type from ForkLift message
+# Actions are categorized by action_type with specific parameters
+
+sequences:
+  # Drive Type -1: Unloading (하차)
+  unloading:
+    drive_type: -1
+    name: "UNLOADING"
+    description: "Pallet unloading sequence"
+    steps:
+      # Step 1: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+        wait_for: "completed"
+        
+      # Step 2: Move backward to align
+      - action_type: "move"
+        params:
+          type: "backward"
+        wait_for: "completed"
+
+      # Step 3: Tilt down for placement
+      - action_type: "fork_tilt"
+        params:
+          direction: "down"  # up, down
+        wait_for: "completed"
+
+      # Step 4: Lower to place height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "place"    # Uses approach_height
+        wait_for: "completed"
+
+      # Step 5: Adjust fork width to narrow
+      - action_type: "fork_side"
+        params:
+          position: "narrow"  # wide, narrow
+        wait_for: "completed"
+
+      # Step 6: Undocking with parallel actions
+      - action_type: "move"
+        params:
+          type: "forward"
+        wait_for: "completed"
+     
+      # Step 7: Lift to carry height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "carry"    # Uses approach_height
+        wait_for: "completed"
+      
+        
+  # Drive Type 1: Loading (상차)
+  loading:
+    drive_type: 1
+    name: "LOADING"
+    description: "Pallet loading sequence"
+    steps:
+      # Step 1: Lift to approach height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "approach"    # Uses approach_height
+        wait_for: "completed"
+        
+      # Step 3: Approach to target
+      - action_type: "move"
+        params:
+          type: "backward"
+          use_sitting_sensor: true
+        wait_for: "completed"
+
+      # Step 6: Lift to pickup height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "pickup"    # Uses approach_height
+        wait_for: "completed"
+
+      # Step 7: Tilt up for carrying
+      - action_type: "fork_tilt"
+        params:
+          direction: "up"
+        delay_sec: 0.5
+
+      # Step 8: Go back
+      - action_type: "move"
+        params:
+          type: "forward"
+        wait_for: "completed"
+
+      # Step 9: Lift to carry height
+      - action_type: "fork_updown"
+        params:
+          use_rack_heights: true
+          operation: "carry"    # Uses approach_height
+        wait_for: "completed"
+
+# Action Type Reference:
+# 
+# 1. fork_updown - Fork lift up/down control
+#    params:
+#      - use_rack_heights: bool (optional, use n_target_height from message)
+#      - operation: "approach" | "pickup" | "carry" | "place" | "clearance"
+#
+# 2. fork_side - Fork sideshift control
+#    params:
+#      - position: "wide" | "narrow"
+#
+# 3. fork_tilt - Fork tilt control
+#    params:
+#      - direction: "up" | "down"
+#
+# 4. move - Robot movement control
+#    params:
+#      - type: "forward" | "backward" | "rotate" | "docking" | "goback"
+#      - distance: float (optional, meters)
+#      - angle: float (optional, degrees for rotate)
+#      - use_perception_pose: bool (for docking)
+#      - continuous_publish: bool (for docking)
+#
+# 5. perception - Perception/Vision command
+#    params:
+#      - command: string (command to send)
+#      - target_type: "pallet" | "aruco" | "custom"
+#      - enabled: bool (optional, default true)
+#
+# wait_for: "completed" - Wait until action completes
+# delay_sec: float - Fixed delay in seconds
+# parallel_actions: list - Actions to execute simultaneously

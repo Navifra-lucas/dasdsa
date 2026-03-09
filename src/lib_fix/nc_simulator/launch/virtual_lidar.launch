@@ -1,0 +1,16 @@
+<launch>
+	<node name="base_link_to_laser_link" type="static_transform_publisher" pkg="tf" args="0.0 0.0 0.0 0.0 0 0 base_link laser_link 20"/>
+	<node name="laser_link_to_front_laser" type="static_transform_publisher" pkg="tf" args="0.77 0.57 0.0 0.7853 0 3.14 laser_link front_laser 20"/> 
+
+	<node pkg="nc_simulator" type="nc_simulator" name="virtual_lidar_node" output="screen">
+		<param name="scan_size" value="2700"/>
+		<param name="angle_min" value="-2.35619"/>
+		<param name="angle_max" value="2.35619"/>
+		<param name="scan_time" value="0.04"/>
+		<param name="range_min" value="0.01"/>
+		<param name="range_max" value="60"/>
+		<param name="scan_frame" value="front_laser"/>
+		<remap from="scan" to="scan_front_leuze"/>
+	</node>
+  
+</launch>

@@ -1,0 +1,13 @@
+{
+    "st_grid_map_param": {
+        "d_global_map_resolution_m": 0.1,
+        "d_global_map_padding_m": 0.15,
+        "d_global_cost_dist_m": 0.35,
+        "n_local_map_period_msec": 80,
+        "n_local_map_size_x_px": 300,
+        "n_local_map_size_y_px": 300,
+        "d_local_map_resolution_m": 0.05,
+        "d_local_map_padding_m": 0.03,
+        "d_local_cost_dist_m": 0.3
+    }
+}

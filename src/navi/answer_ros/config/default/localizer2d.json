@@ -1,0 +1,70 @@
+{
+    "b_use_localization": "true",
+    "b_use_reflector": "true",
+    "b_use_weighted_matching": "true",
+    "b_use_sampling_init_matching": "false",
+    "b_use_lidar_odometry": "true",
+    "b_use_reflector_based_localization_as_init_guess": "false",
+    "n_max_localize_iteration": "20",
+    "n_max_find_init_iteration": "50",
+    "n_knn_search_num": "7",
+    "n_localize_error_count_alram": "5",
+    "f_init_search_max_dist": "0.5",
+    "f_matching_dist_max": "0.5",
+    "f_matching_dist_min": "0.10",
+    "f_matching_dist_coarse": "0.3",
+    "f_matching_ratio_thres": "20",
+    "f_localizer_not_use_ratio": "10",
+    "f_external_pos_expiration_dist_m": "1.0",
+    "f_external_pos_expiration_deg": "30",
+    // if set to -1, then not use timeout
+    "f_external_pos_timeout_sec": "-1",
+    "f_diff_error_x_m": "0.5",
+    "f_diff_error_y_m": "0.5",
+    "f_diff_error_deg": "30",
+    "f_estimation_cond_dist_m": "0.05",
+    "f_estimation_cond_deg": "0.1",
+    "f_estimation_cond_steer_deg": "10",
+    // unit meter, deg
+    "f_large_correction_ignore_x": 0.5,
+    "f_large_correction_ignore_y": 0.5,
+    "f_large_correction_ignore_t": 10.0,
+    "f_inout_cos_angle_threshold": -1.0, // cosine of angle threshold between in and out direction. Ignore if below this value, if -1, not use this check
+    //huber, cauchy, geman
+    "s_kernel_name": "geman",
+    //ldlt, svd
+    "s_matcher_solver": "ldlt",
+    // The parameters for the point cloud filter
+    "IntensityFilter": {
+        "f_min_distance_cond": 1.0,
+        "f_max_distance_cond": 8.0,
+        "f_min_intensity_cond": 50,
+        "f_reflector_diameter": 0.0805,
+        // "f_reflector_diameter":0.105,
+        "n_intensity_local_max_neighboor_num": 7
+    },
+    "ReflectorDetector": {
+        "n_reflector_detected_count_condition": 200,
+        "n_reflector_time_expiration": 3,
+        "f_reflector_distance_m_register_tolerance": 1.0
+    },
+    // The parameters for the reflector matcher
+    "ReflectorMatcher": {
+        "n_minimum_matched_num": 3,
+        "f_pattern_match_vote_thresh": 3,
+        "f_pattern_distance_m_tolerance": 0.3,
+        // 10deg
+        "f_pattern_angle_rad_tolerance": 0.17,
+        // max distacne between map and detected
+        "f_matching_dist_max": 1.0,
+        "f_modified_z_score": 1.0
+    },
+    "SamplingMatcher": {
+        "sampling_num": 50,
+        "sample_max_dist": 2.0,
+        "sample_max_angle": 3,
+        "b_use_uniform_sampling": "true",
+        "sample_dist_resolution": 0.2,
+        "sample_angle_resolution": 1.5
+    }
+}

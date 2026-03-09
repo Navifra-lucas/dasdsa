@@ -1,0 +1,284 @@
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/swzm_qd_ll_enc"
+  
+master:
+  node_id: 100
+  sync_period: 50000  # us (0.5 second)
+  heartbeat_producer: 1000  # ms
+
+slave_1:
+  node_id: 1
+  dcf: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+  heartbeat_consumer: true
+
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2100, subindex: 0x00}  # Drive enable
+        - {index: 0x2101, subindex: 0x00}  # Main contactor enable
+        - {index: 0x2102, subindex: 0x00}  # Brake release
+        - {index: 0x2103, subindex: 0x00}  # Digital output 1
+        - {index: 0x2104, subindex: 0x00}  # Digital output 2
+        - {index: 0x2105, subindex: 0x00}  # Digital output 3
+        - {index: 0x2106, subindex: 0x00}  # Digital output 4
+        - {index: 0x2107, subindex: 0x00}  # Sto function
+        - {index: 0x2108, subindex: 0x00}  # Dummy 1
+        - {index: 0x2109, subindex: 0x00}  # Dummy 2
+        - {index: 0x210A, subindex: 0x00}  # Dummy 3
+        - {index: 0x210B, subindex: 0x00}  # Dummy 4
+        - {index: 0x210C, subindex: 0x00}  # Dummy 5
+        - {index: 0x210D, subindex: 0x00}  # Dummy 6
+        - {index: 0x210E, subindex: 0x00}  # Dummy 7
+        - {index: 0x210F, subindex: 0x00}  # Reset fault
+
+        - {index: 0x2110, subindex: 0x00}  # set speed s16
+        - {index: 0x2111, subindex: 0x00}  # torque feed forward s32
+        - {index: 0x2112, subindex: 0x00}  # set current proportional value 1 u8
+        - {index: 0x2113, subindex: 0x00}  # set current proportional value 2 u8
+  
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2114, subindex: 0x00}  # Power stage active
+        - {index: 0x2115, subindex: 0x00}  # Fault
+        - {index: 0x2116, subindex: 0x00}  # Torque mode
+        - {index: 0x2117, subindex: 0x00}  # Analog/CAN
+        - {index: 0x2118, subindex: 0x00}  # Cw/CAN enable
+        - {index: 0x2119, subindex: 0x00}  # CCw
+        - {index: 0x211A, subindex: 0x00}  # Safe stop active
+        - {index: 0x211B, subindex: 0x00}  # Toggle bit
+
+        - {index: 0x211C, subindex: 0x00}  # Motor load s8
+        - {index: 0x211D, subindex: 0x00}  # Actual speed s16
+        - {index: 0x211E, subindex: 0x00}  # Actual torque s16
+        - {index: 0x211F, subindex: 0x00}  # Motor encoder pulse counter s16
+    2:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2120, subindex: 0x00}  # Fault / Warning Code u16
+        - {index: 0x2121, subindex: 0x00}  # BDId Level u8
+        - {index: 0x2122, subindex: 0x00}  # Inverter temperature s8
+        - {index: 0x2123, subindex: 0x00}  # Motor temperature s16
+        - {index: 0x2124, subindex: 0x00}  # Battery voltage s16
+
+slave_2:
+  node_id: 2
+  dcf: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+  heartbeat_consumer: true
+
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2100, subindex: 0x00}  # Drive enable
+        - {index: 0x2101, subindex: 0x00}  # Main contactor enable
+        - {index: 0x2102, subindex: 0x00}  # Brake release
+        - {index: 0x2103, subindex: 0x00}  # Digital output 1
+        - {index: 0x2104, subindex: 0x00}  # Digital output 2
+        - {index: 0x2105, subindex: 0x00}  # Digital output 3
+        - {index: 0x2106, subindex: 0x00}  # Digital output 4
+        - {index: 0x2107, subindex: 0x00}  # Sto function
+        - {index: 0x2108, subindex: 0x00}  # Dummy 1
+        - {index: 0x2109, subindex: 0x00}  # Dummy 2
+        - {index: 0x210A, subindex: 0x00}  # Dummy 3
+        - {index: 0x210B, subindex: 0x00}  # Dummy 4
+        - {index: 0x210C, subindex: 0x00}  # Dummy 5
+        - {index: 0x210D, subindex: 0x00}  # Dummy 6
+        - {index: 0x210E, subindex: 0x00}  # Dummy 7
+        - {index: 0x210F, subindex: 0x00}  # Reset fault
+
+        - {index: 0x2110, subindex: 0x00}  # set speed s16
+        - {index: 0x2111, subindex: 0x00}  # torque feed forward s32
+        - {index: 0x2112, subindex: 0x00}  # set current proportional value 1 u8
+        - {index: 0x2113, subindex: 0x00}  # set current proportional value 2 u8
+  
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2114, subindex: 0x00}  # Power stage active
+        - {index: 0x2115, subindex: 0x00}  # Fault
+        - {index: 0x2116, subindex: 0x00}  # Torque mode
+        - {index: 0x2117, subindex: 0x00}  # Analog/CAN
+        - {index: 0x2118, subindex: 0x00}  # Cw/CAN enable
+        - {index: 0x2119, subindex: 0x00}  # CCw
+        - {index: 0x211A, subindex: 0x00}  # Safe stop active
+        - {index: 0x211B, subindex: 0x00}  # Toggle bit
+
+        - {index: 0x211C, subindex: 0x00}  # Motor load s8
+        - {index: 0x211D, subindex: 0x00}  # Actual speed s16
+        - {index: 0x211E, subindex: 0x00}  # Actual torque s16
+        - {index: 0x211F, subindex: 0x00}  # Motor encoder pulse counter s16
+    2:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2120, subindex: 0x00}  # Fault / Warning Code u16
+        - {index: 0x2121, subindex: 0x00}  # BDId Level u8
+        - {index: 0x2122, subindex: 0x00}  # Inverter temperature s8
+        - {index: 0x2123, subindex: 0x00}  # Motor temperature s16
+        - {index: 0x2124, subindex: 0x00}  # Battery voltage s16
+
+slave_3:
+  node_id: 3
+  dcf: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+  heartbeat_consumer: true
+
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2100, subindex: 0x00}  # Drive enable
+        - {index: 0x2101, subindex: 0x00}  # Main contactor enable
+        - {index: 0x2102, subindex: 0x00}  # Brake release
+        - {index: 0x2103, subindex: 0x00}  # Digital output 1
+        - {index: 0x2104, subindex: 0x00}  # Digital output 2
+        - {index: 0x2105, subindex: 0x00}  # Digital output 3
+        - {index: 0x2106, subindex: 0x00}  # Digital output 4
+        - {index: 0x2107, subindex: 0x00}  # Sto function
+        - {index: 0x2108, subindex: 0x00}  # Dummy 1
+        - {index: 0x2109, subindex: 0x00}  # Dummy 2
+        - {index: 0x210A, subindex: 0x00}  # Dummy 3
+        - {index: 0x210B, subindex: 0x00}  # Dummy 4
+        - {index: 0x210C, subindex: 0x00}  # Dummy 5
+        - {index: 0x210D, subindex: 0x00}  # Dummy 6
+        - {index: 0x210E, subindex: 0x00}  # Dummy 7
+        - {index: 0x210F, subindex: 0x00}  # Reset fault
+
+        - {index: 0x2110, subindex: 0x00}  # set speed s16
+        - {index: 0x2111, subindex: 0x00}  # torque feed forward s32
+        - {index: 0x2112, subindex: 0x00}  # set current proportional value 1 u8
+        - {index: 0x2113, subindex: 0x00}  # set current proportional value 2 u8
+  
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2114, subindex: 0x00}  # Power stage active
+        - {index: 0x2115, subindex: 0x00}  # Fault
+        - {index: 0x2116, subindex: 0x00}  # Torque mode
+        - {index: 0x2117, subindex: 0x00}  # Analog/CAN
+        - {index: 0x2118, subindex: 0x00}  # Cw/CAN enable
+        - {index: 0x2119, subindex: 0x00}  # CCw
+        - {index: 0x211A, subindex: 0x00}  # Safe stop active
+        - {index: 0x211B, subindex: 0x00}  # Toggle bit
+
+        - {index: 0x211C, subindex: 0x00}  # Motor load s8
+        - {index: 0x211D, subindex: 0x00}  # Actual speed s16
+        - {index: 0x211E, subindex: 0x00}  # Actual torque s16
+        - {index: 0x211F, subindex: 0x00}  # Motor encoder pulse counter s16
+    2:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2120, subindex: 0x00}  # Fault / Warning Code u16
+        - {index: 0x2121, subindex: 0x00}  # BDId Level u8
+        - {index: 0x2122, subindex: 0x00}  # Inverter temperature s8
+        - {index: 0x2123, subindex: 0x00}  # Motor temperature s16
+        - {index: 0x2124, subindex: 0x00}  # Battery voltage s16
+
+slave_4:
+  node_id: 4
+  dcf: "driver/eds/schwarzmuller/EDS_20014_Standard_CANopen_V101_01.eds"
+  heartbeat_consumer: true
+
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2100, subindex: 0x00}  # Drive enable
+        - {index: 0x2101, subindex: 0x00}  # Main contactor enable
+        - {index: 0x2102, subindex: 0x00}  # Brake release
+        - {index: 0x2103, subindex: 0x00}  # Digital output 1
+        - {index: 0x2104, subindex: 0x00}  # Digital output 2
+        - {index: 0x2105, subindex: 0x00}  # Digital output 3
+        - {index: 0x2106, subindex: 0x00}  # Digital output 4
+        - {index: 0x2107, subindex: 0x00}  # Sto function
+        - {index: 0x2108, subindex: 0x00}  # Dummy 1
+        - {index: 0x2109, subindex: 0x00}  # Dummy 2
+        - {index: 0x210A, subindex: 0x00}  # Dummy 3
+        - {index: 0x210B, subindex: 0x00}  # Dummy 4
+        - {index: 0x210C, subindex: 0x00}  # Dummy 5
+        - {index: 0x210D, subindex: 0x00}  # Dummy 6
+        - {index: 0x210E, subindex: 0x00}  # Dummy 7
+        - {index: 0x210F, subindex: 0x00}  # Reset fault
+
+        - {index: 0x2110, subindex: 0x00}  # set speed s16
+        - {index: 0x2111, subindex: 0x00}  # torque feed forward s32
+        - {index: 0x2112, subindex: 0x00}  # set current proportional value 1 u8
+        - {index: 0x2113, subindex: 0x00}  # set current proportional value 2 u8
+  
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2114, subindex: 0x00}  # Power stage active
+        - {index: 0x2115, subindex: 0x00}  # Fault
+        - {index: 0x2116, subindex: 0x00}  # Torque mode
+        - {index: 0x2117, subindex: 0x00}  # Analog/CAN
+        - {index: 0x2118, subindex: 0x00}  # Cw/CAN enable
+        - {index: 0x2119, subindex: 0x00}  # CCw
+        - {index: 0x211A, subindex: 0x00}  # Safe stop active
+        - {index: 0x211B, subindex: 0x00}  # Toggle bit
+
+        - {index: 0x211C, subindex: 0x00}  # Motor load s8
+        - {index: 0x211D, subindex: 0x00}  # Actual speed s16
+        - {index: 0x211E, subindex: 0x00}  # Actual torque s16
+        - {index: 0x211F, subindex: 0x00}  # Motor encoder pulse counter s16
+    2:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x2120, subindex: 0x00}  # Fault / Warning Code u16
+        - {index: 0x2121, subindex: 0x00}  # BDId Level u8
+        - {index: 0x2122, subindex: 0x00}  # Inverter temperature s8
+        - {index: 0x2123, subindex: 0x00}  # Motor temperature s16
+        - {index: 0x2124, subindex: 0x00}  # Battery voltage s16
+
+slave_5:
+  node_id: 5
+  dcf: "driver/eds/leinelinde/IxA_RxA_6xx_CANopen_v1_07.EDS"
+
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x6004, subindex: 0x00}  # Position 4byte
+
+
+slave_6:
+  node_id: 6
+  dcf: "driver/eds/leinelinde/IxA_RxA_6xx_CANopen_v1_07.EDS"
+
+  tpdo:
+    1:
+      enabled: true
+      transmision: 1
+      cob_id: auto
+      mapping:
+        - {index: 0x6004, subindex: 0x00}  # Position 

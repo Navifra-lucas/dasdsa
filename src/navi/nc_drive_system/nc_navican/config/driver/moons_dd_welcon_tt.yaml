@@ -1,0 +1,203 @@
+# --------------------------------------------------------------------------------------------------
+# [option] 섹션
+# (!) dcf_path : navican에서 참조할 .dcf .bin 파일 위치
+# --------------------------------------------------------------------------------------------------
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/moons_dd_welcon_tt"
+
+# --------------------------------------------------------------------------------------------------
+# [master] 섹션 
+# node_id : canopen node id
+# baudrate : 통신속도 (단위: kbit/s, 기본 값: 1000)
+# sync_period: SYNC 신호 주기 (단위 : us, 기본 값: 100)
+# --------------------------------------------------------------------------------------------------
+master:
+  node_id: 100 # slave id 가 1 번 부터 시작 함
+  baudrate: 500 # kbit/s
+  sync_period: 50000 # us
+
+# --------------------------------------------------------------------------------------------------
+# [slave] 섹션 
+# (!) dcf: dcfgen에서 쓸 EDS/DCF 파일경로, driver/eds/<제조사명>/<eds파일명>.eds
+#
+# node_id : canopen node id
+#
+# [rpdo  : tpdo ] 
+# [0x6040:0x6041] : controlword, statusword
+# [0x6060:0x6061] : mode of operation, mode of operation display
+# [0x60ff:0x606c] : target velocity, actual velocity
+# [0x607a:0x6064] : target position, actual position
+#
+# sdo: 설정 시 추가로 명령을 보냄
+# pdo mapping 은 반드시 eds파일과 데이터시트를 볼 것
+# --------------------------------------------------------------------------------------------------
+slave_1:
+  dcf: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+  # dcf_path: ""
+  node_id: 1
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6078  # current actual value <int16>
+          sub_index: 0
+        - index: 0x2030  # voltage actual value <int16>
+          sub_index: 0
+        - index: 0x603f  # error code <uint16>
+          sub_index: 0
+    # sdo:
+      #   - {index: 0x5000, sub_index: 0x00, value: 42}
+
+slave_2:
+  dcf: "driver/eds/moons/CANOPEN-EDS-MBDV-Servo-DulAxes-V1.0.eds"
+  # dcf_path: ""
+  node_id: 2
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6078  # current actual value <int16>
+          sub_index: 0
+        - index: 0x2030  # voltage actual value <int16>
+          sub_index: 0
+        - index: 0x603f  # error code <uint16>
+          sub_index: 0
+
+slave_3:
+  dcf: "driver/eds/welcon/WelconSystems_CANopen_V2_10_P0x10000001_WE.eds"
+  node_id: 3
+  boot: false
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6078  # Current actual value Axis 0 <int16> mA
+          sub_index: 0
+        - index: 0x603f # Error Code Axis 0  <u16>
+          sub_index: 0
+    4:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x5011  # DC link Circuit Voltage 
+          sub_index: 0
+        - index: 0x60fd  # Digital Input 
+          sub_index: 0

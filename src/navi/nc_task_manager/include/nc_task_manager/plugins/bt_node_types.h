@@ -1,0 +1,31 @@
+#ifndef NC_BT_NODE_TYPES_H
+#define NC_BT_NODE_TYPES_H
+#include <nc_task_manager/plugins/action/move_to_goal_action.h>
+#include <nc_task_manager/plugins/action/move_to_lift_action.h>
+#include <nc_task_manager/plugins/condition/action_reached_condition.h>
+#include <nc_task_manager/plugins/condition/charging_success_condition.h>
+#include <nc_task_manager/plugins/condition/checking_success_condition.h>
+#include <nc_task_manager/plugins/condition/docking_reached_condition.h>
+#include <nc_task_manager/plugins/condition/forklift_reached_condition.h>
+#include <nc_task_manager/plugins/condition/goal_reached_condition.h>
+#include <nc_task_manager/plugins/condition/is_action_condition.h>
+#include <nc_task_manager/plugins/condition/is_charging_condition.h>
+#include <nc_task_manager/plugins/condition/is_checking_condition.h>
+#include <nc_task_manager/plugins/condition/is_docking_condition.h>
+#include <nc_task_manager/plugins/condition/is_forklift_condition.h>
+#include <nc_task_manager/plugins/condition/is_loading_condition.h>
+#include <nc_task_manager/plugins/condition/is_manual_condition.h>
+#include <nc_task_manager/plugins/condition/is_move_condition.h>
+#include <nc_task_manager/plugins/condition/is_stopcharge_condition.h>
+#include <nc_task_manager/plugins/condition/is_test_condition.h>
+#include <nc_task_manager/plugins/condition/is_turn_condition.h>
+#include <nc_task_manager/plugins/condition/is_undocking_condition.h>
+#include <nc_task_manager/plugins/condition/is_wait_condition.h>
+#include <nc_task_manager/plugins/condition/loading_success_condition.h>
+#include <nc_task_manager/plugins/condition/test_reached_condition.h>
+#include <nc_task_manager/plugins/condition/turn_reached_condition.h>
+#include <nc_task_manager/plugins/condition/undocking_reached_condition.h>
+#include <nc_task_manager/plugins/condition/wait_for_manual_end_condition.h>
+#include <nc_task_manager/plugins/condition/wait_success_condition.h>
+
+#endif

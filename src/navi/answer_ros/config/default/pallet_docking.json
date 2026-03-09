@@ -1,0 +1,26 @@
+{
+    "n_delay_msec": 0,
+    "d_robot2sensor_x_m": 0.0,
+    "d_robot2sensor_y_m": 0.0,
+    "d_robot2sensor_deg": 0.0,
+    "st_dekf_param": {
+        "n_max_buffer_size": 3,
+        "d_max_error_dist": 1.0,
+        "d_max_error_deg": 10.0,
+        "d_cvg_cov_d_thr": 0.1,
+        "d_cvg_cov_a_thr": 0.1,
+        "d_cov_Q0_d_weight": 0.002,
+        "d_cov_Q0_a_weight": 0.002,
+        "d_cov_Qm_dd_weight": 0.002,
+        "d_cov_Qm_da_weight": 0.02,
+        "d_cov_Qm_ad_weight": 0.001,
+        "d_cov_Qm_aa_weight": 0.01,
+        "d_cov_R0_d_weight": 0.002,
+        "d_cov_R0_a_weight": 0.002,
+        "d_cov_Rm_dd_weight": 0.01,
+        "d_cov_Rm_da_weight": 0.0,
+        "d_cov_Rm_ad_weight": 0.0,
+        "d_cov_Rm_aa_weight": 0.015
+    }
+
+}

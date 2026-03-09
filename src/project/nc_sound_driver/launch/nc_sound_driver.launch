@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="nc_sound_driver" type="nc_sound_driver" name="nc_sound_driver" output="screen">
+		<param name="n_sound_volume" value="100"/>
+	</node>
+</launch>

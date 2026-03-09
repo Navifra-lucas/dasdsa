@@ -1,0 +1,18 @@
+<launch>
+  <arg name="sim" default="false"/>
+
+  <group if="$(eval sim == 1)">
+    <param name="ipc_setting/cpu_overload_threshold" type="int" value="1000" />
+    <param name="ipc_setting/mem_overload_percent" type="int" value="1000" />
+  </group>
+
+  <include file="$(find nc_calibrator)/launch/nc_calibrator.launch"/>
+
+  <node pkg="nc_brain_map_server" type="nc_brain_map_server" name="nc_brain_map_server" clear_params="true" output="screen" respawn="true"/>
+
+  <!-- Navigation -->
+  <node pkg="nc_navigator" type="nc_navigator" name="nc_navigator" output="screen" respawn="true"/>
+	<node pkg="nc_playback_cpp" type="nc_playback_cpp" name="nc_playback_cpp" output="screen" respawn="true"/>
+	<node pkg="nc_robot_info" type="nc_robot_info" name="nc_robot_info_node" output="screen" respawn="true"/>
+  
+</launch>

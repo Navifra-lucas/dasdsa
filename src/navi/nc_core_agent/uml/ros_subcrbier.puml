@@ -1,0 +1,48 @@
+@startuml
+interface IMessageHandler {
+    +handleMessage(message: std::string): void
+}
+
+class JSONConverter {
+    +convertToJson(message: std::string): std::string
+}
+
+class RedisPublisher {
+    -cpp_redis::client client
+    -std::string channel
+    +RedisPublisher(channel: std::string)
+    +publish(message: std::string): void
+}
+
+class MessageHandlerA {
+    -JSONConverter* jsonConverter
+    -RedisPublisher* redisPublisher
+    +MessageHandlerA(jsonConverter: JSONConverter*, redisPublisher: RedisPublisher*)
+    +handleMessage(message: std::string): void
+}
+
+class MessageHandlerB {
+    -JSONConverter* jsonConverter
+    -RedisPublisher* redisPublisher
+    +MessageHandlerB(jsonConverter: JSONConverter*, redisPublisher: RedisPublisher*)
+    +handleMessage(message: std::string): void
+}
+
+class MessageHandlerManager {
+    -std::unordered_map<std::string, IMessageHandler*> handlers
+    +registerHandler(messageType: std::string, handler: IMessageHandler*): void
+    +handleMessage(messageType: std::string, message: std::string): void
+}
+
+IMessageHandler <|.. MessageHandlerA
+IMessageHandler <|.. MessageHandlerB
+
+MessageHandlerA -> JSONConverter
+MessageHandlerA -> RedisPublisher
+
+MessageHandlerB -> JSONConverter
+MessageHandlerB -> RedisPublisher
+
+MessageHandlerManager -> IMessageHandler
+
+@enduml

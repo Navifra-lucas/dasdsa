@@ -1,0 +1,762 @@
+
+navigation:
+  b_release_mode : true
+  b_live_topology_mode : false
+  f_goal_receive_time_gap_sec : 0.3
+  n_icp_error_ratio_threshold : 10
+  n_icp_error_count_threshold : 3
+  f_current_node_change_before_m : 0.0
+
+motion_base:
+  n_kinematics_type : 0 # 0: DD, 1: QD, 2: SD, 3: OD
+  f_linear_max_accel_mss : 1.0
+  f_linear_max_decel_mss : 1.0
+  f_rot_max_accdecel_degss : 50
+  f_move_deleay_time_sec : 0.05
+  f_linear_speed_max_ms : 1.8 # robot actual linear max speed
+  f_linear_speed_min_ms : 0.02 # robot actual linear min speed
+  f_angular_speed_max_degs : 60 # robot actual angular max speed
+  f_angular_speed_min_degs : 5 # robot actual angular max speed
+  f_motion_control_period: 0.08 # kinematic prediction dt
+  f_vel_percent_enable_standard_ms : 0.3
+  b_start_control_dist_flag : true
+
+motion_align:
+  f_align_motion_range_accel_deg : 30.0  # self align angular max acceleration degree
+  f_align_motion_range_decel_deg : 30.0  # self align angular max deceleration degree
+  f_align_motion_max_rot_degs : 25.0 # self align max angular speed 
+  f_align_motion_min_rot_degs : 10.0 # self align min angular speed 
+  f_align_motion_min_rot_end_degs : 2.0
+  f_align_motion_min_rot_deg_range : 2.0
+  f_align_motion_threshold_for_start_deg : 5.0 # self align if difference is bigger than the value (only in motion 0)
+  f_align_motion_threshold_for_end_deg : 3.0 # self align end if difference is smaller than than the value
+  f_align_motion_threshold_for_end_fine_deg : 0.3 # self align end more fine if difference is smaller than than the value
+  f_align_p_gain : 1.0
+  f_align_d_gain : 0
+  f_align_i_gain : 0.01
+  f_align_pid_control_deg : 3
+
+motion_arrive:
+  f_goal_arrive_min_vel_dist_m : 0.10
+  f_goal_arrive_min_vel_default_dist_m : 0.03
+  f_goal_arrive_min_vel_dist_degs_ratio : 0.1
+  f_goal_arrive_min_vel_dist_diagonal_ratio : 0.3
+  f_goal_arrive_decel_m_ss : 0.2
+  f_near_goal_dist_thres: 0.5 # distance threshold meaning robot is arriving at goal
+  f_near_goal_speed_thres: 0.2   # desired velocity when arriving at goal
+  f_arrived_boundary_dist_x_m : 0.005 # goal arrival distance threshold
+  f_goal_decel_mss: 0.2
+  f_motion_arrive_p_gain: 0.0
+  f_motion_arrive_d_gain: 0.0
+
+motion_safe:
+  f_safe_far_from_path_to_robot_distance : 0.5
+  f_control_velocity_far_from_path_m : 1.0
+  f_safety_dist_from_obs_m: 1.5
+
+motion_track:
+  f_motion_steps : 20.0
+  f_motion_ref_cte : 0.0
+  f_motion_vel : 1.0
+  f_motion_ref_etheta : 0.0
+  f_motion_w_cte : 10.0
+  f_motion_w_etheta : 5.0
+  f_motion_w_vel : 3.5
+  f_motion_w_angvel : 1.0
+  f_motion_w_angvel_d : 1.0
+  f_motion_w_accel : 0.1
+  f_motion_w_accel_d : 1.0
+  f_motion_max_angvel : 3.0
+  f_motion_throttle : 2.0
+  f_motion_bound_value : 1000.0
+  f_motion_front_path_idx : 100.0
+  f_motion_back_path_idx : 0.0
+  f_motion_curve_front_path_idx : 140.0
+  f_motion_curve_back_path_idx : 20.0
+  f_motion_start_dist : 0.05
+  f_motion_start_speed : 0.15
+  f_motion_start_min_speed : 0.05
+  f_motion_start_duration : 3.0
+  f_motion_low_speed_std : 0.2
+  f_motion_low_speed_w_cte : 50.0
+  f_motion_low_speed_w_etheta : 5.0
+  f_motion_low_speed_w_angvel : 1.0
+  f_motion_curve_w_angvel: 0.1
+  f_motion_curve_w_angvel_d : 10.0
+  f_motion_curve_w_accel : 1
+  f_motion_curve_w_accel_d : 10.0
+  f_motion_curve_throttle : 1
+  f_motion_high_speed_std : 1.2
+  f_motion_high_speed_w_angvel : 10.0
+  f_motion_high_w_accel : 0.01
+  f_motion_high_w_accel_d : 0.01
+  f_motion_high_throttle : 20
+  f_motion_high_curve_speed_std : 1.2
+  f_motion_high_curve_speed_w_angvel : 5.0
+  n_hacs_curve_speed_up_dist_cm : 120
+
+motion_diagonal:
+  b_diagonal_control : true
+  f_diagonal_linear_lateral_w : 0.3
+  f_diagonal_low_speed : 0.21
+  f_diagonal_low_speed_w : 15.0
+  f_diagonal_high_speed_w : 4.0
+  f_diagonal_angle_kp : 1.2
+  f_diagonal_angle_kd : 0.1
+  f_diagonal_angle_ki : 0
+  f_diagonal_curve_speed_ratio : 1.0
+
+motion_avoid:
+  f_avoid_vel_ms: 0.8
+  f_avoid_check_vel_ms : 0.2
+  f_avoid_margin_m : 0.1
+  f_avoid_detect_obs_dir_margin_m : 1.0
+  f_static_obs_check_time_sec : 1.0
+  f_static_obs_check_dist_m : 0.1
+  b_avoidance_auto_comeback_path : true
+
+planner_base:
+  n_path_planner_period_ms: 100
+  b_avoid_permission: true
+  f_min_dist_for_forward_path_m: 7.0
+  f_goal_arrive_turning_radius_m : 2
+  f_goal_arrive_path_step_size_m : 0.01
+  f_goal_arrive_straight_line_ratio : 0.4
+  n_goal_arrive_start_align_index : 150
+  f_angle_dividing_the_path_deg : 10.0
+  b_allways_align_flag : false
+
+planner_local:
+  updated_frequency_ms : 80
+  map_size_x_m : 14.0
+  map_size_y_m : 14.0
+  map_res_m : 0.1
+  padding_size_m : 0.1
+
+planner_avoid:
+  n_detection_period_ms: 700
+  f_force_comeback_start_dist_m: 1.0
+  f_force_comeback_target_dist_m: 1.0
+  f_force_comeback_in_curve_added_start_dist_m: 4.0
+  f_polynominal_max_curvature_m : 1.5
+  f_avoid_imposible_sec_s : 10.0
+  f_dubins_normal_max_curve_radius_m: 6.0
+  f_dubins_normal_min_curve_radius_m: 2.0
+  f_dubins_normal_curve_interval_m: 0.5
+  f_dubins_force_max_curve_radius_m: 7.0
+  f_dubins_force_min_curve_radius_m: 1.0
+  f_dubins_force_curve_interval_m: 0.5
+  f_search_step_size_m: 0.5
+  n_search_min_step: 4
+  n_search_max_step: 16
+  f_interval_m: 0.2
+  n_left_num: 30
+  n_right_num: 30
+
+obstacle:
+  b_cluster_use : false
+  data_cluster_distance_m:
+  - 0.015
+  - 0.020
+  - 0.025
+  data_cluster_size_min:
+  - 10
+  - 10
+  - 10
+  n_cluster_size_max: 10000
+  f_cluster_obs_check_dist: 0.03
+  f_cluster_step_dist: 1
+  b_use_detection_mode_flag : true
+  b_use_predict_mode_flag : true
+  b_use_start_obs_check_flag : true
+  b_use_side_check_flag : true
+  b_use_obs_alarm_separate : false
+  f_start_obs_check_m : 2
+  f_start_obs_step_m : 0.2
+  f_move_obstacle_dist_max : 10
+  n_start_obs_check_sec : 0.5
+  n_predict_step_num : 10
+  f_obstacle_change_delay : 0.1
+  f_resume_start_delay : 0.1
+  f_collision_predict_sec : 3.0
+  f_side_check_margin : 0.5
+  f_side_target_speed_ratio : 1
+  f_detect_margin : 0
+  f_rotation_margin_m: 0.1
+  f_origin_detect_obs_dir_margin_m : 1
+  f_origin_path_detect_obs_margin_m : 0.0
+  n_origin_path_detect_obs_dist_m : 0
+  b_use_remain_obs : false
+  f_sec_remain_obs_check : 10
+  f_camera_collision_predict_sec: 4.5  
+  b_use_camera_predict_mode_flag: false
+  n_collision_estop_period_ms: 50
+  n_unlock_suspending_duration_ms: 500
+  f_collision_extension_x_m: 0.7
+  f_collision_extension_y_m: 0.5
+  f_collision_extension_max_vel_ms: 1.5
+  f_collision_extension_min_vel_ms: 0.7
+  poly_list:
+  - outline
+  - collision
+  outline:
+  - 1.0
+  - -1.0
+  - -0.5
+  - 0.5
+  collision:
+  - 1.1
+  - -1.1
+  - -0.6
+  - 0.6
+  
+localization:
+  b_use_localization : true
+  b_use_new_icp : true
+  b_use_odom_qr_error_check: true
+  b_use_qr : false
+  b_use_tape : false
+  b_use_imu_fusion : false
+  b_use_qr_auto : false
+  f_estimation_cond_dist_m : 0.05
+  f_estimation_cond_deg : 5.0
+  f_estimation_cond_steer_deg : 40.0
+  n_iteration_count : 20
+  n_init_iteration_count : 30
+  f_transform_tolerance: 0.1
+  f_init_search_max_dist : 0.3
+  f_init_search_dist_min : 0.05
+  f_init_matching_ratio_thres : 0.5
+  f_matching_stop_rmse_thres : 0.05
+  f_matching_ratio_thres : 0.3
+  f_search_dist_max : 0.3
+  f_search_dist_min : 0.05
+  f_diff_error_x_m : 0.3
+  f_diff_error_y_m : 0.3
+  f_diff_error_deg : 10
+  f_diff_error_confidence : 0
+  n_knn_search_num : 7
+  n_localize_check_condition : 5
+  n_localize_error_count_alram : 5
+  f_localizer_not_use_ratio : 0
+  f_max_qr_distance: 0.6
+  f_roll_delta_limit_deg: 3.0
+  f_pitch_delta_limit_deg: 3.0
+  f_yaw_delta_limit_deg: 5
+  f_odom_qr_error_threshold: 2.0
+  f_external_pos_expiration_time_s : 1
+  f_external_pos_expiration_dist_m : 1.0
+  f_external_pos_expiration_deg : 100
+  b_use_nav350 : false
+  f_nav350_dist_m : 0
+  f_nav350_dist_deg : 0
+  f_estimation_cond_acc_linear_mss : 0.8
+  f_estimation_cond_acc_angular_degss : 50.0
+  f_min_dist_compare: 10
+  f_max_dist_compare: 40
+  f_ratio_compare: 3
+  
+playback:
+  use_playback: true
+  allowable_storage_size_MB: 3024
+  
+lidarmerger:
+  b_use_lidar_info : true
+  destination_frame : "laser_link"
+  scan_destination_topic : "scan_cloud"
+  input_scans: ['scan_front','scan_rear']
+  lidar_merger_time_bound: 0.025
+  angle_increment : 0.00174533
+  dist_min : 0.1
+  dist_max : 28
+  x_front_m : 0.750585
+  x_back_m : -0.750585
+  y_left_m : 0.575585
+  y_right_m : -0.575585
+  n_full_lidar_m : 2.5
+  n_skip_lidar_std : 10
+  lidar_ground_filter : 0
+
+lidar:
+  front_x_m : 1.0
+  front_y_m : -0.5
+  front_z_m : 0.0
+  front_roll_deg : 0.0
+  front_pitch_deg : 0.0
+  front_yaw_deg : -45.0
+  front_angle_increment : 0.0
+  front_angle_min : 0.0
+  front_range_offset_m : 0.0
+  rear_x_m : -1.0
+  rear_y_m : 0.5
+  rear_z_m : 0.0
+  rear_roll_deg : 0.0
+  rear_pitch_deg : 0.0
+  rear_yaw_deg : 135.0
+  rear_angle_increment : 0.0
+  rear_angle_min : 0.0
+  rear_range_offset_m : 0.0
+  left_x_m : 0.0
+  left_y_m : 0.0
+  left_z_m : 0.0
+  left_roll_deg : 0.0
+  left_pitch_deg : 0.0
+  left_yaw_deg : 0.0
+  left_angle_increment : 0.0
+  left_angle_min : 0.0
+  left_range_offset_m : 0.0
+  right_x_m : 0.0
+  right_y_m : 0.0
+  right_z_m : 0.0
+  right_roll_deg : 0.0
+  right_pitch_deg : 0.0
+  right_yaw_deg : 0.0
+  right_angle_increment : 0.0
+  right_angle_min : 0.0
+  right_range_offset_m : 0.0
+
+pgv:
+  f_xm_offset: 0.0
+  f_ym_offset: 0.0
+  f_yaw_deg_offset: 0.0
+
+driver_base:
+  b_accdecel_enable: true
+  b_brake_enable: false
+  s_target_frame_id: "odom"
+  s_child_frame_id: "base_link"
+  b_tf_enable: true
+  f_control_period_ms: 20
+  f_heartbeat_ms: 400
+  b_abs_steer_encoder_use: false
+  b_turn_table_use: false
+  b_turn_table_target_rpmd: true
+  f_turn_table_gear_ratio: 1
+  f_turn_table_abssteer_gear_ratio: 0
+  f_turn_table_abssteer_offset: 0
+  s_gain_pid_1: "0/0/0"
+  s_gain_pid_2: "0/0/0"
+  s_gain_pid_3: "0/0/0"
+
+driver_dd:
+  f_dd_wheelbase_width_m : 0.445
+  f_dd_FL_wheel_diameter_m : 0.170
+  f_dd_RR_wheel_diameter_m : 0.170
+  f_dd_FL_gear_ratio : 1
+  f_dd_RR_gear_ratio : 1
+  f_dd_FL_encoder_pulse : 1
+  f_dd_RR_encoder_pulse : 1
+  f_dd_FL_rpm_min : 0
+  f_dd_RR_rpm_min : 0
+  f_dd_FL_rpm_max : 3000
+  f_dd_RR_rpm_max : 3000
+  b_dd_FL_wheel_target_rpmd : true
+  b_dd_RR_wheel_target_rpmd : true
+  b_dd_FL_wheel_feedback_rpmd : true
+  b_dd_RR_wheel_feedback_rpmd : true
+  b_dd_FL_wheel_encoderd : true
+  b_dd_RR_wheel_encoderd : true
+  b_dd_wheel_switch : false
+  f_dd_FL_encoder_not_update_rpm_alarm_th: 15
+  f_dd_RR_encoder_not_update_rpm_alarm_th: 15
+  n_encoder_not_update_cnt: 4
+
+driver_qd:
+  f_qd_FL_wheel_x_m  : 0.8166
+  f_qd_RR_wheel_x_m : -0.8166
+  f_qd_FL_wheel_y_m  : 0
+  f_qd_RR_wheel_y_m : 0
+  f_qd_FL_wheel_diameter_m: 0.300
+  f_qd_RR_wheel_diameter_m: 0.300
+  f_qd_FL_gear_ratio: 29.3
+  f_qd_RR_gear_ratio: 29.3
+  f_qd_FL_encoder_pulse: 4000
+  f_qd_RR_encoder_pulse: 4000
+  f_qd_steer_stop_thr_deg: 5.0
+  f_qd_steer_start_thr_deg: 50.0
+  f_qd_FL_steer_gear_ratio : 1.0
+  f_qd_RR_steer_gear_ratio : 1.0
+  b_qd_FL_wheel_target_rpmd   : true
+  b_qd_RR_wheel_target_rpmd    : true
+  b_qd_FL_steer_target_rpmd : true
+  b_qd_RR_steer_target_rpmd : true
+  b_qd_FL_wheel_feedback_rpmd : true
+  b_qd_RR_wheel_feedback_rpmd : true
+  b_qd_FL_target_steer_angled : true
+  b_qd_RR_target_steer_angled : true
+  b_qd_FL_wheel_encoderd      : true
+  b_qd_RR_wheel_encoderd      : true
+  f_qd_FL_rpm_min: 0
+  f_qd_RR_rpm_min: 0
+  f_qd_FL_rpm_max: 3000.0
+  f_qd_RR_rpm_max: 3000.0
+  f_qd_FL_abssteer_offset : 0
+  f_qd_RR_abssteer_offset : 0
+  b_qd_FL_feedback_steer_angle : true
+  b_qd_RR_feedback_steer_angle : true
+  f_steer_pid_convergence_deg: 0.02
+  f_steer_speed_std_ms: 0.5
+  f_steer_low_speed_pid_kp_gain: 50
+  f_steer_low_speed_pid_ki_gain: 0
+  f_steer_low_speed_pid_kd_gain: 0
+  f_steer_high_speed_pid_kp_gain: 50
+  f_steer_high_speed_pid_ki_gain: 0
+  f_steer_high_speed_pid_kd_gain: 0
+  f_qd_steer_rpm_max: 100
+  f_qd_steer_rpm_min: 20
+  f_qd_FL_abssteer_gearratio: 0.11023622
+  f_qd_RR_abssteer_gearratio: 0.11023622
+  f_qd_FL_steer_max_angle_deg: 120
+  f_qd_RR_steer_max_angle_deg: 120
+  f_qd_FL_steer_min_angle_deg: -120
+  f_qd_RR_steer_min_angle_deg: -120
+
+driver_sd:
+  f_sd_FL_wheel_diameter_m: 0.300
+  f_sd_FL_wheel_x_m: 0.8166
+  f_sd_FL_wheel_y_m: 0
+  f_sd_FL_angle_offset_deg: 0
+  f_sd_FL_gear_ratio: 29.3
+  f_sd_FL_encoder_pulse: 4000
+  f_sd_FL_steer_stop_thr_deg: 5.0
+  f_sd_FL_rpm_min : 0.0
+  f_sd_FL_rpm_max : 3000.0
+  b_sd_FL_wheel_target_rpmd: true
+  b_sd_FL_wheel_feedback_rpmd: true
+  b_sd_FL_wheel_encoderd: true
+  b_sd_FL_steer_target_angled: true
+  b_sd_FL_steer_feedback_angled: true
+  b_sd_rpm_to_encoder_flag: false
+
+driver_qd_oct:
+  f_qd_oct_FL_wheel_x_m : 0.8166
+  f_qd_oct_FR_wheel_x_m : 0.8166
+  f_qd_oct_RL_wheel_x_m : 0.8166
+  f_qd_oct_RR_wheel_x_m : 0.8166
+  f_qd_oct_FL_wheel_y_m : 0.6
+  f_qd_oct_FR_wheel_y_m : 0.6
+  f_qd_oct_RL_wheel_y_m : 0.6
+  f_qd_oct_RR_wheel_y_m : 0.6
+  f_qd_oct_FL_wheel_diameter_m : 0.300
+  f_qd_oct_FR_wheel_diameter_m : 0.300
+  f_qd_oct_RL_wheel_diameter_m : 0.300
+  f_qd_oct_RR_wheel_diameter_m : 0.300
+  f_qd_oct_FL_gear_ratio : 29.3
+  f_qd_oct_FR_gear_ratio : 29.3
+  f_qd_oct_RL_gear_ratio : 29.3
+  f_qd_oct_RR_gear_ratio : 29.3
+  f_qd_oct_FL_encoder_pulse : 4000
+  f_qd_oct_FR_encoder_pulse : 4000
+  f_qd_oct_RL_encoder_pulse : 4000
+  f_qd_oct_RR_encoder_pulse : 4000
+  f_qd_oct_steer_stop_thr_deg : 5.0
+  f_qd_oct_FL_steer_gear_ratio : 1.0
+  f_qd_oct_FR_steer_gear_ratio : 1.0
+  f_qd_oct_RL_steer_gear_ratio : 1.0
+  f_qd_oct_RR_steer_gear_ratio : 1.0
+  b_qd_oct_FL_wheel_target_rpmd : true
+  b_qd_oct_FR_wheel_target_rpmd : true
+  b_qd_oct_RL_wheel_target_rpmd : true
+  b_qd_oct_RR_wheel_target_rpmd : true
+  b_qd_oct_FL_wheel_feedback_rpmd : true
+  b_qd_oct_FR_wheel_feedback_rpmd : true
+  b_qd_oct_RL_wheel_feedback_rpmd : true
+  b_qd_oct_RR_wheel_feedback_rpmd : true
+  b_qd_oct_FL_target_steer_angled : true
+  b_qd_oct_FR_target_steer_angled : true
+  b_qd_oct_RL_target_steer_angled : true
+  b_qd_oct_RR_target_steer_angled : true
+  b_qd_oct_FL_feedback_steer_angled : true
+  b_qd_oct_FR_feedback_steer_angled : true
+  b_qd_oct_RL_feedback_steer_angled : true
+  b_qd_oct_RR_feedback_steer_angled : true
+  b_qd_oct_FL_wheel_encoderd : true
+  b_qd_oct_FR_wheel_encoderd : true
+  b_qd_oct_RL_wheel_encoderd : true
+  b_qd_oct_RR_wheel_encoderd : true
+  f_qd_oct_steer_max_angle_deg : 95.0
+  f_qd_oct_FL_rpm_min : 0.0
+  f_qd_oct_FR_rpm_min : 0.0
+  f_qd_oct_RL_rpm_min : 0.0
+  f_qd_oct_RR_rpm_min : 0.0
+  f_qd_oct_FL_rpm_max : 3000.0
+  f_qd_oct_FR_rpm_max : 3000.0
+  f_qd_oct_RL_rpm_max : 3000.0
+  f_qd_oct_RR_rpm_max : 3000.0
+
+driver_wheel:
+  f_FL_wheel_x_m : 0.3
+  f_FR_wheel_x_m : 0.3
+  f_RL_wheel_x_m : -0.3
+  f_RR_wheel_x_m : -0.3
+  f_FL_wheel_y_m : 0.3
+  f_FR_wheel_y_m : -0.3
+  f_RL_wheel_y_m : 0.3
+  f_RR_wheel_y_m : -0.3
+  f_FL_wheel_axis_offset_m : 0.0
+  f_FR_wheel_axis_offset_m : 0.0
+  f_RL_wheel_axis_offset_m : 0.0
+  f_RR_wheel_axis_offset_m : 0.0
+  f_FL_wheel_diameter_m : 0.15
+  f_FR_wheel_diameter_m : 0.15
+  f_RL_wheel_diameter_m : 0.15
+  f_RR_wheel_diameter_m : 0.15 
+
+driver_traction:
+  b_FL_traction_target_rpmd : true
+  b_FR_traction_target_rpmd : true
+  b_RL_traction_target_rpmd : true
+  b_RR_traction_target_rpmd : true
+  b_FL_traction_feedback_rpmd : true
+  b_FR_traction_feedback_rpmd : true
+  b_RL_traction_feedback_rpmd : true
+  b_RR_traction_feedback_rpmd : true
+  b_FL_traction_encoderd : true
+  b_FR_traction_encoderd : true
+  b_RL_traction_encoderd : true
+  b_RR_traction_encoderd : true
+  f_FL_traction_gear_ratio : 1 
+  f_FR_traction_gear_ratio : 1 
+  f_RL_traction_gear_ratio : 1 
+  f_RR_traction_gear_ratio : 1 
+  f_FL_traction_encoder_pulse : 4096
+  f_FR_traction_encoder_pulse : 4096
+  f_RL_traction_encoder_pulse : 4096
+  f_RR_traction_encoder_pulse : 4096
+  f_FL_traction_rpm_min : 0
+  f_FR_traction_rpm_min : 0
+  f_RL_traction_rpm_min : 0
+  f_RR_traction_rpm_min : 0
+  f_FL_traction_rpm_max : 2000
+  f_FR_traction_rpm_max : 2000
+  f_RL_traction_rpm_max : 2000
+  f_RR_traction_rpm_max : 2000
+  f_traction_overcurrent_amp_std : 130
+  f_traction_overcurrent_time_std : 3
+  s_target_unit : "rpm"                       # 트랙션 타겟 명령 단위
+  n_target_pulse : 1                          # 트랙션 타겟 명령 단위가 pps일경우 pulse 값 
+
+driver_steer:
+  b_FL_target_steer_angled : true
+  b_FR_target_steer_angled : true
+  b_RL_target_steer_angled : true
+  b_RR_target_steer_angled : true
+  b_FL_feedback_steer_angled : true
+  b_FR_feedback_steer_angled : true
+  b_RL_feedback_steer_angled : true
+  b_RR_feedback_steer_angled : true
+  f_steer_stop_thr_deg : 5.0
+  f_steer_start_thr_deg : 70.0
+  f_FL_steer_gear_ratio : 1.0
+  f_FR_steer_gear_ratio : 1.0
+  f_RL_steer_gear_ratio : 1.0
+  f_RR_steer_gear_ratio : 1.0
+  f_FL_steer_max_angle_deg : 120.0
+  f_FR_steer_max_angle_deg : 120.0
+  f_RL_steer_max_angle_deg : 120.0
+  f_RR_steer_max_angle_deg : 120.0
+  f_FL_steer_min_angle_deg : -120.0
+  f_FR_steer_min_angle_deg : -120.0
+  f_RL_steer_min_angle_deg : -120.0
+  f_RR_steer_min_angle_deg : -120.0
+  f_FL_steer_rpm_min : 0.0
+  f_FR_steer_rpm_min : 0.0
+  f_RL_steer_rpm_min : 0.0
+  f_RR_steer_rpm_min : 0.0
+  f_FL_steer_rpm_max : 2000.0
+  f_FR_steer_rpm_max : 2000.0
+  f_RL_steer_rpm_max : 2000.0
+  f_RR_steer_rpm_max : 2000.0
+  f_steer_pid_convergence_deg : 0.02
+  f_steer_speed_std_ms : 0.5
+  f_steer_low_speed_pid_kp_gain : 10.0
+  f_steer_low_speed_pid_ki_gain : 0.0
+  f_steer_low_speed_pid_kd_gain : 0.0
+  f_steer_high_speed_pid_kp_gain : 10.0
+  f_steer_high_speed_pid_ki_gain : 0.0
+  f_steer_high_speed_pid_kd_gain : 0.0
+  f_steer_overcurrent_amp_std : 130
+  f_steer_overcurrent_time_std : 3
+  s_target_unit : "rpm"                       # 스티어 속도 제어 모드일경우 타겟 명령 단위
+  n_target_pulse : 1                          # 스티어 타겟 명령 단위가 pps일경우 pulse 값
+
+driver_etc:
+  b_abs_steer_encoder_use : true
+  b_FL_steer_absfeedback_angled : true
+  b_FR_steer_absfeedback_angled : true
+  b_RL_steer_absfeedback_angled : true
+  b_RR_steer_absfeedback_angled : true
+  f_FL_abssteer_offset : 0.0
+  f_FR_abssteer_offset : 0.0
+  f_RL_abssteer_offset : 0.0
+  f_RR_abssteer_offset : 0.0
+  f_FL_abssteer_pulse : 4096.0
+  f_FR_abssteer_pulse : 4096.0
+  f_RL_abssteer_pulse : 4096.0
+  f_RR_abssteer_pulse : 4096.0
+  f_FL_abssteer_gearratio : 0.05
+  f_FR_abssteer_gearratio : 0.05
+  f_RL_abssteer_gearratio : 0.05
+  f_RR_abssteer_gearratio : 0.05
+
+pcan:
+  b_pcan_use : false
+  n_pcan_mode : 1
+  n_pcan_baudrate : 28
+  n_pcan_bus: 81
+  n_dd_FL_pcan_write_id : 0x123
+  n_dd_RR_pcan_write_id : 0x223
+  n_dd_FL_pcan_read_id : 0x150
+  n_dd_RR_pcan_read_id : 0x250
+  b_dd_FL_pcan_read_check : true
+  b_dd_RR_pcan_read_check : true
+  n_qd_FL_steer_pcan_id : 2
+  n_qd_RR_steer_pcan_id : 3
+  n_qd_FL_traction_pcan_write_id : 0x123
+  n_qd_RR_traction_pcan_write_id : 0x223
+  n_qd_FL_steer_pcan_write_id : 0x202
+  n_qd_RR_steer_pcan_write_id : 0x203
+  n_qd_FL_traction_pcan_read_id : 0x150
+  n_qd_RR_traction_pcan_read_id : 0x250
+  b_qd_FL_traction_pcan_read_check : true
+  b_qd_RR_traction_pcan_read_check : true
+  n_qd_FL_steer_pcan_read_id : 0x182
+  n_qd_RR_steer_pcan_read_id : 0x183
+  b_qd_FL_steer_pcan_read_check : true
+  b_qd_RR_steer_pcan_read_check : true
+  b_qd_steer_abs_encoder_use : false
+  n_qd_FL_abssteer_pcan_id : 5
+  n_qd_RR_abssteer_pcan_id : 6
+  n_qd_FL_abssteer_pcan_read_id : 0x185
+  n_qd_RR_abssteer_pcan_read_id : 0x186
+  b_qd_FL_abssteer_pcan_read_check : true
+  b_qd_RR_abssteer_pcan_read_check : true
+  n_sd_FL_steer_pcan_id : 2
+  n_sd_FL_traction_pcan_write_id : 0x123
+  n_sd_FL_traction_pcan_read_id : 0x150
+  n_sd_FL_steer_pcan_write_id : 0x202
+  n_sd_FL_steer_pcan_read_id: 0x251
+  n_sd_FL_abssteer_pcan_read_id : 0x289
+  n_sd_FL_abssteer_pcan_id : 9
+
+can:
+  b_can_use : false
+  n_can_mode : 0
+  n_upper_can_mode : 1
+  s_upper_can_dev : "can1"
+  n_turn_table_abssteer_can_id : 12
+  b_can_sim_use : false
+  n_FL_traction_can_id : 1
+  n_RR_traction_can_id : 2
+  n_FL_steer_can_id : 3
+  n_RR_steer_can_id : 4
+  n_qd_FL_traction_can_write_id : 0x00
+  n_qd_RR_traction_can_write_id : 0x00
+  n_qd_FL_steer_can_write_id : 0x141
+  n_qd_RR_steer_can_write_id : 0x142
+  n_qd_FL_steer_can_read_id : 0x241
+  n_qd_RR_steer_can_read_id : 0x242
+  b_qd_FL_steer_can_read_check : true
+  b_qd_RR_steer_can_read_check : true
+  n_turn_table_can_id : 1
+
+serial:
+  b_serial_use : false
+  s_serial_tty: "/dev/ttyUSB_Serial"
+  n_serial_mode : 0   # 0 = comodo
+  n_serial_baudrate : 57600
+  n_serial_rec_buf : 256
+
+obstacle_camera_base:
+  b_use_dynamic_roi: true
+  f_docking_x_filter_m: 3.0
+  d_z_upper_max_m: 0.75
+
+obstacle_camera_ransac:
+  n_k_search: 50
+  d_distance_weight: 0.1
+  d_prob: 0.99
+  d_x_min_th_m: -5.0
+  d_x_max_th_m: 5.0
+  d_y_min_th_m: -3.0
+  d_y_max_th_m: 3.0
+  d_z_min_th_m: -0.05
+  d_z_max_th_m: 3.0
+  d_x_filter_m: 0.0
+  d_y_filter_m: 0.0
+  d_z_filter_m: 0.0
+  d_voxel_leaf_size_m: 0.01
+  d_ground_limit_m: 0.1
+  d_ground_limit_m_default: 0.1
+  d_hole_detect_ground_limit_m: 0.1
+  d_distance_m_ : 0.1
+  d_distance_m_default : 0.1
+  d_hole_detect_distance_m_ : 0.1
+
+obstacle_camera_dbscan:
+  d_voxel_leaf_size_m: 0.01
+  d_max_cluster_distance_m: 0.02
+  n_cluster_size_min: 50
+  n_cluster_size_max: 3000
+
+obstacle_camera_data_association:
+  n_ui_ratio: 10
+  d_non_avoid_missed_time_max: 2.0
+  d_avoid_missed_time_max: 25.0
+  b_use_cluster_padding: false
+  d_area_min_ratio_th: 0.6
+  d_area_max_ratio_th: 15.0
+
+obstacle_camera:
+  n_reconnection_max_cnt: 6
+  d_camera_timeout_s: 30.0
+  enable_color: false
+  depth_width: 480
+  depth_height: 270
+  infra_width: 480
+  infra_height: 270
+  color_width: 480
+  color_height: 270
+  depth_fps: 15
+  infra_fps: 15
+  color_fps: 15
+
+# D435 tf information
+obstacle_camera_depth_frame:
+  xyz_m: [0.0, 0.0, 0.0]
+  rpy_deg: [0.0, 0.0, 0.0]
+obstacle_camera_depth_optical_frame:
+  xyz_m: [0.0, 0.0, 0.0]
+  rpy_deg: [-90.0, 0.0, -90.0]
+obstacle_camera_color_frame:
+  xyz_m: [0.0, 0.015, 0.0]
+  rpy_deg: [0.0, 0.0, 0.0]
+obstacle_camera_color_optical_frame:
+  xyz_m: [0.0, 0.0, 0.0]
+  rpy_deg: [-90.0, 0.0, -90.0]
+
+docking:
+  f_diff_x_limit: 0.015
+  f_diff_y_limit: 0.015
+  f_diff_deg_limit: 1.1
+
+vmaker:
+  f_front_v_marker_xm_offset: 0
+  f_front_v_marker_ym_offset: 0
+  f_front_v_marker_deg_offset: 0
+  f_rear_v_marker_xm_offset: 0
+  f_rear_v_marker_ym_offset: 0
+  f_rear_v_marker_deg_offset: 0
+  f_front_distortion_start_dist_m_offset : 0.25
+  f_front_lidar_distort_lateral_m_offset : 0.015
+  f_front_lidar_distort_deg_offset : 1.0
+  f_rear_distortion_start_dist_m_offset : 0.25
+  f_rear_lidar_distort_lateral_m_offset : 0.015
+  f_rear_lidar_distort_deg_offset : 1.0
+
+playback_cpp:
+  n_lidar_skip_count: 2
+  f_move_sec: 5
+  f_change_sec: 2
+  f_bag_size: 5000
+  b_use: true

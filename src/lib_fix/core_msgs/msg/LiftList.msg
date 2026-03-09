@@ -1,0 +1,12 @@
+bool orgo_lift_top_position
+bool orgo_lift_bottom_position
+bool orgo_lift_overload
+bool orgo_lift_error
+bool orgo_lift_run_stop
+bool manual_lift_up_switch
+bool manual_lift_down_switch
+bool lift_init
+bool lift_ready
+bool lift_up
+bool lift_down
+bool job_cancel_switch

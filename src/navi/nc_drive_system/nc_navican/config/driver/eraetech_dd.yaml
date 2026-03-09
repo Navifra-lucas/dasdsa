@@ -1,0 +1,116 @@
+
+options:
+  dcf_path: "/home/navifra/navifra_solution/navicore/install/share/navican/config/generated/eraetech_dd"
+
+master:
+  node_id: 100 # slave id 가 1 번 부터 시작 함
+  baudrate: 1000 # kbit/s
+  sync_period: 50000 # us
+
+slave_1:
+  dcf: "driver/eds/eraetech/iServo.eds"
+  # dcf_path: ""
+  node_id: 1
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6079  # Voltage <int16>
+          sub_index: 0
+        - index: 0x6078  # Current <int16>
+          sub_index: 0
+        - index: 0x603F  # Error <uint16>
+          sub_index: 0
+
+slave_2:
+  dcf: "driver/eds/eraetech/iServo.eds"
+  # dcf_path: ""
+  node_id: 2
+  rpdo:
+    1:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6040  # Control word <uint16>
+          sub_index: 0
+        - index: 0x6060  # Mode of operation <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x60FF  # Target velocity <int32>
+          sub_index: 0
+        - index: 0x607a  # Target position <int32>
+          sub_index: 0
+  tpdo:
+    1:
+      enabled: true
+      transmission: 1 
+      cob_id: auto
+      mapping:
+        - index: 0x6041  # Status word <uint16> 
+          sub_index: 0
+        - index: 0x6061  # Mode of operation display <int8>
+          sub_index: 0
+    2:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x606C  # Velocity actual value <int32>
+          sub_index: 0
+        - index: 0x6064  # Position actual value <int32>
+          sub_index: 0
+    3:
+      enabled: true
+      transmission: 1
+      cob_id: auto
+      mapping:
+        - index: 0x6079  # Voltage <int16>
+          sub_index: 0
+        - index: 0x6078  # Current <int16>
+          sub_index: 0
+        - index: 0x603F  # Error <uint16>
+          sub_index: 0

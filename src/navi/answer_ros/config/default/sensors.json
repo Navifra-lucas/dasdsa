@@ -1,0 +1,27 @@
+
+{
+    "imu": {
+        "gravity": 9.81, 
+        "bias_accel_x": 0, 
+        "bias_accel_y": 0, 
+        "bias_accel_z": 0, 
+        "bias_gyro_x": 0, 
+        "bias_gyro_y": 0, 
+        "bias_gyro_z": 0 ,
+        "noise_accel_x": 0.01, 
+        "noise_accel_y": 0.02, 
+        "noise_accel_z": 0.03, 
+        "noise_gyro_x": 0, 
+        "noise_gyro_y": 0, 
+        "noise_gyro_z": 0, 
+        "noise_int_x": 0, 
+        "noise_int_y": 0, 
+        "noise_int_z": 0 
+    },
+    "h_lidar": {
+        "topic": "/hrz/points"
+    },
+    "v_lidar": {
+        "topic": "/lidar2/scan"
+    }
+}

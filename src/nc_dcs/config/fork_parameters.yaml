@@ -1,0 +1,107 @@
+# Fork Lift Parameters Configuration
+# Fork height settings based on rack_type from forkinfo topic
+# rack_type: 0 = 평치 (Floor), 1 = 파레트렉 (Pallet Rack), 2 = 윙바디적재함 (Wing Body Container)
+
+fork_parameters:
+  # Docking interlock: max allowed fork height error (mm) when close to target
+  # If fork target vs feedback difference exceeds this within 2.3m, docking stops.
+  docking_height_tolerance_mm: 20
+
+  # Lift speed control: reduce speed when fork height difference is large
+  # If |height_diff| >= threshold, speed is reduced to the specified percent
+  lift_height_diff_speed_threshold_mm: 20   # mm - height diff threshold for speed reduction
+  lift_height_diff_speed_percent: 50          # % - speed percent when threshold exceeded
+
+  # Fork height configurations for different rack types
+  rack_heights:
+    # 평치 (Floor level operations)
+    floor:
+      rack_type: 0
+      name: "평치 1단"
+      description: "Floor level pallet handling"
+      heights:
+        approach_height: 115      # mm - Height when approaching
+        pickup_height: 400        # mm - Height for picking up pallet
+        carry_height: 400         # mm - Height when carrying pallet
+        place_height: 115         # mm - Height for placing pallet
+        clearance_height: 400     # mm - Height for safe clearance
+        
+    # 파레트렉 (Pallet rack operations)  
+    pallet_rack:
+      rack_type: 1
+      name: "파레트렉 1단"
+      description: "Pallet rack storage operations"
+      heights:
+        approach_height: 1175     # mm - Height when approaching rack
+        pickup_height: 1400       # mm - Height for picking from rack
+        carry_height: 400        # mm - Height when carrying from rack
+        place_height: 1175        # mm - Height for placing in rack
+        clearance_height: 400    # mm - Height for safe clearance
+        
+    # 윙바디적재함 (Wing body container operations)
+    wing_body:
+      rack_type: 2
+      name: "윙바디적재함"
+      description: "Wing body container loading operations"
+      heights:
+        approach_height: 1450     # mm - Height when approaching rack
+        pickup_height: 1600       # mm - Height for picking from rack
+        carry_height: 400        # mm - Height when carrying from rack
+        place_height: 800        # mm - Height for placing in rack
+        clearance_height: 400    # mm - Height for safe clearance
+
+    # 윙바디적재함 (Wing body container operations)
+    wing_body:
+      rack_type: 21
+      name: "윙바디적재함"
+      description: "Wing body container loading operations"
+      heights:
+        approach_height: 1600     # mm - Height when approaching rack
+        pickup_height: 2000       # mm - Height for picking from rack
+        carry_height: 400        # mm - Height when carrying from rack
+        place_height: 1600        # mm - Height for placing in rack
+        clearance_height: 400    # mm - Height for safe clearance
+
+    # 윙바디적재함 (Wing body container operations)
+    wing_body:
+      rack_type: 22
+      name: "윙바디적재함"
+      description: "Wing body container loading operations"
+      heights:
+        approach_height: 1610     # mm - Height when approaching rack
+        pickup_height: 1840       # mm - Height for picking from rack
+        carry_height: 400        # mm - Height when carrying from rack
+        place_height: 1610        # mm - Height for placing in rack
+        clearance_height: 400    # mm - Height for safe clearance
+
+    pallet_rack:
+      rack_type: 3
+      name: "파레트렉 2단"
+      description: "Pallet rack storage operations 2"
+      heights:
+        approach_height: 2216     # mm - Height when approaching rack
+        pickup_height: 2400       # mm - Height for picking from rack
+        carry_height: 400        # mm - Height when carrying from rack
+        place_height: 2216        # mm - Height for placing in rack
+        clearance_height: 400    # mm - Height for safe clearance
+    floor:
+      rack_type: 4
+      name: "평치 2단"
+      description: "Floor level 2 pallet handling"
+      heights:
+        approach_height: 1175      # mm - Height when approaching
+        pickup_height: 1400        # mm - Height for picking up pallet
+        carry_height: 400         # mm - Height when carrying pallet
+        place_height: 1175         # mm - Height for placing pallet
+        clearance_height: 400     # mm - Height for safe clearance
+
+    floor:
+      rack_type: 5
+      name: "평치 3단"
+      description: "Floor level 3 pallet handling"
+      heights:
+        approach_height: 2220      # mm - Height when approaching
+        pickup_height: 2450        # mm - Height for picking up pallet
+        carry_height: 400         # mm - Height when carrying pallet
+        place_height: 2220         # mm - Height for placing pallet
+        clearance_height: 400     # mm - Height for safe clearance

@@ -1,0 +1,40 @@
+@startuml
+
+actor User
+actor System
+
+rectangle AlarmManager {
+    usecase "Set Alarm" as UA1
+    usecase "Clear Alarm" as UA2
+    usecase "Clear All Alarms" as UA3
+    usecase "Get All Alarms" as UA4
+    usecase "Load State" as UA5
+}
+
+rectangle RedisOperations {
+    usecase "Set" as RO1
+    usecase "Get" as RO2
+    usecase "Keys" as RO3
+    usecase "Del" as RO4
+    usecase "Publish" as RO5
+}
+
+User -> UA1 : "Set Alarm"
+User -> UA2 : "Clear Alarm"
+User -> UA3 : "Clear All Alarms"
+User -> UA4 : "Get All Alarms"
+
+System -> UA5 : "Load State"
+
+UA1 --> RO1 : "Set in Redis"
+UA1 --> RO5 : "Publish to Redis"
+
+UA2 --> RO4 : "Delete from Redis"
+UA2 --> RO5 : "Publish to Redis"
+
+UA3 --> UA2 : "Clear each Alarm"
+
+UA5 --> RO3 : "Get Keys from Redis"
+UA5 --> RO2 : "Get each Alarm from Redis"
+
+@enduml

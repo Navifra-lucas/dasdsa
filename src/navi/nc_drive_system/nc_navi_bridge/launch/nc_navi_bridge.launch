@@ -1,0 +1,6 @@
+<launch>
+
+	<node pkg="nc_navi_bridge" type="nc_navi_bridge" name="nc_navi_bridge" output="screen">
+	</node>
+  
+</launch>

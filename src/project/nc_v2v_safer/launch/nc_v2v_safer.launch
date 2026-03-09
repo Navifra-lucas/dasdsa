@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="nc_v2v_safer" type="nc_v2v_safer" name="nc_v2v_safer" output="screen">
+  </node>
+</launch>

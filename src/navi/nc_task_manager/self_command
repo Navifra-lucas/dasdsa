@@ -1,0 +1,185 @@
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"end_node\": \"9c535906-df94-4424-8fbc-dca7b4088d68\",
+            \"finish_angle\": -3.1363254,
+            \"is_align\": true,
+            \"next_goal_node\": \"a256f43b-d6f8-4e2c-bb74-b1ac2ef6b0e3\",
+            \"start_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\"
+        },
+        {
+            \"end_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"finish_angle\": 1.9467314,
+            \"is_align\": false,
+            \"next_goal_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"start_node\": \"9c535906-df94-4424-8fbc-dca7b4088d68\",
+            \"type\": \"move\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4b4\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"end_node\": \"9c535906-df94-4424-8fbc-dca7b4088d68\",
+            \"finish_angle\": -3.1363254,
+            \"is_align\": true,
+            \"next_goal_node\": \"a256f43b-d6f8-4e2c-bb74-b1ac2ef6b0e3\",
+            \"start_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\"
+        },
+        {
+            \"end_node\": \"a256f43b-d6f8-4e2c-bb74-b1ac2ef6b0e3\",
+            \"finish_angle\": 1.9467314,
+            \"is_align\": false,
+            \"next_goal_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"start_node\": \"9c535906-df94-4424-8fbc-dca7b4088d68\",
+            \"type\": \"move\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4224\"
+        },
+        {
+            \"end_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"finish_angle\": 1.9467314,
+            \"is_align\": false,
+            \"next_goal_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"start_node\": \"a256f43b-d6f8-4e2c-bb74-b1ac2ef6b0e3\",
+            \"type\": \"move\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4b1\"
+        },
+        {
+            \"end_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"finish_angle\": 1.221,
+            \"is_align\": false,
+            \"next_goal_node\": \"\",
+            \"start_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"type\": \"turn\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4b4\"
+        },
+        {
+            \"end_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"finish_angle\": 1.9467314,
+            \"is_align\": false,
+            \"next_goal_node\": \"\",
+            \"start_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"type\": \"manual\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4b3\"
+        },
+        {
+            \"end_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"finish_angle\": 1.9467314,
+            \"is_align\": false,
+            \"next_goal_node\": \"\",
+            \"start_node\": \"89458233-08b3-4945-aa31-20ae4ab7b40f\",
+            \"type\": \"111111\",
+            \"uuid\": \"aeed1481-0ac9-4f66-8a0c-804c73bbc4b5\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"end_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"finish_angle\": 3.1363254,
+            \"is_align\": true,
+            \"next_goal_node\": \"\",
+            \"start_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"type\": \"turn\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"end_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"finish_angle\": 3.1363254,
+            \"is_align\": true,
+            \"next_goal_node\": \"\",
+            \"start_node\": \"9588646b-9792-48e2-996b-ea89fedbbe77\",
+            \"type\": \"ssssss\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+
+
+// total move test
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\",
+            \"target_node\": \"0003\"
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\",
+            \"path_list\": [\"1008\", \"1009\", \"1010\"]
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"type\": \"move\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d469f2bc9\",
+            \"path_nodes\": [\"0011\", \"0010\"]
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"
+
+rosservice call /nc_task_manager_srv/task_add "data: '{
+    \"action\": \"add_task\",
+    \"data\": [
+        {
+            \"type\": \"turn\",
+            \"uuid\": \"4d622886-d67a-4a79-955c-d87d4691231c9\",
+            \"path_nodes\": [\"0010\"],
+            \"finish_angle\" : 10
+        }
+    ],
+    \"uuid\": \"76f6ce59-9bc6-467e-9e13-e69f149b3c8f\"
+}'"

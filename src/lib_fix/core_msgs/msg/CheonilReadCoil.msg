@@ -1,0 +1,3 @@
+bool read_front_safety_scanner
+bool read_left_safety_scanner
+bool read_right_safety_scanner

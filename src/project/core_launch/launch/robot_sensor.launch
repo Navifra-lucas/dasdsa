@@ -1,0 +1,189 @@
+<launch>
+    <arg name="sim" default="false"/>
+    <arg name="sensor_ip" default="192.168.100.1" />
+    <arg name="scan_frame_front" default="front_laser" />
+    <arg name="scan_frame_rear" default="rear_laser" />
+    <arg name="port_front" default="9998" />
+    <arg name="port_rear" default="9999" />
+    <arg name="scan_size" default="2700"/>
+    <arg name="angle_min" default="-2.35619"/>
+    <arg name="angle_max" default="2.35619"/>
+    <arg name="scan_time" default="0.04"/>
+    <arg name="range_min" default="0.2"/>
+    <arg name="range_max" default="65.0"/>
+    <arg name="camera" default="sick_visionary_t_mini" />
+    <arg name="camera2" default="sick_visionary_t_mini_bt" />
+    <node name="base_link_to_laser_link" type="static_transform_publisher" pkg="tf2_ros" args="0.0 0.0 0.0 0.0 0 0 base_link laser_link"/>
+	<node name="laser_link_to_front_laser" type="static_transform_publisher" pkg="tf2_ros" args="0.956 0.0 0.0 0.02 0 0 laser_link $(arg scan_frame_front)"/> 
+
+    <arg name="scan_frame_front2" default="front_laser2" />
+    <arg name="scan_frame_rear2" default="rear_laser2" />
+    <arg name="scan_frame_left2" default="left_laser2" />
+    <arg name="scan_frame_right2" default="right_laser2" />
+    <arg name="scan_frame_vanjee_722" default="vanjee_lidar_722" />
+    <!-- <arg name="scan_frame_vanjee_750" default="vanjee_lidar_750" /> -->
+    <arg name="lccs_sensor_front_ip" default="192.168.100.12" />
+    <arg name="lccs_sensor_rear_ip" default="192.168.100.15" />
+    <arg name="lccs_sensor_left_ip" default="192.168.100.13" />
+    <arg name="lccs_sensor_right_ip" default="192.168.100.14" />
+
+	<node name="laser_link_to_front_laser2" type="static_transform_publisher" pkg="tf2_ros" args="1.215 0.375 0.0 -1.5703 0 3.141592 laser_link $(arg scan_frame_front2)"/> 
+	<node name="laser_link_to_rear_laser2" type="static_transform_publisher" pkg="tf2_ros" args="-0.15 0.0 0.0 1.5703 -0.3 3.141592 laser_link $(arg scan_frame_rear2)"/> 
+	<node name="laser_link_to_left_laser2" type="static_transform_publisher" pkg="tf2_ros" args="-0.33 0.575 0.0 1.5703 0 3.141592 laser_link $(arg scan_frame_left2)"/> 
+	<node name="laser_link_to_right_laser2" type="static_transform_publisher" pkg="tf2_ros" args="-0.33 -0.575 0.0 -3.141592 0 3.141592 laser_link $(arg scan_frame_right2)"/> 
+	<node name="laser_link_to_vanjee_lidar_722" type="static_transform_publisher" pkg="tf2_ros" args="1.1 0.0 1.8 0.034 0.051 3.141592 laser_link $(arg scan_frame_vanjee_722)"/> 
+	<!-- <node name="laser_link_to_vanjee_lidar_750" type="static_transform_publisher" pkg="tf2_ros" args="-0.15 0.0 0.0 1.5703 0.0 0.0 laser_link $(arg scan_frame_vanjee_750)"/>  -->
+
+	<group if="$(eval arg('sim') == 1)">
+        <node pkg="nc_simulator" type="nc_simulator_front" name="virtual_lidar_node_front" output="screen" respawn="true">
+            <param name="scan_size" value="$(arg scan_size)"/>
+            <param name="angle_min" value="$(arg angle_min)"/>
+            <param name="angle_max" value="$(arg angle_max)"/>
+            <param name="scan_time" value="$(arg scan_time)"/>
+            <param name="range_min" value="$(arg range_min)"/>
+            <param name="range_max" value="$(arg range_max)"/>
+            <param name="scan_frame" value="$(arg scan_frame_front)"/>
+            
+            <remap from="scan" to="scan_front"/>
+        </node>
+
+        <param name="is_emul" value="true"/>
+	</group>
+
+	<group if="$(eval arg('sim') == 0)">
+        <arg name="device" default="R2000"/>
+        <arg name="scanner" default="r2000" />
+        <arg name="model" default="$(find pf_description)/urdf/$(arg scanner)_world.urdf.xacro" />
+
+        <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+        <!-- R2000 Driver -->
+        <node pkg="pf_driver" type="ros_main" name="r2000_node" output="screen">
+            <param name="device" value="$(arg device)"/>
+            <rosparam file="$(find pf_driver)/config/r2000_params.yaml" command="load"/>
+        </node>
+
+        <node pkg="sick_visionary_ros" type="sick_visionary_t_mini_node" name="$(arg camera)" output="screen" respawn="true">
+            <!-- IP address of the Visionary-T Mini device, default: 192.168.1.10 -->
+            <param name="remote_device_ip" value="192.168.101.44" />
+            <param name="frame_id" value="base_link" />
+            <param name="enable_depth" value="true" />
+            <param name="enable_intensity" value="true" />
+            <param name="enable_statemap" value="true" />
+            <param name="enable_points" value="true" />
+            <param name="desired_frequency" value="30.0" /> <!--device max freq is 30FPS-->
+        </node>
+
+        <node pkg="sick_visionary_ros" type="sick_visionary_t_mini_node" name="$(arg camera2)" output="screen" respawn="true">
+            <!-- IP address of the Visionary-T Mini device, default: 192.168.1.10 -->
+            <param name="remote_device_ip" value="192.168.1.10" />
+            <param name="frame_id" value="base_link" />
+            <param name="enable_depth" value="true" />
+            <param name="enable_intensity" value="true" />
+            <param name="enable_statemap" value="true" />
+            <param name="enable_points" value="true" />
+            <param name="desired_frequency" value="30.0" /> <!--device max freq is 30FPS-->
+        </node>
+
+        <node name="lsc_laser_publisher_front" pkg="lsc_ros_driver" type="lsc_laser_publisher" output="screen" respawn="true">
+            <param name="addr" type="string" value="$(arg lccs_sensor_front_ip)"/>
+            <param name="port" type="string" value="8000"/>
+            <param name="frame_id" type="string" value="$(arg scan_frame_front2)"/>
+            <param name="range_min" type="double" value="0.05"/>
+            <param name="range_max" type="double" value="25.0"/>
+            <param name="password" type="string" value="0000"/>
+            <param name="topic_name" type="string" value="scan_front2"/>
+
+            <param name="ip_change" type="bool" value="false"/>
+            <param name="prev_addr" type="string" value=""/>
+            <param name="new_addr" type="string" value=""/>
+
+            <param name="angle_min" type="double" value="-45.0"/>
+            <param name="angle_max" type="double" value="225.0"/>
+            <param name="angle_offset" type="double" value="0.0"/>
+        </node>
+
+        <node name="lsc_laser_publisher_rear" pkg="lsc_ros_driver" type="lsc_laser_publisher" output="screen" respawn="true">
+            <param name="addr" type="string" value="$(arg lccs_sensor_rear_ip)"/>
+            <param name="port" type="string" value="8000"/>
+            <param name="frame_id" type="string" value="$(arg scan_frame_rear2)"/>
+            <param name="range_min" type="double" value="0.05"/>
+            <param name="range_max" type="double" value="25.0"/>
+            <param name="password" type="string" value="0000"/>
+            <param name="topic_name" type="string" value="scan_rear2"/>
+
+            <param name="ip_change" type="bool" value="false"/>
+            <param name="prev_addr" type="string" value=""/>
+            <param name="new_addr" type="string" value=""/>
+
+            <param name="angle_min" type="double" value="-45.0"/>
+            <param name="angle_max" type="double" value="225.0"/>
+            <param name="angle_offset" type="double" value="0.0"/>
+        </node>
+
+        <node name="lsc_laser_publisher_left" pkg="lsc_ros_driver" type="lsc_laser_publisher" output="screen" respawn="true">
+            <param name="addr" type="string" value="$(arg lccs_sensor_left_ip)"/>
+            <param name="port" type="string" value="8000"/>
+            <param name="frame_id" type="string" value="$(arg scan_frame_left2)"/>
+            <param name="range_min" type="double" value="0.05"/>
+            <param name="range_max" type="double" value="25.0"/>
+            <param name="password" type="string" value="0000"/>
+            <param name="topic_name" type="string" value="scan_left2"/>
+
+            <param name="ip_change" type="bool" value="false"/>
+            <param name="prev_addr" type="string" value=""/>
+            <param name="new_addr" type="string" value=""/>
+
+            <param name="angle_min" type="double" value="-45.0"/>
+            <param name="angle_max" type="double" value="225.0"/>
+            <param name="angle_offset" type="double" value="0.0"/>
+        </node>
+
+        <node name="lsc_laser_publisher_right" pkg="lsc_ros_driver" type="lsc_laser_publisher" output="screen" respawn="true">
+            <param name="addr" type="string" value="$(arg lccs_sensor_right_ip)"/>
+            <param name="port" type="string" value="8000"/>
+            <param name="frame_id" type="string" value="$(arg scan_frame_right2)"/>
+            <param name="range_min" type="double" value="0.05"/>
+            <param name="range_max" type="double" value="25.0"/>
+            <param name="password" type="string" value="0000"/>
+            <param name="topic_name" type="string" value="scan_right2"/>
+
+            <param name="ip_change" type="bool" value="false"/>
+            <param name="prev_addr" type="string" value=""/>
+            <param name="new_addr" type="string" value=""/>
+
+            <param name="angle_min" type="double" value="-45.0"/>
+            <param name="angle_max" type="double" value="225.0"/>
+            <param name="angle_offset" type="double" value="0.0"/>
+        </node>
+
+        <node pkg="vanjee_lidar_sdk" name="vanjee_lidar_sdk_node" type="vanjee_lidar_sdk_node" output="screen" respawn="true">
+            <param name="config_path" value="$(find vanjee_lidar_sdk)/config/config_722.yaml"/>
+        </node>
+
+        <!-- <node pkg="vanjee_lidar_sdk" name="vanjee_lidar_sdk_node_750" type="vanjee_lidar_sdk_node" output="screen" respawn="true">
+            <param name="config_path" value="$(find vanjee_lidar_sdk)/config/config_750.yaml"/>
+            <remap from="/vanjee_lidar" to="/vanjee_lidar_750"/>
+        </node> -->
+
+
+        <node pkg="nc_image_code_reader" type="nc_image_code_reader" name="nc_image_code_reader" output="screen" respawn="true">
+            <param name="scanner_ip" type="string" value="192.168.100.66"/>
+            <param name="scanner_port" type="string" value="2112"/>
+        </node>
+        <param name="is_emul" value="false"/>
+	</group>
+
+    <node pkg="nc_lidar_merger" name="nc_lidar_merger" type="nc_lidar_merger" output="screen">
+    </node>
+    <node pkg="nc_lidar_merger" name="nc_lidar_info_publisher" type="nc_lidar_info_publisher" output="screen">
+    </node>
+    <node pkg="nc_lidar_merger" name="nc_lccs_lidar_merger" type="nc_lccs_lidar_merger" output="screen">
+    </node>
+
+    <node name="nc_cheonil_agent" pkg="nc_cheonil_agent" type="nc_cheonil_agent" output="screen" respawn="true">
+    </node>
+	<!-- <node name="plc_api_node" pkg="core_protocol" type="3d_plc_api.py" output="screen"/> -->
+
+</launch>

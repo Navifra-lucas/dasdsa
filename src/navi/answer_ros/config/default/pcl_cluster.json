@@ -1,0 +1,7 @@
+{
+    "n_method": 1,
+    "n_ror_min_neighbor_num": 5,
+    "d_ror_radius_m": 0.1,
+    "n_sor_neighbor_num": 10,
+    "d_sor_cov_thr": 1.0
+}

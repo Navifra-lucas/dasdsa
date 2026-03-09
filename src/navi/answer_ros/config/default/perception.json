@@ -1,0 +1,73 @@
+{
+    "subscription": {
+        "lidar1": "/vanjee_points722",
+        "lidar2": "/vanjee_lidar2/points",
+        "depth_camera_1": "/sick_visionary_t_mini/points",
+        "imu": "/imu/data",
+        "odom": "/odom",
+        "perception_cmd": "/perception/cmd",
+        "fork_lift": "/answer/fork_lift_level"
+    },
+    "publication": {
+        "merged_lidar": "/merged_lidar/points"
+    },
+    "preprocessor": {
+        "voxel_leaf_size": 0.1,
+        "min_range": 0.3,
+        "max_range": 20.0,
+        "ground_removal": true,
+        "ground_removal_distance_threshold": 0.1,
+        "ground_removal_max_iterations": 100,
+        //roi_filter
+        "roi_filter": true,
+        //deg, meter
+        "horizontal_angle_range": 60.0,
+        "max_height": 5.0,
+        //compute normals
+        "use_radius_search": true,
+        "search_radius": 0.3
+    },
+    "line_segmentation": {
+        "point_to_line_dist_threshold": 0.05,
+        "min_support": 50,
+        "ransac_iter": 1000,
+        "orthogonal_cos_threshold": 0.0872, 
+        "parallel_cos_threshold": 0.9848, // cos(10 degrees)
+        "use_local_growth": true,
+        "knn_radius": 0.5
+    },
+    "single_plane_segmentation": {
+        "point_to_plane_dist_threshold": 0.02,
+        "ground_point_max_height": 0.3,
+        "min_support": 100,
+        "ransac_iter": 1000,
+        // cos(85 degrees)
+        "orthogonal_cos_threshold": 0.0872, 
+        // cos(10 degrees)
+        "parallel_cos_threshold": 0.9848
+    },
+    "multi_plane_segmentation": {
+        "dist_threshold": 0.02,
+        "cos_threshold": 0.9848, // cos(10 degrees)
+        "min_support": 500,
+        "ransac_iter": 1000,
+        //local growth
+        "use_local_growth": true,
+        "knn_radius": 0.5,
+        // splitting planes
+        "split_gap": 0.5,
+        "min_support_per_layer": 250
+    },
+    "clustering": {
+        "use_normals": true,
+        "angle_threshold": 5.0, // degrees
+        "cluster_tolerance": 0.1,
+        "min_cluster_size": 500,
+        "max_cluster_size": 1000000
+    },
+    "pallet_detect": {
+        "detect_end_condition":2.5, // [m]
+        "publish_global_pose": false
+    }
+    
+}

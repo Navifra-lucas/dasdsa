@@ -1,0 +1,218 @@
+#Master 설정 정보
+master:
+  master_id: 100
+  dcf_txt: "generated/curtis_od_rtv3000/master.dcf"
+  interface_name: "can0"
+
+# 드라이버 설정 정보
+drivers:
+  - driver_id: 3
+    eds_path: "driver/eds/curtis/curtis_theprime_rtv3000_drive.eds"
+    binary_path: "generated/curtis_od_rtv3000/drive_3.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 4
+    eds_path:  "driver/eds/curtis/curtis_theprime_rtv3000_drive.eds"
+    binary_path: "generated/curtis_od_rtv3000/drive_4.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 6
+    eds_path: "driver/eds/curtis/curtis_theprime_rtv3000_hydraulics.eds"
+    binary_path: "generated/curtis_od_rtv3000/hydraulics_6.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 10
+    eds_path: "driver/eds/posital/UCD-CAx1B-xxxx-xxxx-xxx_V1R4.eds"
+    binary_path: "generated/curtis_od_rtv3000/encoder_steer_rr.bin"
+    sdo_timeout: 300 # ms
+
+  - driver_id: 11
+    eds_path: "driver/eds/posital/UCD-CAx1B-xxxx-xxxx-xxx_V1R4.eds"
+    binary_path: "generated/curtis_od_rtv3000/encoder_steer_rl.bin"
+    sdo_timeout: 300 # ms
+
+# 모터 설정 정보
+motors:
+  - motor_id: 0
+    driver_id: 3
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 1
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 3
+    driver_id: 4
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 1
+    mode_of_operation: 3
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 4
+    driver_id: 3
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 1
+    mode_of_operation: 1
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+
+  - motor_id: 5
+    driver_id: 4
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 2
+    mode_of_operation: 2
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000 
+
+  - motor_id: 6
+    driver_id: 3
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 1
+    mode_of_operation: 1
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000
+    
+  - motor_id: 7
+    driver_id: 4
+    motor_driver: "theprime_rtv3000_drive"
+    multiaxis_index: 1
+    mode_of_operation: 2
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000    
+
+  - motor_id: 10
+    driver_id: 6
+    motor_driver: "theprime_rtv3000_hydraulics"
+    multiaxis_index: 1
+    mode_of_operation: 1
+    handle_interval: 1 # ms
+    ratio: 28
+    ppr: 10000    
+
+motor_extra_info:
+  - motor_id: 0
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x01
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+  - motor_id: 3
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x01
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+
+  - motor_id: 4
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x02
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+
+  - motor_id: 5
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x03
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+
+  - motor_id: 6
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x02
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+
+  - motor_id: 7
+    voltage: 
+      index: 0x3001
+      subindex: 0x00
+      type: "int16_t"
+      multiplier: 1
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x03
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }
+
+  - motor_id: 10
+    current:
+      index: 0x6078
+      subindex: 0x00
+      type: "uint16_t"
+      multiplier: 0.01
+    error:
+      index: 0x603f
+      subindex: 0x00
+      type: "uint8_t"
+      codes:
+        - { value: 0x0001, message: "?" }

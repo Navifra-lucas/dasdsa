@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>answer_msgs</name>
+  <version>0.0.1</version>
+  <description>TBD</description>
+  <maintainer email="donghak.lee@navifra.com">logan</maintainer>
+  <license>none</license>
+
+  
+  <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
+
+  <!-- Add the following dependencies related ros2-->
+  <build_depend condition="$ROS_VERSION == 2">std_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION == 2">geometry_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION == 2">nav_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION == 2">rosidl_default_generators</build_depend>
+  <exec_depend condition="$ROS_VERSION == 2">std_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">geometry_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">nav_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">rosidl_default_runtime</exec_depend>
+  <member_of_group condition="$ROS_VERSION == 2">rosidl_interface_packages</member_of_group>
+  
+  <!-- Add the following dependencies related ros1-->
+  <build_depend condition="$ROS_VERSION==1">std_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION==1">geometry_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION==1">nav_msgs</build_depend>
+  <build_depend condition="$ROS_VERSION==1">message_generation</build_depend>
+  <exec_depend condition="$ROS_VERSION==1">std_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION==1">geometry_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION==1">nav_msgs</exec_depend>
+  <exec_depend condition="$ROS_VERSION==1">message_runtime</exec_depend>
+  
+
+</package>

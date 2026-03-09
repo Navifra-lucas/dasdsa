@@ -1,0 +1,15 @@
+{
+    "st_global_planner_param": {
+        "d_max_curv": 3.0,
+        "d_collision_margin_m": 0.05
+    },
+    "st_local_planner_param": {
+        "d_replan_period_sec": 0.1,
+        "d_avoid_delay_sec": 0.1,
+        "d_path_front_dist_m": 10.0,
+        "d_path_back_dist_m": 0.5,
+        "d_safe_stop_dist_m": 2.0,
+        "d_final_no_avoid_dist_m": 1.0,
+        "d_collision_margin_m": 0.02
+    }
+}

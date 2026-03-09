@@ -1,0 +1,5 @@
+
+
+<launch>
+  <node pkg="nc_playback_cpp" type="nc_playback_cpp" name="nc_playback_cpp" clear_params="true" output="screen"/>
+</launch>

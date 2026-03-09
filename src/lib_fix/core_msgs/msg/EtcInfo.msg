@@ -1,0 +1,6 @@
+bool b_battery_update
+float32 f_battery
+bool b_mileage_total_update
+float32 f_mileage_total
+bool b_mileage_local_update
+float32 f_mileage_local

@@ -1,0 +1,5 @@
+<launch>
+	<arg name="launch_folder_path" value="$(find nc_brain_agent)/launch"/>
+
+	<node pkg="nc_brain_agent" type="nc_brain_agent" name="nc_brain_agent" output="screen" />    	
+</launch>

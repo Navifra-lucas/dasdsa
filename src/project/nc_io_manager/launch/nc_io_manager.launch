@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- NC IO Manager Launch File -->
+  
+  <!-- PLC Connection Parameters -->
+  <arg name="server_bind_ip" default="192.168.1.5" doc="Server IP address"/>
+  <arg name="server_port" default="5000" doc="Server port number"/>
+  
+  <!-- Retry and Connection Parameters -->
+  <arg name="max_retry_count" default="5" doc="Maximum retry attempts for PLC connection"/>
+  <arg name="retry_delay_seconds" default="2.0" doc="Delay between retry attempts (seconds)"/>
+  <arg name="reconnect_interval_seconds" default="5.0" doc="Interval for automatic reconnection attempts (seconds)"/>
+  
+  <!-- Communication Parameters -->
+  <arg name="max_consecutive_failures" default="3" doc="Max consecutive failures before marking connection as lost"/>
+  
+  <!-- Node Launch -->
+  <node name="nc_io_manager" pkg="nc_io_manager" type="nc_io_manager" output="screen">
+    <!-- PLC Connection Settings -->
+    <param name="server_bind_ip" value="$(arg server_bind_ip)"/>
+    <param name="server_port" value="$(arg server_port)"/>
+    
+    <!-- Retry Settings -->
+    <param name="max_retry_count" value="$(arg max_retry_count)"/>
+    <param name="retry_delay_seconds" value="$(arg retry_delay_seconds)"/>
+    <param name="reconnect_interval_seconds" value="$(arg reconnect_interval_seconds)"/>
+    
+    <!-- Communication Settings -->
+    <!-- communication_interval_ms is fixed at 100ms in code -->
+    <param name="max_consecutive_failures" value="$(arg max_consecutive_failures)"/>
+  </node>
+  
+</launch>

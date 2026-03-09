@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="nc_wingbody_loader_node"
+        pkg="nc_wingbody_loader"
+        type="nc_wingbody_loader_node"
+        output="screen">
+
+    <!-- Load parameters from YAML file -->
+    <rosparam file="$(find nc_wingbody_loader)/config/params.yaml" command="load" />
+
+  </node>
+</launch>

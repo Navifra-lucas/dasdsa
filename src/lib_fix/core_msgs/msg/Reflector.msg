@@ -1,0 +1,2 @@
+bool is_using_reflector
+string driving_mode

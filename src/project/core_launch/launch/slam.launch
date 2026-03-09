@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find nc_graph_slam)/launch/slam.launch"/>
+    <include file="$(find nc_graph_slam)/launch/map_generator.launch"/>
+    <!-- <include file="$(find slam_data_logger)/launch/slam_data_logger.launch"/> -->
+</launch>

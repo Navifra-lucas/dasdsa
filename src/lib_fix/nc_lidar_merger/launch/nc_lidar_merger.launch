@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="nc_lidar_merger" type="nc_lidar_merger" name="nc_lidar_merger_node" output="screen">
+
+	</node>
+  
+</launch>

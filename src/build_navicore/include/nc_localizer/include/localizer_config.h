@@ -1,0 +1,2 @@
+#define PROJECT_VERSION "1.0.0"
+#define LOCALIZER_SOURCE_GIT_COMMIT_HASH "Unknown"

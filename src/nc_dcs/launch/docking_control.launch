@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Node Parameters -->
+    <arg name="node_name" default="docking_control_node"/>
+    <arg name="sequence_config" default="$(find nc_dcs)/config/sequences.yaml"/>
+    
+    <!-- Docking Control Node -->
+    <node name="$(arg node_name)" pkg="nc_dcs" type="docking_control_node" output="screen">
+        <param name="sequence_config" value="$(arg sequence_config)"/>
+    </node>
+
+    <node pkg="answer" type="docking_path_generator_node" name="docking_path_generator_node" args="--robot_name kia_poc" output="screen" respawn="true"/>
+    <node pkg="answer" type="perception_node" name="perception_node" args="--robot_name kia_poc" output="screen" respawn="true"/>
+    <!-- <node name="nc_intensity_detector_node" 
+            pkg="nc_intensity_detector" 
+            type="nc_intensity_detector_node" 
+            output="screen">
+        
+        <rosparam file="$(find nc_intensity_detector)/config/params.yaml" command="load" />
+        <param name="param_file" value="$(find nc_intensity_detector)/config/params.yaml" />
+    </node> -->
+
+    <node name="nc_intensity_detector2_node" 
+            pkg="nc_intensity_detector2" 
+            type="nc_intensity_detector2_node" 
+            output="screen">
+        
+        <rosparam file="$(find nc_intensity_detector2)/config/params.yaml" command="load" />
+    </node>
+</launch>

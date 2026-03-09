@@ -1,0 +1,14 @@
+string s_current_node_id
+string s_target_node_id
+float32 f_current_x
+float32 f_current_y
+float32 f_current_deg
+float32 f_target_x
+float32 f_target_y
+float32 f_target_deg
+int32   n_rack_level
+int32   n_target_level
+int32   n_target_height
+int32   n_drive_type
+int32   n_rack_type
+int32   n_pallet_type

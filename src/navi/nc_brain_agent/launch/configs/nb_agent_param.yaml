@@ -1,0 +1,10 @@
+s_config_file_path : "/home/navifra/navifra_solution/navicore/configs/configs/nb_agent.json"
+# s_api_address : "http://192.168.0.201:5010/"
+# s_backend_address : "192.168.0.201"
+# n_backend_port : 6390
+BACKEND_HOST : "dev.navifra.com"
+BACKEND_PORT : "5000"
+REDIS_HOST : "dev.navifra.com"
+REDIS_PORT : "6379"
+
+b_use_virtual_hw : true

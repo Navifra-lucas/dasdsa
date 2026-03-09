@@ -1,0 +1,56 @@
+[
+  {
+      "name": "low_speed_test",
+      "low_speed_driving": true,
+      "parameters": {
+          "rpm_std_dev_threshold": 5.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  },
+  {
+      "name": "mid_speed_test",
+      "mid_speed_driving": true,
+      "parameters": {
+          "rpm_std_dev_threshold": 5.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  },
+  {
+      "name": "caster_lock_test",
+      "caster_lock": true,
+      "parameters": {
+          "current_std_dev_threshold": 5.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  },
+  {
+      "name": "sudden_start_stop_test",
+      "sudden_start_stop": true,
+      "parameters": {
+          "current_std_dev_threshold": 25.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  },
+  {
+      "name": "right_rotation",
+      "right_rotation": true,
+      "parameters": {
+          "time_threshold": 5.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  },
+  {
+      "name": "left_rotation",
+      "left_rotation": true,
+      "parameters": {
+          "time_threshold": 5.0,
+          "max_violations": 5,
+          "stabilization_time_threshold" : 1.0
+      }
+  }
+]

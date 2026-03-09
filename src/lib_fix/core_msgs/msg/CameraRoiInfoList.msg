@@ -1,0 +1,1 @@
+core_msgs/CameraRoiInfo[] camera_roi_info_list

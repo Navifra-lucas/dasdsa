@@ -1,0 +1,20 @@
+@startuml InMemoryRepository
+!define T template
+
+class NaviFra::InMemoryRepository {
+  +static InMemoryRepository& instance()
+  +T <T> shared_ptr<T> get(string key)
+  +T <T> void add(string key, shared_ptr<T> entity)
+  +T <T> void update(string key, shared_ptr<T> entity)
+  +T <T> void remove(string key)
+  +T <T> bool exists(string key)
+  +void clear()
+  {static} -Poco::SingletonHolder<InMemoryRepository> sh
+  -map<type_index, map<string, boost::any>> entities_
+  -mutex mutex_
+}
+
+NaviFra::InMemoryRepository --> Poco::SingletonHolder : uses
+NaviFra::InMemoryRepository --> boost::any : uses
+NaviFra::InMemoryRepository --> std::mutex : uses
+@enduml

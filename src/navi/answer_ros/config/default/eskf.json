@@ -1,0 +1,14 @@
+{
+    "online_calibration": true,
+    "update_rate": 50,
+    "accel": {
+        "bias": [0.002, 0.002, 0.002],
+        "noise": [0.002, 0.002, 0.002]
+    },
+    "gyro": {
+        "bias": [1, 1,  1],
+        "noise": [0.05, 0.05, 0.05]
+    },
+    "gravity" : [0.0, 0.0, -9.81]
+
+}

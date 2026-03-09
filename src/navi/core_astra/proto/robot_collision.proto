@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package core_astra;
+
+import "common.proto";
+
+// 충돌 정보를 담는 메시지
+message RobotCollisionInfo
+{
+    // 충돌 shape (예: polygon name or type)
+    repeated Position shape = 1;
+
+    // 충돌 polygon (현재는 5개의 점)
+    repeated Position collision = 2;
+}

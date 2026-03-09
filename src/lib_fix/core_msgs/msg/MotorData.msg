@@ -1,0 +1,14 @@
+int32 motor_id
+int32 status
+int32 error_code
+float32 voltage
+float32 current
+float32 target_velocity
+float32 feedback_velocity
+float32 target_angle
+float32 feedback_angle
+int32 encoder
+float64 accumulated_encoder
+bool fault_flag
+int32 bus_state
+float64 last_update_time

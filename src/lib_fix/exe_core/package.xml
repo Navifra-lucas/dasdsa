@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>exe_core</name>
+    <version>0.0.0</version>
+    <description>The navifra core module</description>
+    <maintainer email="cofounder@navifra.com">nate</maintainer>
+
+    <license>TODO</license>
+    <depend>core</depend>
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>boost</depend>
+    <depend>core_msgs</depend>
+    <depend>build_navicore</depend>
+    
+</package>

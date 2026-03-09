@@ -1,0 +1,24 @@
+string uuid
+core_msgs/TotalNode[] nodes
+bool b_start_pause
+bool b_docking_flag
+bool b_docking_in
+
+float32 obstacle_margin_front
+float32 obstacle_margin_rear
+float32 obstacle_margin_left
+float32 obstacle_margin_right
+float32 target_obstacle_margin_front
+float32 target_obstacle_margin_rear
+float32 target_obstacle_margin_left
+float32 target_obstacle_margin_right
+float32 move_obstacle_margin_front
+float32 move_obstacle_margin_rear
+float32 move_obstacle_margin_left
+float32 move_obstacle_margin_right
+
+float32 f_global_offset_x
+float32 f_global_offset_y
+float32 f_global_offset_deg
+float32 f_arrive_boundary_dist
+float32 f_arrive_boundary_deg

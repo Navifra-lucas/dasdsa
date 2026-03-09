@@ -1,0 +1,13 @@
+string id
+float32 x_m
+float32 y_m
+float32 angle_deg
+float32 f_linear_speed_x_ms
+float32 f_linear_speed_y_ms
+float32 f_angular_speed_z_degs
+float32 f_robot_size_front_m
+float32 f_robot_size_rear_m
+float32 f_robot_size_left_m
+float32 f_robot_size_right_m
+
+

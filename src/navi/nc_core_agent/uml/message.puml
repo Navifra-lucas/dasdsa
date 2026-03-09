@@ -1,0 +1,47 @@
+@startuml message
+namespace NaviFra {
+abstract class MessagePublisher {
+    + virtual bool initialize() = 0
+    + virtual bool isConnected() = 0
+    + virtual void reconnect() = 0
+    + virtual void publish(const std::string& channel, const std::string& message) = 0
+}
+
+class MessagePublisherFactory {
+    + template <typename C>
+    + MessagePublisher::Ptr createMessagePublisher()
+}
+
+class DefaultPublisher {
+    + MessagePublisher::Ptr publisher
+    + static DefaultPublisher& instance()
+}
+
+MessagePublisherFactory --> MessagePublisher
+DefaultPublisher --> MessagePublisher
+
+class RedisPublisher {
+    - std::string hostname_
+    - std::string password_
+    - int port_
+    - bool use_auth_
+    - size_t poolCapacity_
+    - size_t poolPeakCapacity_
+    - Poco::Redis::Client client_
+    - Poco::FastMutex _fastMutex
+
+    + RedisPublisher()
+    + ~RedisPublisher()ㅣ
+    + bool connect()
+    + void disconnect()
+
+    + bool initialize() override
+    + bool isConnected() override
+    + void reconnect() override
+    + void publish(const std::string& channel, const std::string& message) override
+}
+
+MessagePublisher <|-- RedisPublisher
+}
+
+@enduml

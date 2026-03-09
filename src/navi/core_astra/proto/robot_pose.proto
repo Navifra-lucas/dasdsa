@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package core_astra;
+
+import "common.proto";
+
+message RobotPose
+{
+    Position position = 1;
+    Orientation orientation = 2;
+}
+
+message Pose
+{
+    Position position = 1;
+    Orientation orientation = 2;
+}

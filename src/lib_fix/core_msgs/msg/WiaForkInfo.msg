@@ -1,0 +1,4 @@
+int64 n_fork_height
+int64 n_fork_wide
+float32 f_fork_tilt
+bool b_cancel

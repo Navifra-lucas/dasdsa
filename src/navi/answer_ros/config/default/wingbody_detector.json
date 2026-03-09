@@ -1,0 +1,34 @@
+{
+    "preprocessor": {
+        "use_voxel_filter": true,
+        "voxel_leaf_size": 0.05,
+        "use_range_filter": true,
+        "min_range": 2.0,
+        "max_range": 10.0,
+        "ground_removal": false,
+        //roi_filter
+        "roi_filter": true,
+        //deg, meter
+        "horizontal_angle_range": 30.0,
+        "min_height": 1.0,
+        "max_height": 5.0,
+        "max_width": 3.0, //hlf width
+        //compute normals
+        "use_radius_search": false,
+        "search_radius": 0.3,
+        "view_point_arrange": false,
+        "use_sor_filter": false,
+        "sor_mean_k": 10,
+        "sor_std_dev_mul_thresh": 0.7,
+        "use_template_range_filter": false,
+        "ground_removal_distance_threshold": 0.05,
+        "ground_removal_max_iterations": 100
+    },
+    "clustering": {
+        "use_normals": false,
+        "angle_threshold": 0.9962, // cos(5 degrees)
+        "cluster_tolerance": 0.02,
+        "min_cluster_size": 500,
+        "max_cluster_size": 1000000
+    }
+}

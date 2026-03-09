@@ -1,0 +1,8 @@
+uint16 un16_battery_volt
+int16 n16_battery_current
+uint16 un16_battery_soc
+uint16 un16_battery_error_state
+uint16 un16_battery_charge_min
+uint16 un16_battery_discharge_min
+int16 n16_battery_temp
+bool b_charging_state

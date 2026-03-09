@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_wia_smc" type="nc_wia_smc" name="nc_wia_smc" output="screen">
+	</node>
+</launch>

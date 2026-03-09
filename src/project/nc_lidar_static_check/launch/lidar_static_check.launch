@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="nc_lidar_static_check" type="nc_lidar_static_check_node" name="nc_lidar_static_check_node" output="screen">
+        <!-- Add parameters here if needed in the future -->
+    </node>
+</launch>

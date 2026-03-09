@@ -1,0 +1,49 @@
+<launch>
+    <rosparam file="$(find core_launch)/launch/param.yaml" command="load"/>
+    <rosparam file="$(env HOME)/navifra_solution/navicore/configs/param.yaml" command="load" />
+    <arg name="navican_use" default="false"/>
+    <arg name="fakeslave_use" default="false"/>
+    <arg name="sim" default="false"/>
+    <arg name="gazebo" default = "false"/>
+
+    <node pkg="nc_brain_agent" type="nc_brain_agent" name="nc_brain_agent" output="screen" respawn="true"/>
+    <node pkg="nc_wia_agent" type="nc_wia_agent" name="nc_wia_agent" output="screen" respawn="true"/>
+    <node pkg="nc_task_manager" type="nc_task_manager" name="nc_task_manager_node" output="screen" respawn="true" />
+    <node pkg="answer" type="answer_node" name="answer_node" args="--robot_name kia_poc" output="screen" respawn="true"/>
+    <node pkg="answer" type="answer_core_bridge" name="answer_core_bridge" output="screen" respawn="true"/>
+  
+    
+    <include file="$(find core_launch)/launch/robot_driver.launch">
+        <arg name="navican_use" value="$(arg navican_use)"/>
+        <arg name="fakeslave_use" value="$(arg fakeslave_use)"/>
+        <arg name="commander_sim_use" value="$(arg sim)"/>
+        <arg name="gazebo_use" value="$(arg gazebo)"/>
+    </include>
+    <!-- <include file="$(find core_launch)/launch/robot_driver.launch" if="$(eval driver_mode == 0)"/> -->
+    <!-- <include file="$(find core_launch)/launch/robot_driver_legacy.launch" if="$(eval driver_mode == 1)"/> -->
+    <include file="$(find core_launch)/launch/robot_sensor.launch">
+        <arg name="sim" value="$(arg sim)"/>
+    </include>
+    <include file="$(find core_launch)/launch/navigation.launch">
+        <arg name="sim" value="$(arg sim)"/>
+    </include>
+
+    <node pkg="nc_lidar_static_check" type="nc_lidar_static_check_node" name="nc_lidar_static_check_node" output="screen">
+    </node>
+
+    <arg name="map" default="latest"/>
+    <node pkg="nc_map_converter" type="nc_map_converter" name="nc_map_converter" clear_params="true" output="screen">
+        <param name="map_info_folder_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map" />
+        <param name="map_default_select" type="string" value="latest" />
+        <param name="json_output_path" type="string" value="$(env HOME)/brain/backend/uploads/remote_map" /> <!-- 머하는친구지 ..-->
+        <param name="brain_json_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map/latest" />
+    </node>
+    <node pkg="nc_map_converter" type="map_saver" name="map_saver" output="screen">
+        <param name="map_path" type="string" value="$(env HOME)/navifra_solution/navicore/configs/map/latest" />
+    </node> 
+
+    <node pkg="nc_v2v_safer" type="nc_v2v_safer" name="nc_v2v_safer" output="screen"/>
+
+    <!-- 배터리 시뮬레이션용... 실제 로봇에서는 제거해야함 -->
+    <!-- <node pkg="core_launch" type="batterysim.py" name="batterysim" output="screen" /> -->
+</launch>

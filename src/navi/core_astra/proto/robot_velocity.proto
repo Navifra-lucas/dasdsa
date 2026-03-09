@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package core_astra;
+
+message RobotVelocity {
+  double linear_x = 1;
+  double linear_y = 2;
+  double angular_z = 3;
+}

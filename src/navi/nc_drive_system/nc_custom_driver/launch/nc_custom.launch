@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="nc_custom_driver" type="nc_custom_driver" name="nc_custom_driver_node" output="screen"/>
+  
+</launch>

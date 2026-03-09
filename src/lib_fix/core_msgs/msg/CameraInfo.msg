@@ -1,0 +1,7 @@
+bool b_cam_use
+string s_serial_num
+string s_frame_id
+int64 n_depth_width
+int64 n_depth_height
+int64 n_color_width
+int64 n_color_height

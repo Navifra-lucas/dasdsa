@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nc_navi_bridge</name>
+  <version>0.0.1</version>
+  <description>The navi_bridge package</description>
+
+  <maintainer email="user@example.com">Your Name</maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>motor_msgs</build_depend>
+  <build_depend>navican</build_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>navican</exec_depend>
+  <exec_depend>motor_msgs</exec_depend>
+  <export>
+  </export>
+</package>

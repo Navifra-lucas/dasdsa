@@ -1,0 +1,131 @@
+{
+  "env": {
+    "client_token": "",
+    "ip_address": "",
+    "uuid": "",
+    "id": "",
+
+    "model_type_cd": "D10001",
+    "driving_type_cd": "D30001",
+    "robot_base_pos": "driver_wheel/f_FL_wheel_x_m",
+    "robot_base_offset": "driver_wheel/f_FL_wheel_y_m"
+  },
+  "ros": {
+    "monitor": [
+      {
+        "topic": "navibrain/robot_info",
+        "msg": "std_msgs",
+        "type": "String",
+        "name": "info"
+      }
+    ],
+    "control": [
+      {
+        "msg": "geometry_msgs/PoseWithCovarianceStamped",
+        "type": "PoseWithCovarianceStamped",
+        "topic": "initialpose",
+        "event": "init_pose",
+        "property": "pose.pose"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "map_request",
+        "event": "device_map_update",
+        "property": "data"
+      },
+      {
+        "msg": "core_msgs/Goal",
+        "type": "Goal",
+        "topic": "navifra/goal_id",
+        "event": "device_goal",
+        "property": "name"
+      },
+      {
+        "msg": "core_msgs/Goal",
+        "type": "Goal",
+        "topic": "navifra/goal_id",
+        "event": "move",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "navifra/cmd",
+        "event": "device_command",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "navifra/cmd",
+        "event": "stop",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "navibrain/pathtime",
+        "event": "device_path",
+        "property": "data"
+      },
+      {
+        "msg": "core_msgs/AddTask",
+        "type": "AddTask",
+        "topic": "nc_task_manager/task_add",
+        "event": "add_task",
+        "property": "name"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "nc_task_manager/task_cmd",
+        "event": "task_cmd",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "get_parameters",
+        "event": "get_parameters",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "update_parameters",
+        "event": "update_parameters",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "navifra/launch_manager",
+        "event": "start_slam",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/String",
+        "type": "String",
+        "topic": "navifra/launch_manager",
+        "event": "stop_slam",
+        "property": "data"
+      },
+      {
+        "msg": "std_msgs/Int16",
+        "type": "Int16",
+        "topic": "map_save",
+        "event": "save_slam",
+        "property": "data"
+      },
+      {
+        "msg": "geometry_msgs/Twist",
+        "type": "Twist",
+        "topic": "cmd_vel",
+        "event": "control",
+        "property": "data",
+        "queue_size": 11
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+int64 n_FL_traction_rpm
+int64 n_FR_traction_rpm
+int64 n_RL_traction_rpm
+int64 n_RR_traction_rpm
+int64 n_FL_steering_deg
+int64 n_FR_steering_deg
+int64 n_RL_steering_deg
+int64 n_RR_steering_deg

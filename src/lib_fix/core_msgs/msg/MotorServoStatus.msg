@@ -1,0 +1,5 @@
+bool b_FL_traction_motor_servo_on
+bool b_RR_traction_motor_servo_on
+bool b_FL_traction_motor_is_stop
+bool b_RR_traction_motor_is_stop
+bool b_motor_initializing

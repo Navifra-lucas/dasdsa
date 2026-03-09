@@ -1,0 +1,10 @@
+R2000:
+  transport: "udp"
+  scanner_ip: "192.168.1.104"
+  device: "R2000"
+  start_angle: -1800000
+  max_num_points_scan: 0
+  packet_type: "B"
+  scan_topic: "/scan_front"
+  watchdogtimeout: 60000
+  watchdog: true

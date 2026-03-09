@@ -1,0 +1,6 @@
+#ifndef BRAIN_MAPTEST_H
+#define BRAIN_MAPTEST_H
+
+#define TEST_FILE_PATH "@TEST_FILES_OUTPUT@"
+
+#endif  // 3

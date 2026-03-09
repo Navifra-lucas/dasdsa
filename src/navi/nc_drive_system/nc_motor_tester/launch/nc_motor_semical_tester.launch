@@ -1,0 +1,13 @@
+<launch>
+    <!-- <rosparam file="$(find nc_motor_tester)/launch/param.yaml" command="load"/> -->
+
+	<arg name="scenario" default="1" />
+	<arg name="scenario_loop" default="1" />
+	<arg name="kinematics" default="0" />
+
+	<node pkg="nc_motor_tester" type="nc_motor_semical_tester" name="nc_motor_semical_tester" output="screen" >
+		<param name="scenario" value="$(arg scenario)" />
+		<param name="n_scenario_loop" value="$(arg scenario_loop)" />
+		<param name="kinematics" value="$(arg kinematics)" />
+	</node>	
+</launch>

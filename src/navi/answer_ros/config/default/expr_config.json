@@ -1,0 +1,19 @@
+{
+    "st_sensor_info_param": {
+        "f_max_ray_range_m": 10.0,
+        "f_start_angle_deg": 0.0,
+        "f_angle_range_deg": 360.0,
+        "f_angle_res_deg": 1.0
+    },
+    "collision": {
+        "f_margin_m": 0.05
+    },
+    "explore": {
+        "f_start_path_distance_m": 0.5,
+        "f_min_unknown_length_m": 0.01
+    },
+    "weight": {
+        "f_distance": 2.0,
+        "f_unknown_gain": 1.0
+    }
+}

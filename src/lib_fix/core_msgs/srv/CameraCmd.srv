@@ -1,0 +1,5 @@
+bool b_use
+int32 index
+bool b_disable
+---
+bool b_is_receive

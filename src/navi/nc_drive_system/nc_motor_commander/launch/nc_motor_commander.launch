@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="nc_motor_commander" type="nc_motor_commander" name="nc_motor_commander_node" output="screen" >
+		<param name="b_sim_use" value="true"/>
+	</node>
+  
+</launch>

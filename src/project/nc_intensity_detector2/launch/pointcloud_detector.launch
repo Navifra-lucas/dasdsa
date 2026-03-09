@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="nc_intensity_detector2_node" 
+        pkg="nc_intensity_detector2" 
+        type="nc_intensity_detector2_node" 
+        output="screen">
+    
+    <!-- Load parameters from YAML file -->
+    <rosparam file="$(find nc_intensity_detector2)/config/params.yaml" command="load" />
+    
+  </node>
+</launch>
+
